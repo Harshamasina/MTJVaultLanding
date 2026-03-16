@@ -75,13 +75,6 @@ export function Header() {
 
                         {/* Desktop CTA */}
                         <div className="hidden lg:flex items-center gap-6">
-                            <Link
-                                href="#login"
-                                className="text-text-primary/70 hover:text-primary transition-colors duration-200 text-[15px] font-semibold"
-                                style={{ fontFamily: 'var(--font-body)' }}
-                            >
-                                Log In
-                            </Link>
                             <BookDemoButton size="md" />
                         </div>
 
@@ -143,13 +136,6 @@ export function Header() {
                             ))}
                         </ul>
                         <div className="flex flex-col items-center gap-4 mt-4">
-                            <Link
-                                href="#login"
-                                className="text-lg text-text-secondary hover:text-primary transition-colors font-medium"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                Log In
-                            </Link>
                             <BookDemoButton
                                 size="lg"
                                 className="min-w-50"

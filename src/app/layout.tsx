@@ -11,19 +11,9 @@ export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: `${SITE_NAME} — IP Management Software for Law Firms & Pharma`,
     description: SITE_DESCRIPTION,
-    keywords: [
-        'IP management software',
-        'patent docketing system',
-        'patent portfolio management',
-        'patent management software',
-        'intellectual property management',
-        'FDA 21 CFR Part 11 compliance software',
-        'patent fee tracking software',
-        'PCT filing management tool',
-    ],
     openGraph: {
-        title: `${SITE_NAME} — IP Management Software`,
-        description: 'Enterprise patent docketing and compliance platform.',
+        title: `${SITE_NAME} — IP Management Software for Law Firms & Pharma`,
+        description: SITE_DESCRIPTION,
         url: SITE_URL,
         siteName: SITE_NAME,
         images: [
@@ -39,8 +29,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: `${SITE_NAME} — IP Management Software`,
-        description: 'Enterprise patent docketing and compliance platform.',
+        title: `${SITE_NAME} — IP Management Software for Law Firms & Pharma`,
+        description: SITE_DESCRIPTION,
         images: ['/og-image.png'],
     },
     alternates: {

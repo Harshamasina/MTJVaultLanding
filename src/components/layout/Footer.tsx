@@ -34,15 +34,11 @@ const FOOTER_LINKS = {
         { label: 'FAQ', href: '#faq' },
     ],
     Company: [
-        { label: 'About', href: '#about' },
         { label: 'Contact', href: '#contact' },
-        { label: 'Blog', href: '#blog' },
     ],
     Legal: [
         { label: 'Privacy Policy', href: '/privacy/' },
         { label: 'Terms of Service', href: '/terms/' },
-        { label: 'Cookie Policy', href: '/cookies/' },
-        { label: 'Security', href: '/security/' },
     ],
 } as const;
 

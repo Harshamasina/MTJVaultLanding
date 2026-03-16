@@ -1,4 +1,4 @@
-import { SITE_URL, SITE_NAME } from '@/lib/constants';
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
 
 const organizationSchema = {
     '@context': 'https://schema.org',
@@ -8,7 +8,14 @@ const organizationSchema = {
     logo: `${SITE_URL}/logo.png`,
     description:
         'Enterprise IP management and patent docketing platform for law firms and pharma companies.',
-    sameAs: [],
+};
+
+const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
 };
 
 const softwareSchema = {
@@ -57,6 +64,12 @@ export function JsonLd() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(softwareSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(websiteSchema),
                 }}
             />
         </>
