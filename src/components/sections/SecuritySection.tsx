@@ -59,8 +59,7 @@ export function SecuritySection() {
             <Container>
                 {/* Section Heading */}
                 <div className="max-w-2xl mb-16 lg:mb-20">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="h-px flex-1 max-w-12 bg-primary-light/40" />
+                    <div id="tree-security" className="flex items-center gap-3 mb-6">
                         <span
                             className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light"
                             style={{ fontFamily: 'var(--font-mono)' }}
@@ -115,8 +114,7 @@ export function SecuritySection() {
 
                 {/* Data Flow Diagram */}
                 <div className="mt-20 lg:mt-24">
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="h-px flex-1 max-w-12 bg-primary-light/40" />
+                    <div id="tree-data-flow" className="flex items-center gap-3 mb-8">
                         <span
                             className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light"
                             style={{ fontFamily: 'var(--font-mono)' }}

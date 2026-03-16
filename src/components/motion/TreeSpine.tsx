@@ -1,0 +1,196 @@
+'use client';
+
+import { useEffect, useState, useCallback } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+
+interface TreeNodeConfig {
+    elementId: string;
+    label: string;
+    isDark?: boolean;
+}
+
+const TREE_NODE_IDS: TreeNodeConfig[] = [
+    { elementId: 'core-patent', label: 'Core Patent' },
+    { elementId: 'case-mgmt', label: 'Case Mgmt' },
+    { elementId: 'financial', label: 'Financial' },
+    { elementId: 'timeline-flow', label: 'Timeline' },
+    { elementId: 'tree-compliance', label: 'Compliance' },
+    { elementId: 'tree-security', label: 'Security', isDark: true },
+    { elementId: 'tree-data-flow', label: 'Data Flow', isDark: true },
+    { elementId: 'tree-pricing', label: 'Pricing' },
+    { elementId: 'tree-faq', label: 'FAQ' },
+];
+
+interface ComputedNode {
+    top: number;
+    label: string;
+    isDark: boolean;
+}
+
+export function TreeSpine() {
+    const [nodes, setNodes] = useState<ComputedNode[]>([]);
+    const [treeStart, setTreeStart] = useState(0);
+    const [treeEnd, setTreeEnd] = useState(0);
+    const [ready, setReady] = useState(false);
+
+    const rawProgress = useMotionValue(0);
+    const progress = useSpring(rawProgress, {
+        stiffness: 120,
+        damping: 35,
+        restDelta: 0.001,
+    });
+
+    const [visibleNodes, setVisibleNodes] = useState<boolean[]>([]);
+    const [endVisible, setEndVisible] = useState(false);
+
+    const calculatePositions = useCallback(() => {
+        // Tree starts from dashboard screenshot bottom
+        const dashboardEl = document.getElementById('hero-dashboard');
+        if (!dashboardEl) return;
+
+        const dashRect = dashboardEl.getBoundingClientRect();
+        const startY = dashRect.bottom + window.scrollY - 40;
+
+        const positions: ComputedNode[] = [];
+
+        TREE_NODE_IDS.forEach((node) => {
+            const el = document.getElementById(node.elementId);
+            if (el) {
+                const rect = el.getBoundingClientRect();
+                positions.push({
+                    top: rect.top + window.scrollY - startY,
+                    label: node.label,
+                    isDark: node.isDark ?? false,
+                });
+            }
+        });
+
+        // End at CTA section
+        const ctaEl = document.querySelector('#main-content > section:last-child');
+        let endY = 5000;
+        if (ctaEl) {
+            const ctaRect = ctaEl.getBoundingClientRect();
+            endY = ctaRect.top + ctaRect.height / 2 + window.scrollY - startY;
+        }
+
+        setTreeStart(startY);
+        setTreeEnd(endY);
+        setNodes(positions);
+        setVisibleNodes(new Array(positions.length).fill(false));
+        setReady(true);
+    }, []);
+
+    useEffect(() => {
+        const timer = setTimeout(calculatePositions, 800);
+        window.addEventListener('resize', calculatePositions);
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('resize', calculatePositions);
+        };
+    }, [calculatePositions]);
+
+    // Scroll handler
+    useEffect(() => {
+        if (!ready || treeEnd === 0) return;
+
+        function onScroll() {
+            const scrollY = window.scrollY;
+            const viewportMid = scrollY + window.innerHeight * 0.5;
+            const treeProgress = (viewportMid - treeStart) / treeEnd;
+            const clamped = Math.max(0, Math.min(treeProgress, 1));
+            rawProgress.set(clamped);
+
+            const drawnLength = clamped * treeEnd;
+            setVisibleNodes(nodes.map((node) => drawnLength >= node.top));
+            setEndVisible(clamped > 0.95);
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [ready, treeStart, treeEnd, nodes, rawProgress]);
+
+    if (!ready || nodes.length === 0) return null;
+
+    return (
+        <div
+            className="hidden xl:block absolute pointer-events-none z-10"
+            style={{
+                top: treeStart,
+                left: 'max(16px, calc((100vw - 80rem) / 2 - 72px))',
+                height: treeEnd,
+                width: 80,
+            }}
+        >
+            {/* Background track — faint guide line */}
+            <div
+                className="absolute left-1.5 top-0 w-0.5 rounded-full bg-primary/6"
+                style={{ height: treeEnd }}
+            />
+
+            {/* Animated drawn line — scales from top */}
+            <motion.div
+                className="absolute left-1 top-0 w-1 rounded-full origin-top"
+                style={{
+                    height: treeEnd,
+                    scaleY: progress,
+                    background: 'linear-gradient(to bottom, #6366F1, #818cf8)',
+                    boxShadow: '0 0 10px rgba(99, 102, 241, 0.35)',
+                }}
+            />
+
+            {/* Start dot — connects to dashboard */}
+            <motion.div
+                className="absolute w-3 h-3 rounded-full bg-primary shadow-md shadow-primary/40"
+                style={{ top: -6, left: 0.5 }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 1, duration: 0.5, ease: 'backOut' }}
+            />
+
+            {/* Node dots + branch lines */}
+            {nodes.map((node, i) => (
+                <div
+                    key={node.label}
+                    className="absolute"
+                    style={{ top: node.top + 2, left: -1 }}
+                >
+                    {/* Node dot */}
+                    <motion.div
+                        className={`w-3.5 h-3.5 rounded-full border-2 shadow-md ${
+                            node.isDark
+                                ? 'bg-primary-light border-white/20 shadow-primary-light/30'
+                                : 'bg-primary border-white shadow-primary/30'
+                        }`}
+                        initial={{ scale: 0 }}
+                        animate={visibleNodes[i] ? { scale: 1 } : { scale: 0 }}
+                        transition={{ duration: 0.35, ease: 'backOut' }}
+                    />
+
+                    {/* Branch line — extends to connect with heading */}
+                    <motion.div
+                        className="absolute top-1.5 left-4 h-px origin-left"
+                        style={{
+                            width: 'calc(2rem + 40px)',
+                            backgroundColor: node.isDark ? '#818cf8' : '#6366F1',
+                            opacity: node.isDark ? 0.5 : 0.3,
+                        }}
+                        initial={{ scaleX: 0 }}
+                        animate={visibleNodes[i] ? { scaleX: 1 } : { scaleX: 0 }}
+                        transition={{ duration: 0.5, delay: 0.15, ease: 'easeOut' }}
+                    />
+                </div>
+            ))}
+
+            {/* End dot */}
+            <motion.div
+                className="absolute w-4 h-4 rounded-full bg-primary border-2 border-white shadow-lg shadow-primary/40"
+                style={{ top: treeEnd - 8, left: -2 }}
+                initial={{ scale: 0 }}
+                animate={endVisible ? { scale: 1 } : { scale: 0 }}
+                transition={{ duration: 0.4, ease: 'backOut' }}
+            />
+        </div>
+    );
+}

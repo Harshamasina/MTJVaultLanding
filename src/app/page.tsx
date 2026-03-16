@@ -3,6 +3,9 @@ import { StatsSection, HERO_STATS, PRODUCT_STATS } from '@/components/sections/S
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { ComplianceSection } from '@/components/sections/ComplianceSection';
 import { SecuritySection } from '@/components/sections/SecuritySection';
+import { PricingSection } from '@/components/sections/PricingSection';
+import { FaqSection } from '@/components/sections/FaqSection';
+import { CtaSection } from '@/components/sections/CtaSection';
 
 export default function HomePage() {
     return (
@@ -13,6 +16,9 @@ export default function HomePage() {
             <ComplianceSection />
             <StatsSection stats={PRODUCT_STATS} variant="minimal" />
             <SecuritySection />
+            <PricingSection />
+            <FaqSection />
+            <CtaSection />
         </main>
     );
 }

@@ -120,8 +120,7 @@ export function ComplianceSection() {
             <Container>
                 {/* Section Heading */}
                 <div className="max-w-2xl mb-16 lg:mb-20">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="h-px flex-1 max-w-12 bg-primary/40" />
+                    <div id="tree-compliance" className="flex items-center gap-3 mb-6">
                         <span
                             className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
                             style={{ fontFamily: 'var(--font-mono)' }}
@@ -154,7 +153,7 @@ export function ComplianceSection() {
                     {COMPLIANCE_ITEMS.map((item) => (
                         <div key={item.title} className="flex gap-4">
                             {/* Checkmark Icon */}
-                            <div className="flex-shrink-0 mt-1">
+                            <div className="shrink-0 mt-1">
                                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                                     <item.icon className="w-5 h-5 text-primary" />
                                 </div>

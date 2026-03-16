@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { BrowserFrame } from '@/components/ui/BrowserFrame';
+import { PctTimeline } from '@/components/sections/PctTimeline';
 
 interface Feature {
     icon: React.ElementType;
@@ -20,6 +21,7 @@ interface Feature {
 }
 
 interface FeatureGroup {
+    id: string;
     label: string;
     features: Feature[];
     screenshot?: {
@@ -32,6 +34,7 @@ interface FeatureGroup {
 
 const FEATURE_GROUPS: FeatureGroup[] = [
     {
+        id: 'core-patent',
         label: 'Core Patent Management',
         features: [
             {
@@ -67,6 +70,7 @@ const FEATURE_GROUPS: FeatureGroup[] = [
         },
     },
     {
+        id: 'case-mgmt',
         label: 'Case Management',
         features: [
             {
@@ -96,6 +100,7 @@ const FEATURE_GROUPS: FeatureGroup[] = [
         },
     },
     {
+        id: 'financial',
         label: 'Financial & Documents',
         features: [
             {
@@ -172,8 +177,7 @@ export function FeaturesSection() {
                     {FEATURE_GROUPS.map((group) => (
                         <div key={group.label}>
                             {/* Sub-section Label */}
-                            <div className="flex items-center gap-3 mb-8">
-                                <div className="h-px flex-1 max-w-12 bg-primary/40" />
+                            <div id={group.id} className="flex items-center gap-3 mb-8">
                                 <span
                                     className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
                                     style={{ fontFamily: 'var(--font-mono)' }}
@@ -212,6 +216,9 @@ export function FeaturesSection() {
                         </div>
                     ))}
                 </div>
+
+                {/* PCT Timeline */}
+                <PctTimeline />
             </Container>
         </section>
     );

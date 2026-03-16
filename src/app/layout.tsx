@@ -4,6 +4,7 @@ import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { TreeSpine } from '@/components/motion/TreeSpine';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -74,7 +75,10 @@ export default function RootLayout({
                 </a>
                 <JsonLd />
                 <Header />
-                {children}
+                <div className="relative">
+                    <TreeSpine />
+                    {children}
+                </div>
                 <Footer />
             </body>
         </html>

@@ -40,7 +40,7 @@ export function HeroSection() {
             </Container>
 
             {/* Dashboard Screenshot — breaks out of container for wider feel */}
-            <div className="mt-20 lg:mt-28 mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
+            <div id="hero-dashboard" className="mt-20 lg:mt-28 mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
                 <BrowserFrame
                     src="/images/dashboard.png"
                     alt="MTJVault IP management dashboard showing patent portfolio overview with stat cards, jurisdiction charts, and deadline notifications"
