@@ -18,10 +18,7 @@ export function HeroTreeVisual() {
             aria-hidden="true"
         >
             <div className="animate-hero-float">
-                <div
-                    className="relative"
-                    style={{ transform: 'perspective(1200px) rotateY(-4deg)' }}
-                >
+                <div className="relative">
                     {/* Tree layout */}
                     <div className="flex flex-col items-center gap-0">
                         {/* Level 1: Patent Family (root) */}
@@ -84,12 +81,12 @@ export function HeroTreeVisual() {
                         />
 
                         <Connector height={28} />
-                        <ConnectorLabel>NPE Cases (2)</ConnectorLabel>
+                        <ConnectorLabel>NPE Cases (5)</ConnectorLabel>
                         <Connector height={12} />
 
-                        {/* Level 4: NPE Cases */}
-                        <div className="flex items-start gap-5 relative">
-                            <BranchLines />
+                        {/* Level 4: All 5 NPE Cases in single row */}
+                        <div className="flex items-start gap-2.5 relative">
+                            <BranchLines count={5} />
                             <TreeCard
                                 type="npe"
                                 title="EP National Phase"
@@ -99,7 +96,7 @@ export function HeroTreeVisual() {
                                     ['Filed', '11 Sep 2027'],
                                     ['Grant #', 'EP4679899215'],
                                 ]}
-                                small
+                                compact
                             />
                             <TreeCard
                                 type="npe"
@@ -110,26 +107,58 @@ export function HeroTreeVisual() {
                                     ['Filed', '20 Feb 2028'],
                                     ['Grant #', 'US20261511219'],
                                 ]}
-                                small
+                                compact
+                            />
+                            <TreeCard
+                                type="npe"
+                                title="IN National Phase"
+                                badge="NPE"
+                                status="Pending"
+                                rows={[
+                                    ['Filed', '05 Apr 2028'],
+                                    ['App #', 'IN202841017234'],
+                                ]}
+                                compact
+                            />
+                            <TreeCard
+                                type="npe"
+                                title="JP National Phase"
+                                badge="NPE"
+                                status="Filed"
+                                rows={[
+                                    ['Filed', '18 Jun 2028'],
+                                    ['App #', 'JP2028-519834'],
+                                ]}
+                                compact
+                            />
+                            <TreeCard
+                                type="npe"
+                                title="AU National Phase"
+                                badge="NPE"
+                                status="Filed"
+                                rows={[
+                                    ['Filed', '02 Aug 2028'],
+                                    ['App #', 'AU2028/204571'],
+                                ]}
+                                compact
                             />
                         </div>
 
                         <Connector height={24} />
 
-                        {/* Level 5: Office Actions + Fee */}
-                        <div className="flex items-start gap-3">
-                            <MiniCard type="oa" title="Office Action" status="Open" />
-                            <MiniCard type="fee" title="Annuity Fee" status="Due" />
-                            <MiniCard type="oa" title="Office Action" status="Open" />
+                        {/* Level 5: Office Actions + Fees */}
+                        <div className="flex items-start gap-2.5">
+                            <MiniCard type="oa" title="EP Office Action" status="Open" />
+                            <MiniCard type="fee" title="IN Annuity Fee" status="Due" />
+                            <MiniCard type="oa" title="US Office Action" status="Open" />
+                            <MiniCard type="fee" title="JP Annuity Fee" status="Due" />
+                            <MiniCard type="oa" title="AU Office Action" status="Open" />
                         </div>
                     </div>
 
-                    {/* Fade edges */}
+                    {/* Fade edge — bottom only, tree bleeds naturally on sides */}
                     <div className="absolute inset-0 pointer-events-none">
                         <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-page-bg to-transparent" />
-                        <div className="absolute top-0 right-0 bottom-0 w-16 bg-gradient-to-l from-page-bg to-transparent" />
-                        <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-page-bg to-transparent" />
-                        <div className="absolute top-0 left-0 bottom-0 w-8 bg-gradient-to-r from-page-bg to-transparent" />
                     </div>
                 </div>
             </div>
@@ -155,6 +184,7 @@ function TreeCard({
     status,
     rows,
     small,
+    compact,
 }: {
     type: keyof typeof TYPE_STYLES;
     title: string;
@@ -162,11 +192,13 @@ function TreeCard({
     status?: string;
     rows: [string, string][];
     small?: boolean;
+    compact?: boolean;
 }) {
     const s = TYPE_STYLES[type];
     return (
         <div
             className={`rounded-lg border ${s.border} ${s.bg} shadow-sm ${
+                compact ? 'px-2.5 py-2 w-[130px]' :
                 small ? 'px-3 py-2.5 w-[155px]' : 'px-4 py-3 w-[200px]'
             }`}
         >
@@ -184,6 +216,7 @@ function TreeCard({
                             status === 'Filed' ? 'bg-primary/10 text-primary' :
                             status === 'Draft' ? 'bg-text-muted/10 text-text-muted' :
                             status === 'Active' ? 'bg-emerald-500/10 text-emerald-600' :
+                            status === 'Pending' ? 'bg-amber-500/10 text-amber-600' :
                             status === 'Open' ? 'bg-amber-500/10 text-amber-600' :
                             status === 'Due' ? 'bg-rose-500/10 text-rose-600' :
                             'bg-gray-100 text-gray-500'
@@ -198,7 +231,7 @@ function TreeCard({
             {/* Title */}
             <p
                 className={`font-semibold text-text-primary truncate ${
-                    small ? 'text-[10px]' : 'text-[11px]'
+                    compact ? 'text-[9px]' : small ? 'text-[10px]' : 'text-[11px]'
                 }`}
                 style={{ fontFamily: 'var(--font-display)' }}
             >
@@ -206,7 +239,7 @@ function TreeCard({
             </p>
 
             {/* Data rows */}
-            <div className={`mt-1.5 space-y-0.5 ${small ? 'text-[8px]' : 'text-[9px]'}`}>
+            <div className={`mt-1.5 space-y-0.5 ${compact ? 'text-[7px]' : small ? 'text-[8px]' : 'text-[9px]'}`}>
                 {rows.map(([label, value]) => (
                     <div key={label} className="flex justify-between gap-2">
                         <span className="text-text-muted" style={{ fontFamily: 'var(--font-body)' }}>
@@ -236,7 +269,7 @@ function MiniCard({
 }) {
     const s = TYPE_STYLES[type];
     return (
-        <div className={`rounded-md border ${s.border} ${s.bg} shadow-sm px-2.5 py-2 w-[100px]`}>
+        <div className={`rounded-md border ${s.border} ${s.bg} shadow-sm px-2 py-1.5 w-[90px]`}>
             <div className="flex items-center justify-between mb-1">
                 <span
                     className={`text-[7px] font-bold uppercase tracking-wider text-text-muted`}
@@ -284,27 +317,28 @@ function ConnectorLabel({ children }: { children: React.ReactNode }) {
     );
 }
 
-function BranchLines() {
+function BranchLines({ count = 2 }: { count?: number }) {
     return (
         <div
             className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-3 pointer-events-none"
-            style={{ width: 'calc(100% - 60px)', height: 12 }}
+            style={{ width: 'calc(100% - 40px)', height: 12 }}
         >
             {/* Horizontal bar */}
             <div
                 className="absolute top-0 left-0 right-0 h-px"
                 style={{ backgroundColor: LINE_COLOR }}
             />
-            {/* Left vertical drop */}
-            <div
-                className="absolute top-0 left-0 w-px h-full"
-                style={{ backgroundColor: LINE_COLOR }}
-            />
-            {/* Right vertical drop */}
-            <div
-                className="absolute top-0 right-0 w-px h-full"
-                style={{ backgroundColor: LINE_COLOR }}
-            />
+            {/* Vertical drops — evenly spaced */}
+            {Array.from({ length: count }, (_, i) => (
+                <div
+                    key={i}
+                    className="absolute top-0 w-px h-full"
+                    style={{
+                        backgroundColor: LINE_COLOR,
+                        left: count === 1 ? '50%' : `${(i / (count - 1)) * 100}%`,
+                    }}
+                />
+            ))}
         </div>
     );
 }

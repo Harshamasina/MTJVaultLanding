@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { CONTACT_API_URL } from '@/lib/constants';
+import { ROLE_OPTIONS, INQUIRY_TYPE_OPTIONS } from '@/lib/constants';
+import { submitContactMessage, type ApiError } from '@/lib/api';
 
 interface FormData {
     name: string;
@@ -16,23 +17,6 @@ interface FormData {
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
-const ROLES = [
-    { value: '', label: 'Select your role' },
-    { value: 'attorney', label: 'Patent Attorney' },
-    { value: 'ip-manager', label: 'IP Manager / Director' },
-    { value: 'pharma', label: 'Pharma IP Team' },
-    { value: 'paralegal', label: 'Paralegal' },
-    { value: 'other', label: 'Other' },
-] as const;
-
-const INQUIRY_TYPES = [
-    { value: '', label: 'What can we help with?' },
-    { value: 'demo', label: 'Schedule a Demo' },
-    { value: 'pricing', label: 'Pricing & Plans' },
-    { value: 'enterprise', label: 'Enterprise / Custom Plan' },
-    { value: 'general', label: 'General Inquiry' },
-] as const;
-
 const INITIAL_FORM: FormData = {
     name: '',
     email: '',
@@ -44,8 +28,21 @@ const INITIAL_FORM: FormData = {
 
 export function ContactForm() {
     const [form, setForm] = useState<FormData>(INITIAL_FORM);
+    const [hpField, setHpField] = useState('');
     const [status, setStatus] = useState<FormStatus>('idle');
     const [errorMessage, setErrorMessage] = useState('');
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
+    const [idempotencyKey, setIdempotencyKey] = useState(() => crypto.randomUUID());
+
+    // Frontend field name → backend field name
+    const fieldMap: Record<string, string> = {
+        name: 'full_name',
+        email: 'work_email',
+        company: 'company',
+        role: 'role',
+        inquiryType: 'inquiry_type',
+        message: 'message',
+    };
 
     function handleChange(
         e: React.ChangeEvent<
@@ -53,37 +50,58 @@ export function ContactForm() {
         >,
     ) {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        // Clear field error on change (using backend field name)
+        const backendName = fieldMap[e.target.name] ?? e.target.name;
+        if (fieldErrors[backendName]) {
+            setFieldErrors((prev) => {
+                const next = { ...prev };
+                delete next[backendName];
+                return next;
+            });
+        }
     }
 
-    async function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setStatus('submitting');
         setErrorMessage('');
+        setFieldErrors({});
 
         try {
-            const res = await fetch(CONTACT_API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form),
-            });
-
-            if (!res.ok) {
-                const data = await res.json().catch(() => null);
-                throw new Error(
-                    data?.message || `Request failed (${res.status})`,
-                );
-            }
-
+            await submitContactMessage(
+                {
+                    full_name: form.name,
+                    work_email: form.email,
+                    company: form.company,
+                    role: form.role,
+                    inquiry_type: form.inquiryType,
+                    message: form.message,
+                    _hp_field: hpField || undefined,
+                },
+                idempotencyKey,
+            );
             setStatus('success');
             setForm(INITIAL_FORM);
-        } catch (err) {
+        } catch (err: unknown) {
             setStatus('error');
-            setErrorMessage(
-                err instanceof Error
-                    ? err.message
-                    : 'Something went wrong. Please try again.',
-            );
+            const apiErr = err as ApiError & { status?: number };
+
+            if (apiErr.code === 'validation_error' && 'details' in apiErr) {
+                setFieldErrors(apiErr.details.fieldErrors);
+                setErrorMessage('Please fix the errors below.');
+            } else if (apiErr.code === 'rate_limit_exceeded') {
+                setErrorMessage('Too many attempts. Please try again in a minute.');
+            } else {
+                setErrorMessage(
+                    apiErr.message || 'Something went wrong. Please try again.',
+                );
+            }
         }
+    }
+
+    function getFieldError(backendField: string): string | undefined {
+        const errors = fieldErrors[backendField];
+        return errors?.[0];
     }
 
     if (status === 'success') {
@@ -105,7 +123,10 @@ export function ContactForm() {
                 </p>
                 <button
                     type="button"
-                    onClick={() => setStatus('idle')}
+                    onClick={() => {
+                        setStatus('idle');
+                        setIdempotencyKey(crypto.randomUUID());
+                    }}
                     className="mt-6 text-sm font-semibold text-primary hover:text-primary-dark transition-colors cursor-pointer"
                     style={{ fontFamily: 'var(--font-body)' }}
                 >
@@ -117,6 +138,18 @@ export function ContactForm() {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Honeypot — hidden from real users */}
+            <input
+                type="text"
+                name="_hp_field"
+                value={hpField}
+                onChange={(e) => setHpField(e.target.value)}
+                style={{ position: 'absolute', left: '-9999px' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+            />
+
             {/* Name + Email row */}
             <div className="grid gap-6 sm:grid-cols-2">
                 <FormField
@@ -127,6 +160,7 @@ export function ContactForm() {
                     onChange={handleChange}
                     required
                     placeholder="Jane Smith"
+                    error={getFieldError('full_name')}
                 />
                 <FormField
                     label="Work Email"
@@ -136,6 +170,7 @@ export function ContactForm() {
                     onChange={handleChange}
                     required
                     placeholder="jane@acmelaw.com"
+                    error={getFieldError('work_email')}
                 />
             </div>
 
@@ -149,6 +184,7 @@ export function ContactForm() {
                     onChange={handleChange}
                     required
                     placeholder="Acme Law LLP"
+                    error={getFieldError('company')}
                 />
                 <FormSelect
                     label="Role"
@@ -156,7 +192,8 @@ export function ContactForm() {
                     value={form.role}
                     onChange={handleChange}
                     required
-                    options={ROLES}
+                    options={ROLE_OPTIONS}
+                    error={getFieldError('role')}
                 />
             </div>
 
@@ -167,7 +204,8 @@ export function ContactForm() {
                 value={form.inquiryType}
                 onChange={handleChange}
                 required
-                options={INQUIRY_TYPES}
+                options={INQUIRY_TYPE_OPTIONS}
+                error={getFieldError('inquiry_type')}
             />
 
             {/* Message */}
@@ -187,9 +225,16 @@ export function ContactForm() {
                     required
                     rows={4}
                     placeholder="Tell us about your IP management needs..."
-                    className="w-full rounded-lg border border-card-border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors resize-y"
+                    className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors resize-y ${
+                        getFieldError('message') ? 'border-danger' : 'border-card-border'
+                    }`}
                     style={{ fontFamily: 'var(--font-body)' }}
                 />
+                {getFieldError('message') && (
+                    <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                        {getFieldError('message')}
+                    </p>
+                )}
             </div>
 
             {/* Error Message */}
@@ -232,6 +277,7 @@ function FormField({
     onChange,
     required,
     placeholder,
+    error,
 }: {
     label: string;
     name: string;
@@ -240,6 +286,7 @@ function FormField({
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
     placeholder?: string;
+    error?: string;
 }) {
     return (
         <div>
@@ -258,9 +305,16 @@ function FormField({
                 onChange={onChange}
                 required={required}
                 placeholder={placeholder}
-                className="w-full rounded-lg border border-card-border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors"
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors ${
+                    error ? 'border-danger' : 'border-card-border'
+                }`}
                 style={{ fontFamily: 'var(--font-body)' }}
             />
+            {error && (
+                <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                    {error}
+                </p>
+            )}
         </div>
     );
 }
@@ -272,6 +326,7 @@ function FormSelect({
     onChange,
     required,
     options,
+    error,
 }: {
     label: string;
     name: string;
@@ -279,6 +334,7 @@ function FormSelect({
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     required?: boolean;
     options: ReadonlyArray<{ value: string; label: string }>;
+    error?: string;
 }) {
     return (
         <div>
@@ -295,7 +351,9 @@ function FormSelect({
                 value={value}
                 onChange={onChange}
                 required={required}
-                className="w-full rounded-lg border border-card-border bg-white px-4 py-3 text-sm text-text-primary focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors appearance-none cursor-pointer"
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors appearance-none cursor-pointer ${
+                    error ? 'border-danger' : 'border-card-border'
+                }`}
                 style={{ fontFamily: 'var(--font-body)' }}
             >
                 {options.map((opt) => (
@@ -304,6 +362,11 @@ function FormSelect({
                     </option>
                 ))}
             </select>
+            {error && (
+                <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

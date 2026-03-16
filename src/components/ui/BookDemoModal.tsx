@@ -5,7 +5,8 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { CONTACT_API_URL } from '@/lib/constants';
+import { ROLE_OPTIONS } from '@/lib/constants';
+import { submitDemoRequest, type ApiError } from '@/lib/api';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -27,15 +28,6 @@ interface DemoFormData {
 }
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
-
-const ROLES = [
-    { value: '', label: 'Select your role' },
-    { value: 'attorney', label: 'Patent Attorney' },
-    { value: 'ip-manager', label: 'IP Manager / Director' },
-    { value: 'pharma', label: 'Pharma IP Team' },
-    { value: 'paralegal', label: 'Paralegal' },
-    { value: 'other', label: 'Other' },
-] as const;
 
 const INITIAL_FORM: DemoFormData = {
     name: '',
@@ -82,8 +74,11 @@ export function BookDemoButton({
 
 function DemoModal({ onClose }: { onClose: () => void }) {
     const [form, setForm] = useState<DemoFormData>(INITIAL_FORM);
+    const [hpField, setHpField] = useState('');
     const [status, setStatus] = useState<FormStatus>('idle');
     const [errorMessage, setErrorMessage] = useState('');
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
+    const [idempotencyKey] = useState(() => crypto.randomUUID());
 
     // Lock body scroll
     useEffect(() => {
@@ -106,45 +101,74 @@ function DemoModal({ onClose }: { onClose: () => void }) {
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [handleKeyDown]);
 
+    // Frontend field name → backend field name
+    const fieldMap: Record<string, string> = {
+        name: 'full_name',
+        email: 'work_email',
+        company: 'company',
+        role: 'role',
+        phone: 'phone',
+        notes: 'message',
+    };
+
     function handleChange(
         e: React.ChangeEvent<
             HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
         >,
     ) {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        // Clear field error on change (using backend field name)
+        const backendName = fieldMap[e.target.name] ?? e.target.name;
+        if (fieldErrors[backendName]) {
+            setFieldErrors((prev) => {
+                const next = { ...prev };
+                delete next[backendName];
+                return next;
+            });
+        }
     }
 
-    async function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setStatus('submitting');
         setErrorMessage('');
+        setFieldErrors({});
 
         try {
-            const res = await fetch(CONTACT_API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...form,
-                    inquiryType: 'demo',
-                }),
-            });
+            await submitDemoRequest(
+                {
+                    full_name: form.name,
+                    work_email: form.email,
+                    company: form.company,
+                    role: form.role,
+                    phone: form.phone || undefined,
+                    message: form.notes || undefined,
+                    _hp_field: hpField || undefined,
+                },
+                idempotencyKey,
+            );
+            setStatus('success');
+        } catch (err: unknown) {
+            setStatus('error');
+            const apiErr = err as ApiError & { status?: number };
 
-            if (!res.ok) {
-                const data = await res.json().catch(() => null);
-                throw new Error(
-                    data?.message || `Request failed (${res.status})`,
+            if (apiErr.code === 'validation_error' && 'details' in apiErr) {
+                setFieldErrors(apiErr.details.fieldErrors);
+                setErrorMessage('Please fix the errors below.');
+            } else if (apiErr.code === 'rate_limit_exceeded') {
+                setErrorMessage('Too many attempts. Please try again in a minute.');
+            } else {
+                setErrorMessage(
+                    apiErr.message || 'Something went wrong. Please try again.',
                 );
             }
-
-            setStatus('success');
-        } catch (err) {
-            setStatus('error');
-            setErrorMessage(
-                err instanceof Error
-                    ? err.message
-                    : 'Something went wrong. Please try again.',
-            );
         }
+    }
+
+    // Map backend field names to form field names for error display
+    function getFieldError(backendField: string): string | undefined {
+        const errors = fieldErrors[backendField];
+        return errors?.[0];
     }
 
     return (
@@ -224,6 +248,18 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                         </p>
 
                         <form onSubmit={handleSubmit} className="space-y-5">
+                            {/* Honeypot — hidden from real users */}
+                            <input
+                                type="text"
+                                name="_hp_field"
+                                value={hpField}
+                                onChange={(e) => setHpField(e.target.value)}
+                                style={{ position: 'absolute', left: '-9999px' }}
+                                tabIndex={-1}
+                                autoComplete="off"
+                                aria-hidden="true"
+                            />
+
                             {/* Name + Email */}
                             <div className="grid gap-5 sm:grid-cols-2">
                                 <ModalField
@@ -234,6 +270,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                     onChange={handleChange}
                                     required
                                     placeholder="Jane Smith"
+                                    error={getFieldError('full_name')}
                                 />
                                 <ModalField
                                     label="Work Email"
@@ -243,6 +280,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                     onChange={handleChange}
                                     required
                                     placeholder="jane@acmelaw.com"
+                                    error={getFieldError('work_email')}
                                 />
                             </div>
 
@@ -256,6 +294,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                     onChange={handleChange}
                                     required
                                     placeholder="Acme Law LLP"
+                                    error={getFieldError('company')}
                                 />
                                 <div>
                                     <label
@@ -273,12 +312,14 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                         value={form.role}
                                         onChange={handleChange}
                                         required
-                                        className="w-full rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm text-text-primary focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors appearance-none cursor-pointer"
+                                        className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors appearance-none cursor-pointer ${
+                                            getFieldError('role') ? 'border-danger' : 'border-card-border'
+                                        }`}
                                         style={{
                                             fontFamily: 'var(--font-body)',
                                         }}
                                     >
-                                        {ROLES.map((opt) => (
+                                        {ROLE_OPTIONS.map((opt) => (
                                             <option
                                                 key={opt.value}
                                                 value={opt.value}
@@ -288,6 +329,11 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                             </option>
                                         ))}
                                     </select>
+                                    {getFieldError('role') && (
+                                        <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                                            {getFieldError('role')}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
@@ -299,6 +345,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                 value={form.phone}
                                 onChange={handleChange}
                                 placeholder="+1 (555) 000-0000"
+                                error={getFieldError('phone')}
                             />
 
                             {/* Notes */}
@@ -375,6 +422,7 @@ function ModalField({
     onChange,
     required,
     placeholder,
+    error,
 }: {
     label: string;
     name: string;
@@ -383,6 +431,7 @@ function ModalField({
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
     placeholder?: string;
+    error?: string;
 }) {
     return (
         <div>
@@ -401,9 +450,16 @@ function ModalField({
                 onChange={onChange}
                 required={required}
                 placeholder={placeholder}
-                className="w-full rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors"
+                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors ${
+                    error ? 'border-danger' : 'border-card-border'
+                }`}
                 style={{ fontFamily: 'var(--font-body)' }}
             />
+            {error && (
+                <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                    {error}
+                </p>
+            )}
         </div>
     );
 }
