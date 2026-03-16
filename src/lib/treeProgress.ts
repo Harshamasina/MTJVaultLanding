@@ -38,3 +38,11 @@ export function updateTreeNodes(updates: Record<string, boolean>): void {
         listeners.forEach((l) => l());
     }
 }
+
+/** Reset all node visibility — called when navigating away from homepage */
+export function resetTreeNodes(): void {
+    if (Object.keys(snapshot).length > 0) {
+        snapshot = {};
+        listeners.forEach((l) => l());
+    }
+}

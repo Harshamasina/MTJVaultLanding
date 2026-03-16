@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { ROLE_OPTIONS, INQUIRY_TYPE_OPTIONS } from '@/lib/constants';
@@ -28,7 +28,7 @@ const INITIAL_FORM: FormData = {
 
 export function ContactForm() {
     const [form, setForm] = useState<FormData>(INITIAL_FORM);
-    const [hpField, setHpField] = useState('');
+    const hpRef = useRef<HTMLInputElement>(null);
     const [status, setStatus] = useState<FormStatus>('idle');
     const [errorMessage, setErrorMessage] = useState('');
     const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
@@ -76,7 +76,7 @@ export function ContactForm() {
                     role: form.role,
                     inquiry_type: form.inquiryType,
                     message: form.message,
-                    _hp_field: hpField || undefined,
+                    _hp_field: hpRef.current?.value || undefined,
                 },
                 idempotencyKey,
             );
@@ -138,15 +138,15 @@ export function ContactForm() {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Honeypot — hidden from real users */}
+            {/* Honeypot — hidden from real users, uncontrolled to avoid autofill issues */}
             <input
+                ref={hpRef}
                 type="text"
-                name="_hp_field"
-                value={hpField}
-                onChange={(e) => setHpField(e.target.value)}
-                style={{ position: 'absolute', left: '-9999px' }}
+                name="website_url"
+                defaultValue=""
+                style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
                 tabIndex={-1}
-                autoComplete="off"
+                autoComplete="new-password"
                 aria-hidden="true"
             />
 

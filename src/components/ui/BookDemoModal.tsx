@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle, AlertCircle } from 'lucide-react';
@@ -74,7 +74,7 @@ export function BookDemoButton({
 
 function DemoModal({ onClose }: { onClose: () => void }) {
     const [form, setForm] = useState<DemoFormData>(INITIAL_FORM);
-    const [hpField, setHpField] = useState('');
+    const hpRef = useRef<HTMLInputElement>(null);
     const [status, setStatus] = useState<FormStatus>('idle');
     const [errorMessage, setErrorMessage] = useState('');
     const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
@@ -143,7 +143,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                     role: form.role,
                     phone: form.phone || undefined,
                     message: form.notes || undefined,
-                    _hp_field: hpField || undefined,
+                    _hp_field: hpRef.current?.value || undefined,
                 },
                 idempotencyKey,
             );
@@ -248,15 +248,15 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                         </p>
 
                         <form onSubmit={handleSubmit} className="space-y-5">
-                            {/* Honeypot — hidden from real users */}
+                            {/* Honeypot — hidden from real users, uncontrolled to avoid autofill */}
                             <input
+                                ref={hpRef}
                                 type="text"
-                                name="_hp_field"
-                                value={hpField}
-                                onChange={(e) => setHpField(e.target.value)}
-                                style={{ position: 'absolute', left: '-9999px' }}
+                                name="website_url"
+                                defaultValue=""
+                                style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
                                 tabIndex={-1}
-                                autoComplete="off"
+                                autoComplete="new-password"
                                 aria-hidden="true"
                             />
 

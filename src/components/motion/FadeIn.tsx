@@ -45,10 +45,18 @@ export function FadeIn({
     const isNodeReached = treeNode ? (treeSnapshot[treeNode] ?? false) : false;
 
     // Latch: once triggered, stay visible (don't reverse on scroll-up)
+    // Reset when tree store resets (navigating away from homepage and back)
+    const hasTreeNode = treeNode !== undefined;
+    const nodeInSnapshot = hasTreeNode && treeNode in treeSnapshot;
     const [show, setShow] = useState(false);
     useEffect(() => {
-        if (isNodeReached && !show) setShow(true);
-    }, [isNodeReached, show]);
+        if (isNodeReached && !show) {
+            setShow(true);
+        } else if (!isNodeReached && show && hasTreeNode && !nodeInSnapshot) {
+            // Tree store was reset (key removed entirely) — reset animation
+            setShow(false);
+        }
+    }, [isNodeReached, show, hasTreeNode, nodeInSnapshot]);
 
     const initial = { opacity: 0, ...OFFSETS[direction] };
     const visible = { opacity: 1, x: 0, y: 0 };

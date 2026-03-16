@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { updateTreeNodes } from '@/lib/treeProgress';
+import { updateTreeNodes, resetTreeNodes } from '@/lib/treeProgress';
 
 interface TreeNodeConfig {
     elementId: string;
@@ -30,6 +31,9 @@ interface ComputedNode {
 }
 
 export function TreeSpine() {
+    const pathname = usePathname();
+    const isHomepage = pathname === '/';
+
     const [nodes, setNodes] = useState<ComputedNode[]>([]);
     const [treeStart, setTreeStart] = useState(0);
     const [treeEnd, setTreeEnd] = useState(0);
@@ -83,7 +87,17 @@ export function TreeSpine() {
         setReady(true);
     }, []);
 
+    // Recalculate positions on mount, route change, and resource load
     useEffect(() => {
+        if (!isHomepage) {
+            // Reset state when navigating away from homepage
+            setReady(false);
+            setNodes([]);
+            rawProgress.set(0);
+            resetTreeNodes();
+            return;
+        }
+
         function recalc() {
             requestAnimationFrame(calculatePositions);
         }
@@ -92,8 +106,6 @@ export function TreeSpine() {
         document.fonts.ready.then(recalc);
 
         // After all resources (images) load — check if already done
-        // because Next.js hydrates after window.load, so the event
-        // may have already fired before this effect runs
         if (document.readyState === 'complete') {
             recalc();
         } else {
@@ -101,15 +113,18 @@ export function TreeSpine() {
         }
 
         // Safety: recalculate after hero image has definitely painted
-        const safety = setTimeout(recalc, 2000);
+        // and after client-side navigation has rendered the DOM
+        const safety1 = setTimeout(recalc, 500);
+        const safety2 = setTimeout(recalc, 2000);
 
         window.addEventListener('resize', calculatePositions);
         return () => {
             window.removeEventListener('load', recalc);
             window.removeEventListener('resize', calculatePositions);
-            clearTimeout(safety);
+            clearTimeout(safety1);
+            clearTimeout(safety2);
         };
-    }, [calculatePositions]);
+    }, [calculatePositions, isHomepage, rawProgress]);
 
     // Scroll handler
     useEffect(() => {

@@ -144,10 +144,13 @@ export function HeroTreeVisual() {
                             />
                         </div>
 
-                        <Connector height={24} />
+                        <Connector height={20} />
+                        <ConnectorLabel>Actions & Fees</ConnectorLabel>
+                        <Connector height={12} />
 
                         {/* Level 5: Office Actions + Fees */}
-                        <div className="flex items-start gap-2.5">
+                        <div className="flex items-start gap-2.5 relative">
+                            <BranchLines count={5} />
                             <MiniCard type="oa" title="EP Office Action" status="Open" />
                             <MiniCard type="fee" title="IN Annuity Fee" status="Due" />
                             <MiniCard type="oa" title="US Office Action" status="Open" />

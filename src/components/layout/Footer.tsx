@@ -33,6 +33,12 @@ const FOOTER_LINKS = {
         { label: 'Pricing', href: '#pricing' },
         { label: 'FAQ', href: '#faq' },
     ],
+    Resources: [
+        { label: 'Blog', href: '/blog/' },
+        { label: 'What Is IP Management?', href: '/blog/what-is-ip-management-software/' },
+        { label: 'Patent Docketing Guide', href: '/blog/patent-docketing-best-practices/' },
+        { label: 'FDA Compliance Guide', href: '/blog/fda-21-cfr-part-11-compliance-guide/' },
+    ],
     Company: [
         { label: 'Contact', href: '#contact' },
     ],
