@@ -1,8 +1,7 @@
 import { Check, X, Star } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
-import { Button } from '@/components/ui/Button';
-import { CTA_SIGNUP_URL } from '@/lib/constants';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { BookDemoButton } from '@/components/ui/BookDemoModal';
 
 interface PlanFeature {
     text: string;
@@ -192,13 +191,12 @@ export function PricingSection() {
 
                             {/* CTA Button */}
                             <div className="mb-8">
-                                <Button
-                                    href={CTA_SIGNUP_URL}
+                                <BookDemoButton
                                     variant={plan.recommended ? 'primary' : 'secondary'}
                                     className="w-full justify-center"
                                 >
                                     {plan.cta}
-                                </Button>
+                                </BookDemoButton>
                             </div>
 
                             {/* Feature Groups */}

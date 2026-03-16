@@ -12,4 +12,5 @@ export const NAV_LINKS = [
 ] as const;
 
 export const CTA_SIGNUP_URL = '#get-started';
-export const CTA_DEMO_URL = '#demo';
+export const CTA_DEMO_URL = '#contact';
+export const CONTACT_API_URL = '/api/contact'; // Replace with your backend URL

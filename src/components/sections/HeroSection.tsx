@@ -1,7 +1,8 @@
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { BrowserFrame } from '@/components/ui/BrowserFrame';
-import { CTA_SIGNUP_URL, CTA_DEMO_URL } from '@/lib/constants';
+import { BookDemoButton } from '@/components/ui/BookDemoModal';
+import { CTA_DEMO_URL } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
 
 export function HeroSection() {
@@ -28,12 +29,12 @@ export function HeroSection() {
                         and FDA 21 CFR Part 11 compliance — all in one place.
                     </p>
                     <div className="mt-8 flex flex-wrap items-center gap-4">
-                        <Button href={CTA_SIGNUP_URL} size="lg">
-                            Start Free Trial
+                        <BookDemoButton size="lg">
+                            Book a Demo
                             <ArrowRight className="w-5 h-5" />
-                        </Button>
+                        </BookDemoButton>
                         <Button href={CTA_DEMO_URL} variant="secondary" size="lg">
-                            Watch Demo
+                            Learn More
                         </Button>
                     </div>
                 </div>

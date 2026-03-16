@@ -62,37 +62,37 @@ function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
     const count = useCountUp(stat.value, isVisible);
 
     return (
-        <div className="text-center p-6 rounded-xl border border-card-border bg-card-bg">
+        <div className="h-full text-center p-4 sm:p-6 rounded-xl border border-card-border bg-card-bg">
             <div className="flex items-baseline justify-center gap-0.5">
                 {stat.prefix && (
                     <span
-                        className="text-3xl lg:text-4xl font-bold text-primary"
+                        className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary"
                         style={{ fontFamily: 'var(--font-mono)' }}
                     >
                         {stat.prefix}
                     </span>
                 )}
                 <span
-                    className="text-5xl lg:text-6xl font-bold text-primary tracking-tight"
+                    className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary tracking-tight"
                     style={{ fontFamily: 'var(--font-mono)' }}
                 >
                     {count}
                 </span>
                 <span
-                    className="text-3xl lg:text-4xl font-bold text-primary"
+                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary"
                     style={{ fontFamily: 'var(--font-mono)' }}
                 >
                     {stat.suffix}
                 </span>
             </div>
             <p
-                className="mt-2 text-sm font-semibold text-text-primary"
+                className="mt-2 text-xs sm:text-sm font-semibold text-text-primary"
                 style={{ fontFamily: 'var(--font-display)' }}
             >
                 {stat.label}
             </p>
             <p
-                className="mt-1 text-xs text-text-muted"
+                className="mt-1 text-[10px] sm:text-xs text-text-muted"
                 style={{ fontFamily: 'var(--font-body)' }}
             >
                 {stat.sublabel}
@@ -177,7 +177,7 @@ export function StatsSection({ stats, variant = 'cards', className = '' }: Stats
             <Container>
                 <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
                     {stats.map((stat, i) => (
-                        <FadeIn key={stat.label} delay={i * 0.1}>
+                        <FadeIn key={stat.label} delay={i * 0.1} className="h-full">
                             <StatComponent
                                 stat={stat}
                                 isVisible={isVisible}

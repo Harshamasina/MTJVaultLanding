@@ -72,8 +72,8 @@ export function BrowserFrame({
                 />
             </div>
 
-            {/* Bottom Gradient Fade */}
-            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-page-bg to-transparent pointer-events-none rounded-b-xl" />
+            {/* Bottom Gradient Fade — shorter on mobile so image stays visible */}
+            <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 lg:h-48 bg-gradient-to-t from-page-bg to-transparent pointer-events-none rounded-b-xl" />
         </div>
     );
 }

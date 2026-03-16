@@ -84,11 +84,30 @@ export function TreeSpine() {
     }, []);
 
     useEffect(() => {
-        const timer = setTimeout(calculatePositions, 800);
+        function recalc() {
+            requestAnimationFrame(calculatePositions);
+        }
+
+        // After fonts swap in
+        document.fonts.ready.then(recalc);
+
+        // After all resources (images) load — check if already done
+        // because Next.js hydrates after window.load, so the event
+        // may have already fired before this effect runs
+        if (document.readyState === 'complete') {
+            recalc();
+        } else {
+            window.addEventListener('load', recalc);
+        }
+
+        // Safety: recalculate after hero image has definitely painted
+        const safety = setTimeout(recalc, 2000);
+
         window.addEventListener('resize', calculatePositions);
         return () => {
-            clearTimeout(timer);
+            window.removeEventListener('load', recalc);
             window.removeEventListener('resize', calculatePositions);
+            clearTimeout(safety);
         };
     }, [calculatePositions]);
 
