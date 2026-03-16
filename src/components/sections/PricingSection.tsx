@@ -2,6 +2,7 @@ import { Check, X, Star } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { CTA_SIGNUP_URL } from '@/lib/constants';
+import { FadeIn } from '@/components/motion/FadeIn';
 
 interface PlanFeature {
     text: string;
@@ -111,36 +112,38 @@ export function PricingSection() {
         <section id="pricing" className="py-24 lg:py-32">
             <Container>
                 {/* Section Heading */}
-                <div className="max-w-2xl mb-16 lg:mb-20">
-                    <div id="tree-pricing" className="flex items-center gap-3 mb-6">
-                        <span
-                            className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
-                            style={{ fontFamily: 'var(--font-mono)' }}
-                        >
-                            Pricing
-                        </span>
-                    </div>
-                    <h2
-                        className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
-                        style={{ fontFamily: 'var(--font-display)' }}
+                <div id="tree-pricing" className="flex items-center gap-3 mb-6">
+                    <span
+                        className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
+                        style={{ fontFamily: 'var(--font-mono)' }}
                     >
-                        Simple, Transparent{' '}
-                        <span className="text-primary">Pricing</span>
-                    </h2>
-                    <p
-                        className="mt-4 text-lg text-text-secondary leading-relaxed"
-                        style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                        Two plans. No hidden fees. Pick the one that fits your
-                        team and start managing your IP portfolio today.
-                    </p>
+                        Pricing
+                    </span>
                 </div>
+                <FadeIn treeNode="tree-pricing">
+                    <div className="max-w-2xl mb-16 lg:mb-20">
+                        <h2
+                            className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
+                            style={{ fontFamily: 'var(--font-display)' }}
+                        >
+                            Simple, Transparent{' '}
+                            <span className="text-primary">Pricing</span>
+                        </h2>
+                        <p
+                            className="mt-4 text-lg text-text-secondary leading-relaxed"
+                            style={{ fontFamily: 'var(--font-body)' }}
+                        >
+                            Two plans. No hidden fees. Pick the one that fits your
+                            team and start managing your IP portfolio today.
+                        </p>
+                    </div>
+                </FadeIn>
 
                 {/* Plan Cards */}
                 <div className="grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto">
-                    {PLANS.map((plan) => (
+                    {PLANS.map((plan, i) => (
+                        <FadeIn key={plan.name} treeNode="tree-pricing" delay={i * 0.15}>
                         <div
-                            key={plan.name}
                             className={`relative rounded-2xl border p-8 ${
                                 plan.recommended
                                     ? 'border-primary shadow-xl shadow-primary/10 ring-1 ring-primary'
@@ -241,10 +244,12 @@ export function PricingSection() {
                                 ))}
                             </div>
                         </div>
+                        </FadeIn>
                     ))}
                 </div>
 
                 {/* Enterprise CTA */}
+                <FadeIn treeNode="tree-pricing" delay={0.3}>
                 <div className="text-center mt-12">
                     <p
                         className="text-sm text-text-secondary"
@@ -259,6 +264,7 @@ export function PricingSection() {
                         </a>
                     </p>
                 </div>
+                </FadeIn>
             </Container>
         </section>
     );

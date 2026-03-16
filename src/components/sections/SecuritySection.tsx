@@ -13,6 +13,7 @@ import {
     ArrowDown,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
+import { FadeIn } from '@/components/motion/FadeIn';
 
 const SECURITY_ITEMS = [
     {
@@ -58,57 +59,60 @@ export function SecuritySection() {
         <section id="security" className="py-24 lg:py-32 bg-navy">
             <Container>
                 {/* Section Heading */}
-                <div className="max-w-2xl mb-16 lg:mb-20">
-                    <div id="tree-security" className="flex items-center gap-3 mb-6">
-                        <span
-                            className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light"
-                            style={{ fontFamily: 'var(--font-mono)' }}
-                        >
-                            Security
-                        </span>
-                    </div>
-                    <h2
-                        className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl"
-                        style={{ fontFamily: 'var(--font-display)' }}
+                <div id="tree-security" className="flex items-center gap-3 mb-6">
+                    <span
+                        className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light"
+                        style={{ fontFamily: 'var(--font-mono)' }}
                     >
-                        Enterprise-Grade Security{' '}
-                        <span className="text-primary-light">
-                            at Every Layer
-                        </span>
-                    </h2>
-                    <p
-                        className="mt-4 text-lg text-text-on-dark/60 leading-relaxed"
-                        style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                        Your intellectual property data is your most valuable
-                        asset. We protect it with industry-standard security
-                        practices — from authentication to storage.
-                    </p>
+                        Security
+                    </span>
                 </div>
+                <FadeIn treeNode="tree-security">
+                    <div className="max-w-2xl mb-16 lg:mb-20">
+                        <h2
+                            className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl"
+                            style={{ fontFamily: 'var(--font-display)' }}
+                        >
+                            Enterprise-Grade Security{' '}
+                            <span className="text-primary-light">
+                                at Every Layer
+                            </span>
+                        </h2>
+                        <p
+                            className="mt-4 text-lg text-text-on-dark/60 leading-relaxed"
+                            style={{ fontFamily: 'var(--font-body)' }}
+                        >
+                            Your intellectual property data is your most valuable
+                            asset. We protect it with industry-standard security
+                            practices — from authentication to storage.
+                        </p>
+                    </div>
+                </FadeIn>
 
                 {/* Security Cards Grid */}
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {SECURITY_ITEMS.map((item) => (
-                        <div
-                            key={item.title}
-                            className="rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-200 hover:bg-white/8 hover:border-white/15"
-                        >
-                            <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-lg bg-primary-light/10">
-                                <item.icon className="w-5 h-5 text-primary-light" />
+                    {SECURITY_ITEMS.map((item, i) => (
+                        <FadeIn key={item.title} treeNode="tree-security" delay={i * 0.1} className="h-full">
+                            <div
+                                className="h-full rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-200 hover:bg-white/8 hover:border-white/15"
+                            >
+                                <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-lg bg-primary-light/10">
+                                    <item.icon className="w-5 h-5 text-primary-light" />
+                                </div>
+                                <h3
+                                    className="text-base font-semibold text-white mb-2"
+                                    style={{ fontFamily: 'var(--font-display)' }}
+                                >
+                                    {item.title}
+                                </h3>
+                                <p
+                                    className="text-sm leading-relaxed text-text-on-dark/50"
+                                    style={{ fontFamily: 'var(--font-body)' }}
+                                >
+                                    {item.description}
+                                </p>
                             </div>
-                            <h3
-                                className="text-base font-semibold text-white mb-2"
-                                style={{ fontFamily: 'var(--font-display)' }}
-                            >
-                                {item.title}
-                            </h3>
-                            <p
-                                className="text-sm leading-relaxed text-text-on-dark/50"
-                                style={{ fontFamily: 'var(--font-body)' }}
-                            >
-                                {item.description}
-                            </p>
-                        </div>
+                        </FadeIn>
                     ))}
                 </div>
 
@@ -122,6 +126,7 @@ export function SecuritySection() {
                             How Your Data Flows
                         </span>
                     </div>
+                <FadeIn treeNode="tree-data-flow" delay={0.2}>
 
                     {/* Desktop Flow — horizontal then vertical split */}
                     <div className="hidden lg:block">
@@ -215,6 +220,7 @@ export function SecuritySection() {
                             />
                         </div>
                     </div>
+                </FadeIn>
                 </div>
             </Container>
         </section>
@@ -238,7 +244,7 @@ function FlowNode({
 }) {
     return (
         <div
-            className={`rounded-xl border text-center flex-shrink-0 ${
+            className={`rounded-xl border text-center shrink-0 ${
                 highlight
                     ? 'border-primary-light/30 bg-primary-light/10'
                     : 'border-white/10 bg-white/5'
@@ -268,7 +274,7 @@ function FlowNode({
 
 function FlowArrow({ label }: { label: string }) {
     return (
-        <div className="flex flex-col items-center justify-center px-2 pt-8 flex-shrink-0">
+        <div className="flex flex-col items-center justify-center px-2 pt-8 shrink-0">
             <span
                 className="text-[10px] font-medium text-primary-light/60 mb-1"
                 style={{ fontFamily: 'var(--font-mono)' }}
@@ -286,7 +292,7 @@ function FlowArrow({ label }: { label: string }) {
 
 function FlowArrowVertical({ label }: { label: string }) {
     return (
-        <div className="flex flex-col items-center py-1 flex-shrink-0">
+        <div className="flex flex-col items-center py-1 shrink-0">
             <div className="w-px h-4 bg-primary-light/30" />
             <span
                 className="text-[10px] font-medium text-primary-light/60 my-1"

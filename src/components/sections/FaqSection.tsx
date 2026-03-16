@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SITE_URL } from '@/lib/constants';
+import { FadeIn } from '@/components/motion/FadeIn';
 
 interface FaqItem {
     question: string;
@@ -83,7 +84,7 @@ function FaqAccordionItem({ item, isOpen, onToggle }: {
                     {item.question}
                 </span>
                 <ChevronDown
-                    className={`w-5 h-5 text-text-muted flex-shrink-0 transition-transform duration-300 ${
+                    className={`w-5 h-5 text-text-muted shrink-0 transition-transform duration-300 ${
                         isOpen ? 'rotate-180' : ''
                     }`}
                 />
@@ -132,39 +133,42 @@ export function FaqSection() {
 
             <Container>
                 {/* Section Heading */}
-                <div className="max-w-2xl mb-16 lg:mb-20">
-                    <div id="tree-faq" className="flex items-center gap-3 mb-6">
-                        <span
-                            className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
-                            style={{ fontFamily: 'var(--font-mono)' }}
-                        >
-                            FAQ
-                        </span>
-                    </div>
-                    <h2
-                        className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
-                        style={{ fontFamily: 'var(--font-display)' }}
+                <div id="tree-faq" className="flex items-center gap-3 mb-6">
+                    <span
+                        className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
+                        style={{ fontFamily: 'var(--font-mono)' }}
                     >
-                        Frequently Asked{' '}
-                        <span className="text-primary">Questions</span>
-                    </h2>
-                    <p
-                        className="mt-4 text-lg text-text-secondary leading-relaxed"
-                        style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                        Everything you need to know about Design Your Invention.
-                        Can&apos;t find what you&apos;re looking for?{' '}
-                        <a
-                            href="#contact"
-                            className="text-primary font-semibold hover:text-primary-dark transition-colors"
-                        >
-                            Contact our team
-                        </a>
-                        .
-                    </p>
+                        FAQ
+                    </span>
                 </div>
+                <FadeIn treeNode="tree-faq">
+                    <div className="max-w-2xl mb-16 lg:mb-20">
+                        <h2
+                            className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
+                            style={{ fontFamily: 'var(--font-display)' }}
+                        >
+                            Frequently Asked{' '}
+                            <span className="text-primary">Questions</span>
+                        </h2>
+                        <p
+                            className="mt-4 text-lg text-text-secondary leading-relaxed"
+                            style={{ fontFamily: 'var(--font-body)' }}
+                        >
+                            Everything you need to know about Design Your Invention.
+                            Can&apos;t find what you&apos;re looking for?{' '}
+                            <a
+                                href="#contact"
+                                className="text-primary font-semibold hover:text-primary-dark transition-colors"
+                            >
+                                Contact our team
+                            </a>
+                            .
+                        </p>
+                    </div>
+                </FadeIn>
 
                 {/* Accordion */}
+                <FadeIn treeNode="tree-faq" delay={0.1}>
                 <div className="max-w-3xl mx-auto">
                     {FAQ_ITEMS.map((item, index) => (
                         <FaqAccordionItem
@@ -177,6 +181,7 @@ export function FaqSection() {
                         />
                     ))}
                 </div>
+                </FadeIn>
             </Container>
         </section>
     );

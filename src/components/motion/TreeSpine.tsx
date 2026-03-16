@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { updateTreeNodes } from '@/lib/treeProgress';
 
 interface TreeNodeConfig {
     elementId: string;
@@ -22,6 +23,7 @@ const TREE_NODE_IDS: TreeNodeConfig[] = [
 ];
 
 interface ComputedNode {
+    elementId: string;
     top: number;
     label: string;
     isDark: boolean;
@@ -58,6 +60,7 @@ export function TreeSpine() {
             if (el) {
                 const rect = el.getBoundingClientRect();
                 positions.push({
+                    elementId: node.elementId,
                     top: rect.top + window.scrollY - startY,
                     label: node.label,
                     isDark: node.isDark ?? false,
@@ -101,8 +104,16 @@ export function TreeSpine() {
             rawProgress.set(clamped);
 
             const drawnLength = clamped * treeEnd;
-            setVisibleNodes(nodes.map((node) => drawnLength >= node.top));
+            const newVisible = nodes.map((node) => drawnLength >= node.top);
+            setVisibleNodes(newVisible);
             setEndVisible(clamped > 0.95);
+
+            // Publish to external store so FadeIn can read it
+            const updates: Record<string, boolean> = {};
+            nodes.forEach((node, i) => {
+                updates[node.elementId] = newVisible[i];
+            });
+            updateTreeNodes(updates);
         }
 
         window.addEventListener('scroll', onScroll, { passive: true });

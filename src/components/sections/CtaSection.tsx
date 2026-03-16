@@ -2,6 +2,7 @@ import { ArrowRight, CreditCard, Clock, XCircle } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { CTA_SIGNUP_URL, CTA_DEMO_URL } from '@/lib/constants';
+import { FadeIn } from '@/components/motion/FadeIn';
 
 const TRUST_SIGNALS = [
     { icon: CreditCard, text: 'No credit card required' },
@@ -13,6 +14,7 @@ export function CtaSection() {
     return (
         <section className="py-24 lg:py-32">
             <Container>
+                <FadeIn>
                 <div className="text-center max-w-2xl mx-auto">
                     <h2
                         className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
@@ -59,6 +61,7 @@ export function CtaSection() {
                         ))}
                     </div>
                 </div>
+                </FadeIn>
             </Container>
         </section>
     );

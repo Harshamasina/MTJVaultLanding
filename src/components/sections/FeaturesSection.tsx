@@ -13,6 +13,7 @@ import {
 import { Container } from '@/components/ui/Container';
 import { BrowserFrame } from '@/components/ui/BrowserFrame';
 import { PctTimeline } from '@/components/sections/PctTimeline';
+import { FadeIn } from '@/components/motion/FadeIn';
 
 interface Feature {
     icon: React.ElementType;
@@ -127,7 +128,7 @@ const FEATURE_GROUPS: FeatureGroup[] = [
 
 function FeatureCard({ icon: Icon, title, description }: Feature) {
     return (
-        <article className="group rounded-xl border border-card-border bg-card-bg p-6 transition-all duration-200 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5">
+        <article className="h-full group rounded-xl border border-card-border bg-card-bg p-6 transition-all duration-200 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5">
             <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-lg bg-primary/10">
                 <Icon className="w-5 h-5 text-primary" />
             </div>
@@ -152,25 +153,27 @@ export function FeaturesSection() {
         <section id="features" className="py-24 lg:py-32">
             <Container>
                 {/* Section Heading */}
-                <div className="max-w-2xl mb-16 lg:mb-20">
-                    <h2
-                        className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
-                        style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                        Why IP Teams Choose{' '}
-                        <span className="text-primary">
-                            Design Your Invention
-                        </span>
-                    </h2>
-                    <p
-                        className="mt-4 text-lg text-text-secondary leading-relaxed"
-                        style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                        Everything patent attorneys, IP managers, and pharma
-                        teams need to manage their intellectual property
-                        portfolio — from filing to grant.
-                    </p>
-                </div>
+                <FadeIn treeNode="core-patent">
+                    <div className="max-w-2xl mb-16 lg:mb-20">
+                        <h2
+                            className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
+                            style={{ fontFamily: 'var(--font-display)' }}
+                        >
+                            Why IP Teams Choose{' '}
+                            <span className="text-primary">
+                                Design Your Invention
+                            </span>
+                        </h2>
+                        <p
+                            className="mt-4 text-lg text-text-secondary leading-relaxed"
+                            style={{ fontFamily: 'var(--font-body)' }}
+                        >
+                            Everything patent attorneys, IP managers, and pharma
+                            teams need to manage their intellectual property
+                            portfolio — from filing to grant.
+                        </p>
+                    </div>
+                </FadeIn>
 
                 {/* Feature Groups */}
                 <div className="space-y-24 lg:space-y-32">
@@ -194,24 +197,27 @@ export function FeaturesSection() {
                                         : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
                                 }`}
                             >
-                                {group.features.map((feature) => (
-                                    <FeatureCard
-                                        key={feature.title}
-                                        {...feature}
-                                    />
+                                {group.features.map((feature, i) => (
+                                    <FadeIn key={feature.title} treeNode={group.id} delay={i * 0.1} className="h-full">
+                                        <FeatureCard
+                                            {...feature}
+                                        />
+                                    </FadeIn>
                                 ))}
                             </div>
 
                             {/* Screenshot */}
                             {group.screenshot && (
-                                <div className="mt-12 lg:mt-16">
-                                    <BrowserFrame
-                                        src={group.screenshot.src}
-                                        alt={group.screenshot.alt}
-                                        width={group.screenshot.width}
-                                        height={group.screenshot.height}
-                                    />
-                                </div>
+                                <FadeIn treeNode={group.id} delay={0.2}>
+                                    <div className="mt-12 lg:mt-16">
+                                        <BrowserFrame
+                                            src={group.screenshot.src}
+                                            alt={group.screenshot.alt}
+                                            width={group.screenshot.width}
+                                            height={group.screenshot.height}
+                                        />
+                                    </div>
+                                </FadeIn>
                             )}
                         </div>
                     ))}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Container } from '@/components/ui/Container';
+import { FadeIn } from '@/components/motion/FadeIn';
 
 interface Stat {
     value: number;
@@ -175,12 +176,13 @@ export function StatsSection({ stats, variant = 'cards', className = '' }: Stats
         <section ref={sectionRef} className={`py-20 lg:py-24 ${className}`}>
             <Container>
                 <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
-                    {stats.map((stat) => (
-                        <StatComponent
-                            key={stat.label}
-                            stat={stat}
-                            isVisible={isVisible}
-                        />
+                    {stats.map((stat, i) => (
+                        <FadeIn key={stat.label} delay={i * 0.1}>
+                            <StatComponent
+                                stat={stat}
+                                isVisible={isVisible}
+                            />
+                        </FadeIn>
                     ))}
                 </div>
             </Container>
