@@ -16,7 +16,6 @@ interface PlanGroup {
 
 interface Plan {
     name: string;
-    price: string;
     description: string;
     target: string;
     recommended?: boolean;
@@ -27,7 +26,6 @@ interface Plan {
 const PLANS: Plan[] = [
     {
         name: 'Starter',
-        price: 'TBA',
         description: 'Everything you need to get off spreadsheets and manage your IP portfolio digitally.',
         target: 'Solo attorneys, IP boutiques, small biotechs',
         featureGroups: [
@@ -62,11 +60,10 @@ const PLANS: Plan[] = [
                 ],
             },
         ],
-        cta: 'Get Started',
+        cta: 'Book a Demo',
     },
     {
         name: 'Pharma Pro',
-        price: 'TBA',
         description: 'Regulatory-grade compliance and enterprise features for pharma IP teams.',
         target: 'Mid-size pharma IP teams, specialty law firms',
         recommended: true,
@@ -102,7 +99,7 @@ const PLANS: Plan[] = [
                 ],
             },
         ],
-        cta: 'Get Started',
+        cta: 'Book a Demo',
     },
 ];
 
@@ -132,8 +129,8 @@ export function PricingSection() {
                             className="mt-4 text-lg text-text-secondary leading-relaxed"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            Two plans. No hidden fees. Pick the one that fits your
-                            team and start managing your IP portfolio today.
+                            Two plans built for different team sizes. Book a demo
+                            and we&apos;ll walk you through pricing tailored to your needs.
                         </p>
                     </div>
                 </FadeIn>
@@ -167,14 +164,6 @@ export function PricingSection() {
                                 >
                                     {plan.name}
                                 </h3>
-                                {/* <div className="mt-3 flex items-baseline gap-1">
-                                    <span
-                                        className="text-4xl font-bold text-text-primary"
-                                        style={{ fontFamily: 'var(--font-mono)' }}
-                                    >
-                                        {plan.price}
-                                    </span>
-                                </div> */}
                                 <p
                                     className="mt-3 text-sm text-text-secondary leading-relaxed"
                                     style={{ fontFamily: 'var(--font-body)' }}

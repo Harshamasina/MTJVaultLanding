@@ -16,6 +16,7 @@ const TREE_NODE_IDS: TreeNodeConfig[] = [
     { elementId: 'case-mgmt', label: 'Case Mgmt' },
     { elementId: 'financial', label: 'Financial' },
     { elementId: 'timeline-flow', label: 'Timeline' },
+    { elementId: 'tree-import', label: 'Import' },
     { elementId: 'tree-compliance', label: 'Compliance' },
     { elementId: 'tree-security', label: 'Security', isDark: true },
     { elementId: 'tree-data-flow', label: 'Data Flow', isDark: true },

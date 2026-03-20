@@ -1,6 +1,7 @@
 import { HeroSection } from '@/components/sections/HeroSection';
 import { StatsSection, HERO_STATS, PRODUCT_STATS } from '@/components/sections/StatsSection';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
+import { ImportSection } from '@/components/sections/ImportSection';
 import { ComplianceSection } from '@/components/sections/ComplianceSection';
 import { SecuritySection } from '@/components/sections/SecuritySection';
 import { PricingSection } from '@/components/sections/PricingSection';
@@ -13,6 +14,7 @@ export default function HomePage() {
             <HeroSection />
             <StatsSection stats={HERO_STATS} variant="cards" />
             <FeaturesSection />
+            <ImportSection />
             <ComplianceSection />
             <StatsSection stats={PRODUCT_STATS} variant="minimal" />
             <SecuritySection />

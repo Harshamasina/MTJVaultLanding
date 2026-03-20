@@ -26,9 +26,10 @@ export function HeroSection() {
                             className="mt-5 text-base leading-relaxed text-text-secondary sm:mt-6 sm:text-lg sm:max-w-2xl"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            The modern patent docketing platform for IP teams.
-                            Track patent families, PCT/PRV/NPE cases, fees, deadlines,
-                            and FDA 21 CFR Part 11 compliance — all in one place.
+                            The modern patent portfolio management platform for IP teams.
+                            Streamline patent docketing, track PCT/PRV/NPE cases, manage
+                            fees and deadlines, and maintain FDA 21 CFR Part 11 compliance
+                            — all in one intellectual property management system.
                         </p>
                         <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
                             <BookDemoButton size="lg">

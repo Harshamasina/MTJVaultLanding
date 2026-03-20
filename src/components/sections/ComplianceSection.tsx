@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { BrowserFrame } from '@/components/ui/BrowserFrame';
 
 const COMPLIANCE_ITEMS = [
     {
@@ -48,72 +49,6 @@ const COMPLIANCE_ITEMS = [
     },
 ];
 
-interface AuditRow {
-    timestamp: string;
-    actor: string;
-    action: string;
-    actionColor: string;
-    entity: string;
-    changes: string;
-    reason: string;
-}
-
-const AUDIT_DATA: AuditRow[] = [
-    {
-        timestamp: '15 Mar 2026 10:48',
-        actor: 'sarah.chen@acmelaw.com',
-        action: 'Update',
-        actionColor: 'bg-primary/10 text-primary',
-        entity: 'Patent Family: CB-ONC-0005',
-        changes: 'Changed: Filing Date, Status',
-        reason: 'Priority date correction per USPTO notice',
-    },
-    {
-        timestamp: '15 Mar 2026 10:45',
-        actor: 'james.wu@acmelaw.com',
-        action: 'Create',
-        actionColor: 'bg-success/10 text-success',
-        entity: 'PRV Application: US63/900002',
-        changes: 'Created',
-        reason: '—',
-    },
-    {
-        timestamp: '14 Mar 2026 16:30',
-        actor: 'sarah.chen@acmelaw.com',
-        action: 'Update',
-        actionColor: 'bg-primary/10 text-primary',
-        entity: 'NPE Case: EP National Phase',
-        changes: 'Changed: Grant Date, Grant Number, Patent Expiry Date',
-        reason: 'Grant received from EPO',
-    },
-    {
-        timestamp: '14 Mar 2026 09:15',
-        actor: 'admin@acmelaw.com',
-        action: 'Delete',
-        actionColor: 'bg-danger/10 text-danger',
-        entity: 'Document: Draft OA Response v2',
-        changes: 'Deleted',
-        reason: 'Superseded by final version',
-    },
-    {
-        timestamp: '13 Mar 2026 17:05',
-        actor: 'james.wu@acmelaw.com',
-        action: 'Update',
-        actionColor: 'bg-primary/10 text-primary',
-        entity: 'PCT Filing: PCT/US2026/1243434',
-        changes: 'Changed: Status',
-        reason: 'National phase entry completed',
-    },
-    {
-        timestamp: '13 Mar 2026 14:22',
-        actor: 'lisa.park@acmelaw.com',
-        action: 'Create',
-        actionColor: 'bg-success/10 text-success',
-        entity: 'Annuity Fee: Year 2 — AU2026900456',
-        changes: 'Created',
-        reason: '—',
-    },
-];
 
 export function ComplianceSection() {
     return (
@@ -183,71 +118,22 @@ export function ComplianceSection() {
                     ))}
                 </div>
 
-                {/* Audit Trail Preview */}
+                {/* Audit Trail Screenshot */}
                 <FadeIn treeNode="tree-compliance" delay={0.2}>
-                <div className="mt-16 lg:mt-20">
-                    <h3
-                        className="text-lg font-semibold text-text-primary mb-6"
-                        style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                        Audit Trail — Every Action Recorded
-                    </h3>
-                    <div className="rounded-xl border border-card-border bg-white shadow-lg shadow-black/5 overflow-hidden">
-                        {/* Filter Bar */}
-                        <div className="flex flex-wrap items-center gap-4 px-5 py-4 border-b border-card-border bg-page-bg-alt">
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-text-muted" style={{ fontFamily: 'var(--font-body)' }}>Entity Type</span>
-                                <span className="text-xs font-medium text-text-primary px-3 py-1.5 bg-white rounded-md border border-card-border" style={{ fontFamily: 'var(--font-body)' }}>
-                                    Patent Family
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-text-muted" style={{ fontFamily: 'var(--font-body)' }}>Action</span>
-                                <span className="text-xs font-medium text-text-primary px-3 py-1.5 bg-white rounded-md border border-card-border" style={{ fontFamily: 'var(--font-body)' }}>
-                                    All
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-text-muted" style={{ fontFamily: 'var(--font-body)' }}>Actor</span>
-                                <span className="text-xs font-medium text-text-primary px-3 py-1.5 bg-white rounded-md border border-card-border" style={{ fontFamily: 'var(--font-body)' }}>
-                                    Select actor
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Table */}
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left" style={{ fontFamily: 'var(--font-body)' }}>
-                                <thead>
-                                    <tr className="border-b border-card-border">
-                                        <th className="px-5 py-3.5 text-xs font-semibold text-text-primary tracking-wide">Timestamp</th>
-                                        <th className="px-5 py-3.5 text-xs font-semibold text-text-primary tracking-wide">Actor</th>
-                                        <th className="px-5 py-3.5 text-xs font-semibold text-text-primary tracking-wide">Action</th>
-                                        <th className="px-5 py-3.5 text-xs font-semibold text-text-primary tracking-wide">Entity</th>
-                                        <th className="px-5 py-3.5 text-xs font-semibold text-text-primary tracking-wide">Changes</th>
-                                        <th className="px-5 py-3.5 text-xs font-semibold text-text-primary tracking-wide">Reason</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {AUDIT_DATA.map((row, i) => (
-                                        <tr key={i} className="border-b border-card-border last:border-b-0 hover:bg-page-bg-alt/50 transition-colors">
-                                            <td className="px-5 py-3.5 text-xs text-text-secondary whitespace-nowrap">{row.timestamp}</td>
-                                            <td className="px-5 py-3.5 text-xs text-text-secondary">{row.actor}</td>
-                                            <td className="px-5 py-3.5">
-                                                <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded ${row.actionColor}`}>
-                                                    {row.action}
-                                                </span>
-                                            </td>
-                                            <td className="px-5 py-3.5 text-xs text-text-secondary">{row.entity}</td>
-                                            <td className="px-5 py-3.5 text-xs text-text-secondary">{row.changes}</td>
-                                            <td className="px-5 py-3.5 text-xs text-text-secondary">{row.reason}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="mt-16 lg:mt-20">
+                        <h3
+                            className="text-lg font-semibold text-text-primary mb-6"
+                            style={{ fontFamily: 'var(--font-display)' }}
+                        >
+                            Audit Trail — Every Action Recorded
+                        </h3>
+                        <BrowserFrame
+                            src="/images/audit.png"
+                            alt="MTJVault audit trail showing timestamped records with actor, action type, entity, field changes, and reason-for-change for FDA 21 CFR Part 11 compliance"
+                            width={1560}
+                            height={740}
+                        />
                     </div>
-                </div>
                 </FadeIn>
             </Container>
         </section>

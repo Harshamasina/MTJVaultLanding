@@ -73,12 +73,12 @@ function CardContent({ node }: { node: TimelineNode }) {
                     : 'bg-white border border-card-border shadow-sm'
             }`}
         >
-            <h4
+            <p
                 className="text-[11px] font-semibold text-text-primary leading-snug"
                 style={{ fontFamily: 'var(--font-display)' }}
             >
                 {node.title}
-            </h4>
+            </p>
             <p
                 className="text-[10px] text-text-muted mt-1"
                 style={{ fontFamily: 'var(--font-body)' }}
@@ -149,12 +149,12 @@ export function PctTimeline() {
         <div ref={sectionRef} className="mt-24 lg:mt-32">
             {/* Sub-section Label */}
             <div id="timeline-flow" className="flex items-center gap-3 mb-4">
-                <span
+                <h3
                     className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
                     style={{ fontFamily: 'var(--font-mono)' }}
                 >
-                    Timeline Flow
-                </span>
+                    PCT Filing Timeline
+                </h3>
             </div>
             <p
                 className="text-sm text-text-secondary mb-16 max-w-xl"
@@ -301,12 +301,12 @@ export function PctTimeline() {
                                             </span>
                                         )}
                                     </div>
-                                    <h4
+                                    <p
                                         className="text-sm font-semibold text-text-primary"
                                         style={{ fontFamily: 'var(--font-display)' }}
                                     >
                                         {node.title}
-                                    </h4>
+                                    </p>
                                     <p
                                         className="text-xs text-text-muted mt-1"
                                         style={{ fontFamily: 'var(--font-body)' }}

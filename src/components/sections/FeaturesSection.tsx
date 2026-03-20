@@ -132,12 +132,12 @@ function FeatureCard({ icon: Icon, title, description }: Feature) {
             <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-lg bg-primary/10">
                 <Icon className="w-5 h-5 text-primary" />
             </div>
-            <h3
+            <h4
                 className="text-lg font-semibold text-text-primary mb-2"
                 style={{ fontFamily: 'var(--font-display)' }}
             >
                 {title}
-            </h3>
+            </h4>
             <p
                 className="text-sm leading-relaxed text-text-secondary"
                 style={{ fontFamily: 'var(--font-body)' }}
@@ -150,7 +150,7 @@ function FeatureCard({ icon: Icon, title, description }: Feature) {
 
 export function FeaturesSection() {
     return (
-        <section id="features" className="py-24 lg:py-32">
+        <section id="features" className="pt-24 pb-12 lg:pt-32 lg:pb-16">
             <Container>
                 {/* Section Heading */}
                 <FadeIn treeNode="core-patent">
@@ -181,12 +181,12 @@ export function FeaturesSection() {
                         <div key={group.label}>
                             {/* Sub-section Label */}
                             <div id={group.id} className="flex items-center gap-3 mb-8">
-                                <span
+                                <h3
                                     className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
                                     style={{ fontFamily: 'var(--font-mono)' }}
                                 >
                                     {group.label}
-                                </span>
+                                </h3>
                             </div>
 
                             {/* Feature Cards Grid */}

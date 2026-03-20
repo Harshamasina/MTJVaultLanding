@@ -255,12 +255,12 @@ function FlowNode({
             } ${small ? 'w-9 h-9 mb-2' : 'w-10 h-10 mb-3'}`}>
                 <Icon className={`text-primary-light ${small ? 'w-4 h-4' : 'w-5 h-5'}`} />
             </div>
-            <h4
+            <p
                 className={`font-semibold text-white ${small ? 'text-xs' : 'text-sm'}`}
                 style={{ fontFamily: 'var(--font-display)' }}
             >
                 {title}
-            </h4>
+            </p>
             <ul className={`mt-2 space-y-1 ${small ? 'text-[10px]' : 'text-xs'}`}>
                 {items.map((item) => (
                     <li key={item} className="text-text-on-dark/40" style={{ fontFamily: 'var(--font-body)' }}>

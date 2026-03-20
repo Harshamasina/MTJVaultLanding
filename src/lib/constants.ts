@@ -4,15 +4,16 @@ export const SITE_DESCRIPTION =
     'Enterprise patent docketing, PCT/PRV/NPE case management, and FDA 21 CFR Part 11 compliance software for law firms and pharma companies. Trusted by IP teams worldwide.';
 
 export const NAV_LINKS = [
-    { label: 'Features', href: '#features' },
-    { label: 'Compliance', href: '#compliance' },
-    { label: 'Security', href: '#security' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Features', href: '/#features' },
+    { label: 'Compliance', href: '/#compliance' },
+    { label: 'Security', href: '/#security' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'FAQ', href: '/#faq' },
+    { label: 'Contact', href: '/#contact' },
 ] as const;
 
-export const CTA_SIGNUP_URL = '#get-started';
-export const CTA_DEMO_URL = '#contact';
+export const CTA_SIGNUP_URL = '/#get-started';
+export const CTA_DEMO_URL = '/#contact';
 
 /* ── Shared form enums (must match backend validation) ── */
 

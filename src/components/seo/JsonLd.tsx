@@ -1,4 +1,5 @@
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
+import { FAQ_ITEMS } from '@/lib/faq-data';
 
 const organizationSchema = {
     '@context': 'https://schema.org',
@@ -8,6 +9,7 @@ const organizationSchema = {
     logo: `${SITE_URL}/logo.png`,
     description:
         'Enterprise IP management and patent docketing platform for law firms and pharma companies.',
+    sameAs: [],
 };
 
 const websiteSchema = {
@@ -27,11 +29,10 @@ const softwareSchema = {
     description:
         'Multi-tenant IP management software for patent docketing, PCT/PRV/NPE case management, and FDA 21 CFR Part 11 compliance.',
     offers: {
-        '@type': 'AggregateOffer',
+        '@type': 'Offer',
+        price: '0',
         priceCurrency: 'USD',
-        lowPrice: '0',
-        highPrice: '299',
-        offerCount: '3',
+        description: 'Contact us for pricing tailored to your team size and needs.',
     },
     featureList: [
         'Patent Docketing',
@@ -48,7 +49,58 @@ const softwareSchema = {
         'CSV Export',
         'Deadline Reminders',
         'Fee Analytics Dashboard',
+        'Bulk Portfolio Import (XLSX/CSV)',
     ],
+};
+
+const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+        {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: SITE_URL,
+        },
+        {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Features',
+            item: `${SITE_URL}/#features`,
+        },
+        {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'Compliance',
+            item: `${SITE_URL}/#compliance`,
+        },
+        {
+            '@type': 'ListItem',
+            position: 4,
+            name: 'Pricing',
+            item: `${SITE_URL}/#pricing`,
+        },
+        {
+            '@type': 'ListItem',
+            position: 5,
+            name: 'FAQ',
+            item: `${SITE_URL}/#faq`,
+        },
+    ],
+};
+
+const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_ITEMS.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+        },
+    })),
 };
 
 export function JsonLd() {
@@ -70,6 +122,18 @@ export function JsonLd() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(websiteSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(breadcrumbSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(faqSchema),
                 }}
             />
         </>

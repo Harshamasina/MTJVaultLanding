@@ -15,7 +15,7 @@ export function BrowserFrame({
     alt,
     width,
     height,
-    url = 'designyourinvention.com',
+    url = 'app.designyourinvention.com',
     className = '',
     priority = false,
 }: BrowserFrameProps) {

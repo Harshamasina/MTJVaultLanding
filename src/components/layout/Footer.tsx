@@ -28,19 +28,18 @@ function YouTubeIcon({ className }: { className?: string }) {
 
 const FOOTER_LINKS = {
     Product: [
-        { label: 'Features', href: '#features' },
-        { label: 'Compliance', href: '#compliance' },
-        { label: 'Pricing', href: '#pricing' },
-        { label: 'FAQ', href: '#faq' },
+        { label: 'Features', href: '/#features' },
+        { label: 'Compliance', href: '/#compliance' },
+        { label: 'Pricing', href: '/#pricing' },
+        { label: 'FAQ', href: '/#faq' },
     ],
     Resources: [
-        { label: 'Blog', href: '/blog/' },
-        { label: 'What Is IP Management?', href: '/blog/what-is-ip-management-software/' },
-        { label: 'Patent Docketing Guide', href: '/blog/patent-docketing-best-practices/' },
-        { label: 'FDA Compliance Guide', href: '/blog/fda-21-cfr-part-11-compliance-guide/' },
+        { label: 'What Is IP Management?', href: '/#faq' },
+        { label: 'Portfolio Import', href: '/#import' },
+        { label: 'Security Overview', href: '/#security' },
     ],
     Company: [
-        { label: 'Contact', href: '#contact' },
+        { label: 'Contact', href: '/#contact' },
     ],
     Legal: [
         { label: 'Privacy Policy', href: '/privacy/' },
@@ -61,7 +60,7 @@ export function Footer() {
         <footer className="bg-navy text-text-on-dark" role="contentinfo">
             <Container>
                 {/* Main Footer Grid */}
-                <div className="grid grid-cols-1 gap-12 py-20 md:grid-cols-2 lg:grid-cols-5 lg:gap-16">
+                <div className="grid grid-cols-1 gap-12 py-20 md:grid-cols-2 lg:grid-cols-6 lg:gap-12">
                     {/* Brand Column — spans 2 cols on lg */}
                     <div className="lg:col-span-2 lg:pr-8">
                         <Link
