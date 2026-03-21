@@ -24,7 +24,7 @@ export function HeroTreeVisual() {
                         {/* Level 1: Patent Family (root) */}
                         <TreeCard
                             type="family"
-                            title="CB-ONC-0005"
+                            title="ONC-0005"
                             badge="Patent Family"
                             rows={[
                                 ['Family Name', 'Oncology Platform Family A'],
