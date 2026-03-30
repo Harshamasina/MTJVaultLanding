@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { playfair, baskerville, ibmPlexMono } from '@/lib/fonts';
+import { playfair, baskerville, ibmPlexMono, dmSans, jetbrainsMono } from '@/lib/fonts';
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -57,7 +57,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${playfair.variable} ${baskerville.variable} ${ibmPlexMono.variable}`}
+            className={`${playfair.variable} ${baskerville.variable} ${ibmPlexMono.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
         >
             <body>
                 <a href="#main-content" className="skip-to-content">

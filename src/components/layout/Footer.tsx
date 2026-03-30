@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ShieldCheck, FileCheck, Building2, Lock, Fingerprint, Server } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SITE_NAME } from '@/lib/constants';
 
@@ -26,6 +27,15 @@ function YouTubeIcon({ className }: { className?: string }) {
     );
 }
 
+const TRUST_BADGES = [
+    { icon: ShieldCheck, label: 'SOC 2 Ready' },
+    { icon: FileCheck, label: 'FDA 21 CFR Part 11' },
+    { icon: Building2, label: 'Enterprise SSO' },
+    { icon: Lock, label: 'AES-256 Encryption' },
+    { icon: Fingerprint, label: 'MFA Authentication' },
+    { icon: Server, label: 'AWS Infrastructure' },
+];
+
 const FOOTER_LINKS = {
     Product: [
         { label: 'Features', href: '/#features' },
@@ -40,6 +50,7 @@ const FOOTER_LINKS = {
     ],
     Company: [
         { label: 'Contact', href: '/#contact' },
+        { label: 'Support', href: '/support/' },
     ],
     Legal: [
         { label: 'Privacy Policy', href: '/privacy/' },
@@ -57,82 +68,167 @@ export function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-navy text-text-on-dark" role="contentinfo">
-            <Container>
-                {/* Main Footer Grid */}
-                <div className="grid grid-cols-1 gap-12 py-20 md:grid-cols-2 lg:grid-cols-6 lg:gap-12">
-                    {/* Brand Column — spans 2 cols on lg */}
-                    <div className="lg:col-span-2 lg:pr-8">
-                        <Link
-                            href="/"
-                            className="inline-flex items-center gap-2 text-xl font-bold tracking-tight no-underline"
-                            style={{ fontFamily: 'var(--font-display)' }}
-                        >
-                            <span className="text-white">{SITE_NAME}</span>
-                        </Link>
-                        <p
-                            className="mt-5 text-[15px] leading-relaxed text-text-on-dark/60 max-w-md"
-                            style={{ fontFamily: 'var(--font-body)' }}
-                        >
-                            Enterprise IP management software for law firms and
-                            pharma companies. Patent docketing, PCT/PRV/NPE case
-                            management, and FDA 21 CFR Part 11 compliance — all
-                            in one secure, multi-tenant platform.
-                        </p>
-
-                        {/* Social Icons */}
-                        <div className="mt-8 flex items-center gap-5">
-                            {SOCIAL_LINKS.map((social) => (
-                                <a
-                                    key={social.label}
-                                    href={social.href}
-                                    className="text-text-on-dark/40 hover:text-primary-light transition-colors duration-200"
-                                    aria-label={`Follow us on ${social.label}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+        <div>
+            {/* ── Trust Card — sits on white bg, bottom half overlaps into footer ── */}
+            <div className="relative z-10 pb-0">
+                <Container>
+                    <div className="rounded-2xl border border-primary/15 bg-navy-light p-8 sm:p-10 lg:p-12 shadow-2xl shadow-primary/10 mb-[-120px] sm:mb-[-140px]">
+                        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+                            {/* Left: Trust Badges */}
+                            <div className="flex-[3]">
+                                <p
+                                    className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light mb-4"
+                                    style={{ fontFamily: 'var(--font-mono)' }}
                                 >
-                                    <social.icon className="w-5.5 h-5.5" />
-                                </a>
-                            ))}
-                        </div>
-                    </div>
+                                    Enterprise Trust
+                                </p>
+                                <h3
+                                    className="text-xl sm:text-2xl font-bold text-white mb-6"
+                                    style={{ fontFamily: 'var(--font-display)' }}
+                                >
+                                    Built for teams that can&apos;t afford to compromise on security
+                                </h3>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    {TRUST_BADGES.map((badge) => (
+                                        <div
+                                            key={badge.label}
+                                            className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/[0.04]"
+                                        >
+                                            <div className="w-8 h-8 rounded-lg bg-primary-light/10 flex items-center justify-center shrink-0">
+                                                <badge.icon className="w-4 h-4 text-primary-light" />
+                                            </div>
+                                            <span
+                                                className="text-[11px] sm:text-xs font-semibold text-white/80"
+                                                style={{ fontFamily: 'var(--font-mono)' }}
+                                            >
+                                                {badge.label}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
 
-                    {/* Link Columns */}
-                    {Object.entries(FOOTER_LINKS).map(([category, links]) => (
-                        <div key={category}>
-                            <h3
-                                className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light mb-5"
-                                style={{ fontFamily: 'var(--font-display)' }}
-                            >
-                                {category}
-                            </h3>
-                            <ul className="space-y-3.5">
-                                {links.map((link) => (
-                                    <li key={link.label}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-sm text-text-on-dark/60 hover:text-white transition-colors duration-200 no-underline"
+                            {/* Right: Testimonial */}
+                            <div className="flex-[2] flex flex-col justify-center">
+                                <div className="border-l-2 border-primary-light/30 pl-6">
+                                    <svg className="w-8 h-8 text-primary-light/20 mb-4" fill="currentColor" viewBox="0 0 32 32">
+                                        <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
+                                    </svg>
+                                    <blockquote>
+                                        <p
+                                            className="text-base sm:text-lg text-white/90 leading-relaxed italic"
                                             style={{ fontFamily: 'var(--font-body)' }}
                                         >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
+                                            Built by patent professionals, for patent professionals.
+                                            Every feature exists because an IP team needed it.
+                                        </p>
+                                    </blockquote>
+                                    <div className="mt-5 flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                                            <span className="text-sm font-bold text-primary-light" style={{ fontFamily: 'var(--font-mono)' }}>
+                                                DI
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p
+                                                className="text-sm font-semibold text-white"
+                                                style={{ fontFamily: 'var(--font-display)' }}
+                                            >
+                                                Design Your Invention Team
+                                            </p>
+                                            <p
+                                                className="text-xs text-white/40"
+                                                style={{ fontFamily: 'var(--font-body)' }}
+                                            >
+                                                IP Management Platform
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                </Container>
+            </div>
 
-                {/* Copyright Bar */}
-                <div className="border-t border-white/10 py-8">
-                    <p
-                        className="text-xs text-text-on-dark/40 text-center"
-                        style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                        &copy; {currentYear} {SITE_NAME}. All rights reserved.
-                    </p>
-                </div>
-            </Container>
-        </footer>
+            {/* ── Footer — dark navy, padded top to accommodate card overlap ── */}
+            <footer className="bg-navy text-text-on-dark pt-40 sm:pt-48" role="contentinfo">
+                <Container>
+                    {/* Footer Links Grid */}
+                    <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6 lg:gap-12">
+                        {/* Brand Column */}
+                        <div className="lg:col-span-2 lg:pr-8">
+                            <Link
+                                href="/"
+                                className="inline-flex items-center gap-2 text-xl font-bold tracking-tight no-underline"
+                                style={{ fontFamily: 'var(--font-display)' }}
+                            >
+                                <span className="text-white">{SITE_NAME}</span>
+                            </Link>
+                            <p
+                                className="mt-5 text-[15px] leading-relaxed text-text-on-dark/60 max-w-md"
+                                style={{ fontFamily: 'var(--font-body)' }}
+                            >
+                                Enterprise IP management software for law firms and
+                                pharma companies. Patent docketing, PCT/PRV/NPE case
+                                management, and FDA 21 CFR Part 11 compliance — all
+                                in one secure, multi-tenant platform.
+                            </p>
+
+                            {/* Social Icons */}
+                            <div className="mt-8 flex items-center gap-5">
+                                {SOCIAL_LINKS.map((social) => (
+                                    <a
+                                        key={social.label}
+                                        href={social.href}
+                                        className="text-text-on-dark/40 hover:text-primary-light transition-colors duration-200"
+                                        aria-label={`Follow us on ${social.label}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <social.icon className="w-5.5 h-5.5" />
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Link Columns */}
+                        {Object.entries(FOOTER_LINKS).map(([category, links]) => (
+                            <div key={category}>
+                                <h3
+                                    className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light mb-5"
+                                    style={{ fontFamily: 'var(--font-display)' }}
+                                >
+                                    {category}
+                                </h3>
+                                <ul className="space-y-3.5">
+                                    {links.map((link) => (
+                                        <li key={link.label}>
+                                            <Link
+                                                href={link.href}
+                                                className="text-sm text-text-on-dark/60 hover:text-white transition-colors duration-200 no-underline"
+                                                style={{ fontFamily: 'var(--font-body)' }}
+                                            >
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Copyright Bar */}
+                    <div className="border-t border-white/10 mt-16 py-8">
+                        <p
+                            className="text-xs text-text-on-dark/40 text-center"
+                            style={{ fontFamily: 'var(--font-body)' }}
+                        >
+                            &copy; {currentYear} {SITE_NAME}. All rights reserved.
+                        </p>
+                    </div>
+                </Container>
+            </footer>
+        </div>
     );
 }

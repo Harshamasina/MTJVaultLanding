@@ -8,44 +8,44 @@ import {
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { FadeIn } from '@/components/motion/FadeIn';
-import { BrowserFrame } from '@/components/ui/BrowserFrame';
+import { AnimatedAuditTable } from '@/components/ui/AnimatedAuditTable';
 
 const COMPLIANCE_ITEMS = [
     {
         icon: FileWarning,
         title: 'Reason-for-Change on Every Edit',
         description:
-            'Any edit to a critical field — dates, statuses, legal events — requires a documented reason before saving. No silent changes.',
+            'Critical field edits require a documented reason before saving. No silent changes.',
     },
     {
         icon: ScrollText,
         title: 'Full Audit Trail',
         description:
-            'Every change logged with who made it, what changed, when it happened, and the before/after diff. Filterable by entity, user, date, and action.',
+            'Every change logged — who, what, when, and the before/after diff.',
     },
     {
         icon: KeyRound,
         title: 'Electronic Signatures',
         description:
-            'Re-authentication prompt before any approval action. Step-up auth challenge for high-risk operations like bulk deletes and status changes.',
+            'Re-authentication prompt before approval actions and high-risk operations.',
     },
     {
         icon: ShieldCheck,
         title: 'Immutable Audit Records',
         description:
-            'No edit or delete on audit history — ever. Read-only, tamper-proof records that satisfy regulatory inspections.',
+            'No edit or delete on audit history — ever. Read-only, tamper-proof records.',
     },
     {
         icon: Users,
         title: 'Role-Based Access Control',
         description:
-            'Four roles — Tenant Admin, Attorney, Paralegal, Viewer — with granular permissions. Frontend restrictions backed by server-side enforcement.',
+            'Admin, Attorney, Paralegal, Viewer — granular permissions enforced server-side.',
     },
     {
         icon: FolderLock,
         title: 'Secure Document Management',
         description:
-            'Version-controlled uploads with presigned S3 downloads. File type restrictions, category-based organization, and full delete audit trail.',
+            'Version-controlled uploads with presigned downloads and full delete audit trail.',
     },
 ];
 
@@ -64,7 +64,7 @@ export function ComplianceSection() {
                     </span>
                 </div>
                 <FadeIn treeNode="tree-compliance">
-                    <div className="max-w-2xl mb-16 lg:mb-20">
+                    <div className="max-w-2xl mb-12 lg:mb-16">
                         <h2
                             className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                             style={{ fontFamily: 'var(--font-display)' }}
@@ -86,56 +86,64 @@ export function ComplianceSection() {
                     </div>
                 </FadeIn>
 
-                {/* Compliance Checklist Grid */}
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    {COMPLIANCE_ITEMS.map((item, i) => (
-                        <FadeIn key={item.title} treeNode="tree-compliance" delay={i * 0.1}>
-                            <div className="flex gap-4">
-                                {/* Checkmark Icon */}
-                                <div className="shrink-0 mt-1">
-                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                                        <item.icon className="w-5 h-5 text-primary" />
-                                    </div>
-                                </div>
+                {/* Alternating layout: items left, audit table right */}
+                <div>
+                    {/* Desktop */}
+                    <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-start">
+                        {/* Left: Compliance items */}
+                        <div className="flex flex-col gap-1">
+                            {COMPLIANCE_ITEMS.map((item, i) => (
+                                <FadeIn key={item.title} treeNode="tree-compliance" delay={i * 0.08}>
+                                    <ComplianceCard {...item} />
+                                </FadeIn>
+                            ))}
+                        </div>
 
-                                {/* Content */}
-                                <div>
-                                    <h3
-                                        className="text-base font-semibold text-text-primary mb-1"
-                                        style={{ fontFamily: 'var(--font-display)' }}
-                                    >
-                                        {item.title}
-                                    </h3>
-                                    <p
-                                        className="text-sm leading-relaxed text-text-secondary"
-                                        style={{ fontFamily: 'var(--font-body)' }}
-                                    >
-                                        {item.description}
-                                    </p>
-                                </div>
-                            </div>
+                        {/* Right: Animated Audit Table */}
+                        <FadeIn treeNode="tree-compliance" delay={0.1}>
+                            <AnimatedAuditTable />
                         </FadeIn>
-                    ))}
-                </div>
-
-                {/* Audit Trail Screenshot */}
-                <FadeIn treeNode="tree-compliance" delay={0.2}>
-                    <div className="mt-16 lg:mt-20">
-                        <h3
-                            className="text-lg font-semibold text-text-primary mb-6"
-                            style={{ fontFamily: 'var(--font-display)' }}
-                        >
-                            Audit Trail — Every Action Recorded
-                        </h3>
-                        <BrowserFrame
-                            src="/images/audit.png"
-                            alt="MTJVault audit trail showing timestamped records with actor, action type, entity, field changes, and reason-for-change for FDA 21 CFR Part 11 compliance"
-                            width={1560}
-                            height={740}
-                        />
                     </div>
-                </FadeIn>
+
+                    {/* Mobile */}
+                    <div className="lg:hidden space-y-8">
+                        <div className="flex flex-col gap-1">
+                            {COMPLIANCE_ITEMS.map((item, i) => (
+                                <FadeIn key={item.title} delay={i * 0.08}>
+                                    <ComplianceCard {...item} />
+                                </FadeIn>
+                            ))}
+                        </div>
+                        <FadeIn delay={0.2}>
+                            <AnimatedAuditTable />
+                        </FadeIn>
+                    </div>
+                </div>
             </Container>
         </section>
+    );
+}
+
+function ComplianceCard({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) {
+    return (
+        <article className="group flex gap-4 items-start p-4 rounded-xl border border-transparent transition-all duration-200 hover:border-card-border hover:bg-card-bg hover:shadow-md hover:shadow-black/[0.03]">
+            <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 mt-0.5">
+                <Icon className="w-5 h-5 text-primary" />
+            </div>
+            <div className="min-w-0">
+                <h3
+                    className="text-[15px] font-semibold text-text-primary leading-snug"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                >
+                    {title}
+                </h3>
+                <p
+                    className="mt-1 text-[13px] leading-relaxed text-text-secondary"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                >
+                    {description}
+                </p>
+            </div>
+        </article>
     );
 }

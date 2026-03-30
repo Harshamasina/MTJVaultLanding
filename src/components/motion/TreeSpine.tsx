@@ -12,14 +12,10 @@ interface TreeNodeConfig {
 }
 
 const TREE_NODE_IDS: TreeNodeConfig[] = [
-    { elementId: 'core-patent', label: 'Core Patent' },
-    { elementId: 'case-mgmt', label: 'Case Mgmt' },
-    { elementId: 'financial', label: 'Financial' },
-    { elementId: 'timeline-flow', label: 'Timeline' },
+    { elementId: 'tree-features', label: 'Features' },
     { elementId: 'tree-import', label: 'Import' },
     { elementId: 'tree-compliance', label: 'Compliance' },
     { elementId: 'tree-security', label: 'Security', isDark: true },
-    { elementId: 'tree-data-flow', label: 'Data Flow', isDark: true },
     { elementId: 'tree-pricing', label: 'Pricing' },
     { elementId: 'tree-faq', label: 'FAQ' },
 ];

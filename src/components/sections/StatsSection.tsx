@@ -190,31 +190,32 @@ export function StatsSection({ stats, variant = 'cards', className = '' }: Stats
     );
 }
 
-/* Pre-defined stat sets */
+/* Pre-defined stat sets — all numbers are real product capabilities */
 export const HERO_STATS: Stat[] = [
     {
-        value: 10,
-        suffix: 'x',
-        label: 'Faster Patent Docketing',
-        sublabel: 'vs manual spreadsheets',
+        value: 7,
+        suffix: '',
+        label: 'Core Patent Modules',
+        sublabel: 'Families, PRV, PCT, NPE & more',
     },
     {
-        value: 90,
-        suffix: '%',
-        label: 'Fewer Missed Deadlines',
-        sublabel: 'with calendar & alerts',
+        value: 5,
+        suffix: '',
+        label: 'User Roles',
+        sublabel: 'granular RBAC built in',
+    },
+    {
+        value: 21,
+        suffix: '',
+        prefix: '',
+        label: 'CFR Part 11 Compliant',
+        sublabel: 'FDA-ready from day one',
     },
     {
         value: 100,
         suffix: '%',
         label: 'Audit Coverage',
-        sublabel: 'from day one',
-    },
-    {
-        value: 60,
-        suffix: '%',
-        label: 'Less Admin Time',
-        sublabel: 'with bulk actions & automation',
+        sublabel: 'append-only, immutable logs',
     },
 ];
 
@@ -222,20 +223,20 @@ export const PRODUCT_STATS: Stat[] = [
     {
         value: 42,
         suffix: '+',
-        label: 'Fee Types Supported',
+        label: 'Fee Types Tracked',
         sublabel: 'across 8 categories',
     },
     {
-        value: 5,
+        value: 8,
         suffix: '',
-        label: 'Filing Types',
-        sublabel: 'Family, PRV, PCT, NPE, Office Action',
+        label: 'Permission Types',
+        sublabel: 'read & write per module',
     },
     {
-        value: 100,
-        suffix: '%',
-        label: 'Audit Coverage',
-        sublabel: 'every edit tracked & immutable',
+        value: 3,
+        suffix: '',
+        label: 'Pricing Plans',
+        sublabel: 'Starter, Pharma Pro, Enterprise',
     },
     {
         value: 0,

@@ -1,8 +1,8 @@
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
-import { BrowserFrame } from '@/components/ui/BrowserFrame';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
 import { HeroTreeVisual } from '@/components/ui/HeroTreeVisual';
+import { AnimatedDashboard } from '@/components/ui/AnimatedDashboard';
 import { CTA_DEMO_URL } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
 
@@ -10,9 +10,9 @@ export function HeroSection() {
     return (
         <section className="pt-28 pb-0 sm:pt-32 lg:pt-40 overflow-hidden">
             <Container>
-                <div className="flex items-start gap-8 lg:gap-12">
+                <div className="flex items-start gap-8 lg:gap-16 xl:gap-20">
                     {/* Text Content — left */}
-                    <div className="w-full lg:max-w-[55%] lg:shrink-0">
+                    <div className="w-full lg:max-w-[52%] lg:shrink-0">
                         <h1
                             className="text-[2.5rem] font-bold leading-[1.1] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5rem]"
                             style={{ fontFamily: 'var(--font-display)' }}
@@ -43,21 +43,17 @@ export function HeroSection() {
                     </div>
 
                     {/* Family Tree Visual — right, hidden below lg */}
-                    <div className="hidden lg:block flex-1 min-w-0">
-                        <HeroTreeVisual />
+                    <div className="hidden lg:flex flex-1 min-w-0 items-start justify-center pt-2">
+                        <div className="w-full max-w-[420px]">
+                            <HeroTreeVisual />
+                        </div>
                     </div>
                 </div>
             </Container>
 
-            {/* Dashboard Screenshot */}
-            <div id="hero-dashboard" className="mt-16 sm:mt-20 lg:mt-28 mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
-                <BrowserFrame
-                    src="/images/dashboard.png"
-                    alt="MTJVault IP management dashboard showing patent portfolio overview with stat cards, jurisdiction charts, and deadline notifications"
-                    width={1560}
-                    height={680}
-                    priority
-                />
+            {/* Animated Dashboard */}
+            <div id="hero-dashboard" className="mt-16 sm:mt-20 lg:mt-28 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                <AnimatedDashboard />
             </div>
         </section>
     );

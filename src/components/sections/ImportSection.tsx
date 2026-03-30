@@ -4,7 +4,7 @@ import {
     Upload,
     Eye,
     CheckCircle2,
-    ArrowRight,
+    ArrowDown,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
@@ -89,48 +89,53 @@ export function ImportSection() {
                 </FadeIn>
 
                 {/* 3-Step Flow */}
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 relative">
-                    {/* Connector lines (desktop only) */}
-                    <div className="hidden lg:block absolute top-18 left-[calc(33.33%-1rem)] right-[calc(33.33%-1rem)] z-0">
-                        <div className="flex items-center justify-between">
+                <div className="grid gap-0 lg:grid-cols-3 lg:gap-0 relative">
+                    {/* Desktop connector lines */}
+                    <div className="hidden lg:block absolute top-[3.5rem] left-[calc(33.33%+0.5rem)] right-[calc(33.33%+0.5rem)] z-0">
+                        <div className="flex items-center justify-between gap-0">
                             <motion.div
-                                className="flex-1 h-0.5 bg-linear-to-r from-primary/40 to-primary/40 mx-4"
-                                initial={{ scaleX: 0 }}
-                                whileInView={{ scaleX: 1 }}
+                                className="flex-1 flex items-center"
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.8, delay: 0.5 }}
-                                style={{ transformOrigin: 'left' }}
-                            />
+                                transition={{ duration: 0.4, delay: 0.5 }}
+                            >
+                                <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-primary/20" />
+                                <div className="w-2 h-2 rounded-full bg-primary/30 -mx-1" />
+                            </motion.div>
                             <motion.div
-                                className="flex-1 h-0.5 bg-linear-to-r from-primary/40 to-primary/40 mx-4"
-                                initial={{ scaleX: 0 }}
-                                whileInView={{ scaleX: 1 }}
+                                className="flex-1 flex items-center"
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.8, delay: 0.8 }}
-                                style={{ transformOrigin: 'left' }}
-                            />
+                                transition={{ duration: 0.4, delay: 0.8 }}
+                            >
+                                <div className="w-2 h-2 rounded-full bg-primary/30 -mx-1" />
+                                <div className="flex-1 h-px bg-gradient-to-r from-primary/20 to-primary/30" />
+                            </motion.div>
                         </div>
                     </div>
 
                     {STEPS.map((step, i) => (
                         <FadeIn key={step.number} treeNode="tree-import" delay={i * 0.15}>
                             <div className="relative z-10 group">
-                                {/* Mobile connector arrow */}
+                                {/* Mobile connector */}
                                 {i > 0 && (
-                                    <div className="flex justify-center py-3 lg:hidden">
-                                        <ArrowRight className="w-5 h-5 text-primary/40 rotate-90" />
+                                    <div className="flex flex-col items-center py-2 lg:hidden">
+                                        <div className="w-px h-4 bg-gradient-to-b from-primary/30 to-primary/15" />
+                                        <ArrowDown className="w-4 h-4 text-primary/30 -mt-0.5" />
                                     </div>
                                 )}
 
-                                <div className="rounded-2xl border border-card-border bg-card-bg p-8 h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20">
+                                <div className={`rounded-2xl border border-card-border bg-card-bg p-6 sm:p-8 h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 ${i > 0 ? 'lg:ml-4' : ''} ${i < STEPS.length - 1 ? 'lg:mr-4' : ''}`}>
                                     {/* Step number + icon */}
-                                    <div className="flex items-center gap-4 mb-6">
+                                    <div className="flex items-center gap-4 mb-5">
                                         <div className="relative">
-                                            <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-                                                <step.icon className="w-6 h-6 text-primary" />
+                                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                                                <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                                             </div>
                                             <span
-                                                className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center"
+                                                className="absolute -top-1.5 -right-1.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary text-white text-[10px] sm:text-xs font-bold flex items-center justify-center"
                                                 style={{ fontFamily: 'var(--font-mono)' }}
                                             >
                                                 {step.number}
@@ -138,7 +143,7 @@ export function ImportSection() {
                                         </div>
                                         <div>
                                             <h3
-                                                className="text-xl font-bold text-text-primary"
+                                                className="text-lg sm:text-xl font-bold text-text-primary"
                                                 style={{ fontFamily: 'var(--font-display)' }}
                                             >
                                                 {step.title}
@@ -153,12 +158,12 @@ export function ImportSection() {
                                     </div>
 
                                     {/* Details */}
-                                    <ul className="space-y-3">
+                                    <ul className="space-y-2.5">
                                         {step.details.map((detail) => (
-                                            <li key={detail} className="flex gap-3">
+                                            <li key={detail} className="flex gap-2.5">
                                                 <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                                                 <span
-                                                    className="text-sm text-text-secondary leading-relaxed"
+                                                    className="text-[13px] text-text-secondary leading-relaxed"
                                                     style={{ fontFamily: 'var(--font-body)' }}
                                                 >
                                                     {detail}
