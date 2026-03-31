@@ -13,11 +13,12 @@ const EASE = [0.21, 0.47, 0.32, 0.98] as const;
 export function HeroTreeVisual() {
     return (
         <motion.div
+            aria-hidden="true"
+            role="img"
             className="relative select-none"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
-            aria-hidden="true"
         >
             <div className="relative flex flex-col items-center gap-0">
 

@@ -72,6 +72,8 @@ export function AnimatedDashboard() {
     return (
         <motion.div
             ref={containerRef}
+            aria-hidden="true"
+            role="img"
             className="relative rounded-xl border border-card-border bg-[#f8f8fa] shadow-2xl shadow-black/10 overflow-hidden flex flex-col lg:aspect-[2/1]"
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}

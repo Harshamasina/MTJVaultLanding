@@ -203,6 +203,8 @@ export function AnimatedAuditTable() {
     return (
         <motion.div
             ref={containerRef}
+            aria-hidden="true"
+            role="img"
             className="relative rounded-xl border border-card-border bg-[#f8f8fa] shadow-2xl shadow-black/10 overflow-hidden flex flex-col h-[420px] sm:h-[460px]"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}

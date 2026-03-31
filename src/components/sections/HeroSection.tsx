@@ -1,10 +1,9 @@
 import { Container } from '@/components/ui/Container';
-import { Button } from '@/components/ui/Button';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
+import { WatchDemoButton } from '@/components/ui/WatchDemoModal';
 import { HeroTreeVisual } from '@/components/ui/HeroTreeVisual';
 import { AnimatedDashboard } from '@/components/ui/AnimatedDashboard';
-import { CTA_DEMO_URL } from '@/lib/constants';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 
 export function HeroSection() {
     return (
@@ -36,9 +35,10 @@ export function HeroSection() {
                                 Book a Demo
                                 <ArrowRight className="w-5 h-5" />
                             </BookDemoButton>
-                            <Button href={CTA_DEMO_URL} variant="secondary" size="lg">
-                                Learn More
-                            </Button>
+                            <WatchDemoButton variant="secondary" size="lg">
+                                <Play className="w-5 h-5 fill-current" />
+                                Watch Demo
+                            </WatchDemoButton>
                         </div>
                     </div>
 
