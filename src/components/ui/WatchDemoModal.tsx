@@ -11,6 +11,8 @@ import {
     VolumeX,
     Maximize,
     Minimize,
+    Loader2,
+    RotateCcw,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -75,19 +77,24 @@ function formatTime(seconds: number): string {
 
 /* ─── Video Modal ─── */
 
+type VideoState = 'idle' | 'loading' | 'ready' | 'playing' | 'buffering' | 'ended' | 'error';
+
 function VideoModal({ onClose }: { onClose: () => void }) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const progressRef = useRef<HTMLDivElement>(null);
     const controlsTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [videoState, setVideoState] = useState<VideoState>('idle');
     const [isMuted, setIsMuted] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [showControls, setShowControls] = useState(true);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [buffered, setBuffered] = useState(0);
-    const [showOverlay, setShowOverlay] = useState(true);
+
+    const isPlaying = videoState === 'playing' || videoState === 'buffering';
+    const showSpinner = videoState === 'loading' || videoState === 'buffering';
+    const showPlayOverlay = videoState === 'idle' || videoState === 'ready' || videoState === 'ended';
 
     // Lock body scroll
     useEffect(() => {
@@ -97,7 +104,7 @@ function VideoModal({ onClose }: { onClose: () => void }) {
         };
     }, []);
 
-    // Close on Escape
+    // Close on Escape, Space to play/pause
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -137,9 +144,12 @@ function VideoModal({ onClose }: { onClose: () => void }) {
     function togglePlay() {
         const video = videoRef.current;
         if (!video) return;
+
         if (video.paused) {
-            video.play();
-            setShowOverlay(false);
+            setVideoState('loading');
+            video.play().catch(() => {
+                setVideoState('error');
+            });
         } else {
             video.pause();
         }
@@ -181,12 +191,6 @@ function VideoModal({ onClose }: { onClose: () => void }) {
             Math.min(1, (e.clientX - rect.left) / rect.width),
         );
         video.currentTime = ratio * video.duration;
-    }
-
-    function handleVideoEnd() {
-        setIsPlaying(false);
-        setShowControls(true);
-        setShowOverlay(true);
     }
 
     const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -266,45 +270,119 @@ function VideoModal({ onClose }: { onClose: () => void }) {
                                 ref={videoRef}
                                 className="absolute inset-0 w-full h-full object-contain"
                                 src={VIDEO_SRC}
-                                preload="metadata"
+                                preload="auto"
                                 playsInline
                                 onClick={togglePlay}
-                                onPlay={() => setIsPlaying(true)}
-                                onPause={() => setIsPlaying(false)}
+                                onCanPlay={() => {
+                                    if (videoState === 'loading' || videoState === 'buffering') {
+                                        setVideoState('playing');
+                                    } else if (videoState === 'idle') {
+                                        setVideoState('ready');
+                                    }
+                                }}
+                                onPlaying={() => setVideoState('playing')}
+                                onPause={() => {
+                                    if (videoState !== 'buffering') {
+                                        setVideoState('ready');
+                                    }
+                                }}
+                                onWaiting={() => setVideoState('buffering')}
                                 onTimeUpdate={handleTimeUpdate}
                                 onLoadedMetadata={() => {
                                     if (videoRef.current) {
                                         setDuration(videoRef.current.duration);
                                     }
                                 }}
-                                onEnded={handleVideoEnd}
+                                onEnded={() => {
+                                    setVideoState('ended');
+                                    setShowControls(true);
+                                }}
+                                onError={() => setVideoState('error')}
                             />
                         </div>
 
-                        {/* Big play overlay */}
+                        {/* Loading / Buffering spinner */}
                         <AnimatePresence>
-                            {showOverlay && (
+                            {showSpinner && (
+                                <motion.div
+                                    className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <Loader2 className="w-10 h-10 text-primary animate-spin" />
+                                    <span
+                                        className="text-sm text-white/60"
+                                        style={{ fontFamily: 'var(--font-body)' }}
+                                    >
+                                        {videoState === 'buffering' ? 'Buffering...' : 'Loading video...'}
+                                    </span>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Play / Replay overlay */}
+                        <AnimatePresence>
+                            {showPlayOverlay && (
                                 <motion.button
                                     type="button"
-                                    className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                                    className="absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-pointer"
                                     onClick={togglePlay}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.2 }}
-                                    aria-label="Play video"
+                                    aria-label={videoState === 'ended' ? 'Replay video' : 'Play video'}
                                 >
                                     <span className="flex items-center justify-center w-20 h-20 rounded-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary hover:scale-105 transition-all duration-200">
-                                        <Play className="w-8 h-8 text-white fill-white ml-1" />
+                                        {videoState === 'ended' ? (
+                                            <RotateCcw className="w-8 h-8 text-white" />
+                                        ) : (
+                                            <Play className="w-8 h-8 text-white fill-white ml-1" />
+                                        )}
                                     </span>
+                                    {videoState === 'ended' && (
+                                        <span
+                                            className="text-sm text-white/70"
+                                            style={{ fontFamily: 'var(--font-body)' }}
+                                        >
+                                            Watch again
+                                        </span>
+                                    )}
                                 </motion.button>
                             )}
                         </AnimatePresence>
 
+                        {/* Error state */}
+                        {videoState === 'error' && (
+                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                                <p
+                                    className="text-sm text-white/70"
+                                    style={{ fontFamily: 'var(--font-body)' }}
+                                >
+                                    Video failed to load. Please check your connection and try again.
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const video = videoRef.current;
+                                        if (!video) return;
+                                        setVideoState('idle');
+                                        video.load();
+                                    }}
+                                    className="text-sm text-primary hover:text-primary-light transition-colors cursor-pointer font-semibold"
+                                    style={{ fontFamily: 'var(--font-body)' }}
+                                >
+                                    Retry
+                                </button>
+                            </div>
+                        )}
+
                         {/* Controls bar */}
                         <div
                             className={`absolute bottom-0 left-0 right-0 transition-opacity duration-300 ${
-                                showControls && !showOverlay
+                                showControls && !showPlayOverlay
                                     ? 'opacity-100'
                                     : 'opacity-0 pointer-events-none'
                             }`}
