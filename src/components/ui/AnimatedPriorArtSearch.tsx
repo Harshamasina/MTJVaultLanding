@@ -169,7 +169,7 @@ export function AnimatedPriorArtSearch() {
         <div
             aria-hidden="true"
             role="img"
-            className={`relative rounded-xl border border-card-border bg-[#f8f8fa] shadow-2xl shadow-black/10 overflow-hidden ${MOCKUP_HEIGHT}`}
+            className={`relative rounded-xl border border-card-border bg-[#f8f8fa] shadow-2xl shadow-black/10 overflow-hidden select-none ${MOCKUP_HEIGHT}`}
         >
             {/* ── Chrome Bar ── */}
             <div className="flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-white border-b border-card-border">

@@ -107,7 +107,7 @@ export function AnimatedDashboard() {
             ref={containerRef}
             aria-hidden="true"
             role="img"
-            className="relative rounded-xl border border-card-border bg-[#f8f8fa] shadow-2xl shadow-black/10 overflow-hidden flex flex-col lg:aspect-[2/1]"
+            className="relative rounded-xl border border-card-border bg-[#f8f8fa] shadow-2xl shadow-black/10 overflow-hidden flex flex-col lg:aspect-[2/1] select-none"
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
@@ -132,7 +132,7 @@ export function AnimatedDashboard() {
             </div>
 
             {/* ── Quick Actions ── */}
-            <div className="px-3 sm:px-5 py-1.5 sm:py-2.5 flex items-center gap-1 sm:gap-2 bg-white border-b border-card-border overflow-x-auto scrollbar-none">
+            <div className="px-3 sm:px-5 py-1.5 sm:py-2.5 flex items-center gap-1 sm:gap-2 bg-white border-b border-card-border overflow-hidden">
                 {ACTION_BUTTONS.map((btn, i) => (
                     <motion.span
                         key={btn.label}

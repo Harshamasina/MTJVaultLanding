@@ -121,7 +121,7 @@ export function AnimatedCalendar() {
     const days = Array.from({ length: month.totalDays }, (_, i) => i + 1);
 
     return (
-        <div aria-hidden="true" role="img" className="relative rounded-xl border border-card-border bg-white shadow-2xl shadow-black/10 overflow-hidden h-[460px]">
+        <div aria-hidden="true" role="img" className="relative rounded-xl border border-card-border bg-white shadow-2xl shadow-black/10 overflow-hidden select-none h-[460px]">
             {/* Chrome Bar */}
             <div className="flex items-center gap-2 px-3 py-2 bg-page-bg-alt border-b border-card-border">
                 <div className="flex items-center gap-1.5">

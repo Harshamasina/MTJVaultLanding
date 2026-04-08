@@ -8,8 +8,8 @@ import { ArrowRight, Play } from 'lucide-react';
 export function HeroSection() {
     return (
         <>
-            {/* Hero — full viewport height */}
-            <section className="h-screen flex flex-col justify-center pt-20 sm:pt-24 lg:pt-28 pb-6 sm:pb-8 lg:pb-10 overflow-hidden">
+            {/* Hero — natural flow on mobile, full viewport on desktop */}
+            <section className="flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:h-screen lg:justify-center lg:pt-28 lg:pb-10 overflow-hidden">
                 <Container>
                     <div className="flex items-start gap-8 lg:gap-16 xl:gap-20">
                         {/* Text Content — left */}

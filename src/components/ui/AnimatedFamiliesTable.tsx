@@ -86,7 +86,7 @@ export function AnimatedFamiliesTable() {
     );
 
     return (
-        <div aria-hidden="true" role="img" className={`relative rounded-xl border border-card-border bg-white shadow-2xl shadow-black/10 overflow-hidden mx-auto w-full ${MOCKUP_HEIGHT}`}>
+        <div aria-hidden="true" role="img" className={`relative rounded-xl border border-card-border bg-white shadow-2xl shadow-black/10 overflow-hidden mx-auto w-full select-none ${MOCKUP_HEIGHT}`}>
             {/* Chrome Bar */}
             <ChromeBar />
 
