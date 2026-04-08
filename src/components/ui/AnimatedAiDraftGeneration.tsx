@@ -204,7 +204,7 @@ export function AnimatedAiDraftGeneration() {
                         <div className="flex items-center gap-2 mb-0.5">
                             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-text-muted shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2" /></svg>
                             <span className="text-[9px] sm:text-[13px] font-bold text-text-primary truncate" style={{ fontFamily: 'var(--font-dashboard)' }}>
-                                CRISPR-Cas9 Base Editor for Sickle Cell Disease &mdash; SCDx-201
+                                CRISPR-Cas9 Base Editor for Sickle Cell Disease, SCDx-201
                             </span>
                         </div>
                         <p className="text-[7px] sm:text-[9px] text-text-muted pl-5.5 sm:pl-6" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>

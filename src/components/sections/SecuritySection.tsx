@@ -35,7 +35,7 @@ const SECURITY_ITEMS = [
         icon: Brain,
         title: 'In-Memory Token Storage',
         description:
-            'Tokens never stored in localStorage. In-memory only with silent refresh — resistant to XSS.',
+            'Tokens never stored in localStorage. In-memory only with silent refresh, resistant to XSS.',
     },
     {
         icon: ShieldAlert,
@@ -87,7 +87,7 @@ export function SecuritySection() {
                         >
                             Your intellectual property data is your most valuable
                             asset. We protect it with industry-standard security
-                            practices — from authentication to storage.
+                            practices, from authentication to storage.
                         </p>
                     </div>
                 </FadeIn>

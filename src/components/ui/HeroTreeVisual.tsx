@@ -27,7 +27,7 @@ export function HeroTreeVisual() {
                     <TreeCard
                         level="root"
                         label="Patent Family"
-                        title="Oncology Platform — Family A"
+                        title="Oncology Platform, Family A"
                         rows={[
                             ['Family ID', 'ONC-0005'],
                             ['Jurisdiction', 'United States'],

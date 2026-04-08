@@ -160,7 +160,7 @@ const PRIOR_ART_CARDS: { icon: React.ElementType; title: string; description: st
     {
         icon: Search,
         title: 'Four Search Modes',
-        description: 'Keywords, Inventor, Applicant, and Patent Number — each handles edge cases like hyphens, suffixes, and kind codes automatically.',
+        description: 'Keywords, Inventor, Applicant, and Patent Number. Each handles edge cases like hyphens, suffixes, and kind codes automatically.',
     },
     {
         icon: BookmarkPlus,
@@ -170,7 +170,7 @@ const PRIOR_ART_CARDS: { icon: React.ElementType; title: string; description: st
     {
         icon: FileSearch,
         title: 'Deep Patent Detail',
-        description: 'Bibliographic data, abstracts, claims, and family members — all accessible from every search result.',
+        description: 'Bibliographic data, abstracts, claims, and family members, all accessible from every search result.',
     },
 ];
 

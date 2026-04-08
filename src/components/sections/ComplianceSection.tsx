@@ -21,7 +21,7 @@ const COMPLIANCE_ITEMS = [
         icon: ScrollText,
         title: 'Full Audit Trail',
         description:
-            'Every change logged — who, what, when, and the before/after diff.',
+            'Every change logged: who, what, when, and the before/after diff.',
     },
     {
         icon: KeyRound,
@@ -33,13 +33,13 @@ const COMPLIANCE_ITEMS = [
         icon: ShieldCheck,
         title: 'Immutable Audit Records',
         description:
-            'No edit or delete on audit history — ever. Read-only, tamper-proof records.',
+            'No edit or delete on audit history, ever. Read-only, tamper-proof records.',
     },
     {
         icon: Users,
         title: 'Role-Based Access Control',
         description:
-            'Admin, Attorney, Paralegal, Viewer — granular permissions enforced server-side.',
+            'Admin, Attorney, Paralegal, Viewer: granular permissions enforced server-side.',
     },
     {
         icon: FolderLock,
@@ -80,7 +80,7 @@ export function ComplianceSection() {
                         >
                             Every workflow in Design Your Invention is designed for
                             regulatory compliance from day one. Not an afterthought,
-                            not an add-on — compliance is baked into every edit,
+                            not an add-on. Compliance is baked into every edit,
                             every action, every record.
                         </p>
                     </div>

@@ -72,7 +72,7 @@ const FEATURE_ROWS: FeatureRow[] = [
                 icon: AlertCircle,
                 title: 'Office Action Tracking',
                 description:
-                    'Never miss a response deadline. Urgency color coding — green for on track, amber for due soon, red for overdue.',
+                    'Never miss a response deadline. Urgency color coding: green for on track, amber for due soon, red for overdue.',
             },
             {
                 icon: DollarSign,
@@ -190,7 +190,7 @@ export function FeaturesSection() {
                         >
                             Everything patent attorneys, IP managers, and pharma
                             teams need to manage their intellectual property
-                            portfolio — from filing to grant.
+                            portfolio, from filing to grant.
                         </p>
                     </div>
                 </FadeIn>

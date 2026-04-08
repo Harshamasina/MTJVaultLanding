@@ -31,7 +31,7 @@ const STEPS = [
         details: [
             'Every row validated before anything touches your database',
             'Color-coded summary: new families, provisionals, PCTs, national entries',
-            'Existing records flagged — skip duplicates automatically',
+            'Existing records flagged. Skip duplicates automatically',
             'Clear error messages with row number and field',
         ],
     },
@@ -44,7 +44,7 @@ const STEPS = [
             'All records created in a single atomic transaction',
             'Full audit trail logged for every record',
             'Import history with download links to original files',
-            'If anything fails, nothing is written — zero partial imports',
+            'If anything fails, nothing is written. Zero partial imports',
         ],
     },
 ];

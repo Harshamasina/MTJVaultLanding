@@ -35,7 +35,7 @@ const PLANS: Plan[] = [
             { text: 'Email deadline reminders', included: true },
             { text: 'CSV / Excel export', included: true },
             { text: 'Document attachments', included: true },
-            { text: 'RBAC — up to 5 users', included: true, detail: '5 users' },
+            { text: 'RBAC, up to 5 users', included: true, detail: '5 users' },
             { text: 'Basic audit log', included: true, detail: 'View only' },
             { text: 'Immutable audit trail', included: false },
             { text: '21 CFR Part 11 compliance', included: false },

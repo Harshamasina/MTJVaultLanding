@@ -189,7 +189,7 @@ export default function AiPatentDraftingPage() {
                                 style={{ fontFamily: 'var(--font-body)' }}
                             >
                                 Prior art searches are scattered across Espacenet, Google Patents, USPTO, and
-                                WIPO &mdash; each with different interfaces, query syntax, and coverage gaps.
+                                WIPO, each with different interfaces, query syntax, and coverage gaps.
                                 Attorneys paste results into spreadsheets, lose track of what was considered,
                                 and can&apos;t prove their search methodology to examiners.
                             </p>
@@ -359,7 +359,7 @@ export default function AiPatentDraftingPage() {
                                 <span className="text-primary">Specialised Rules</span>
                             </h2>
                             <p className="mt-4 text-base text-text-secondary leading-relaxed sm:text-lg" style={{ fontFamily: 'var(--font-body)' }}>
-                                Patent law rules are embedded in every generation &mdash; not left to the attorney to specify.
+                                Patent law rules are embedded in every generation, not left to the attorney to specify.
                             </p>
                         </div>
                     </FadeIn>
