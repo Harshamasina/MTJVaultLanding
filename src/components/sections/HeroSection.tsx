@@ -13,22 +13,22 @@ export function HeroSection() {
                     {/* Text Content — left */}
                     <div className="w-full lg:max-w-[52%] lg:shrink-0">
                         <h1
-                            className="text-[2.5rem] font-bold leading-[1.1] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5rem]"
+                            className="text-[2rem] font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem]"
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
-                            IP Management Software{' '}
+                            IP Management That Replaces Your{' '}
                             <span className="text-primary italic">
-                                for Law Firms & Pharma
+                                Spreadsheets, Scattered Searches, and Drafting Tools
                             </span>
                         </h1>
                         <p
                             className="mt-5 text-base leading-relaxed text-text-secondary sm:mt-6 sm:text-lg sm:max-w-2xl"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            The modern patent portfolio management platform for IP teams.
-                            Streamline patent docketing, track PCT/PRV/NPE cases, manage
-                            fees and deadlines, and maintain FDA 21 CFR Part 11 compliance
-                            — all in one intellectual property management system.
+                            Patent docketing, prior art search, and AI-powered drafting
+                            in one audited platform &mdash; built for law firms and pharma
+                            teams. Manage PCT/PRV/NPE cases, track fees and deadlines,
+                            and maintain FDA 21 CFR Part 11 compliance.
                         </p>
                         <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
                             <BookDemoButton size="lg">

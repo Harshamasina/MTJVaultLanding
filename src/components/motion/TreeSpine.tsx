@@ -14,6 +14,7 @@ interface TreeNodeConfig {
 const TREE_NODE_IDS: TreeNodeConfig[] = [
     { elementId: 'tree-features', label: 'Features' },
     { elementId: 'tree-import', label: 'Import' },
+    { elementId: 'tree-ai', label: 'AI Drafting' },
     { elementId: 'tree-compliance', label: 'Compliance' },
     { elementId: 'tree-security', label: 'Security', isDark: true },
     { elementId: 'tree-pricing', label: 'Pricing' },

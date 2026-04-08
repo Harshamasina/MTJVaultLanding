@@ -54,4 +54,19 @@ export const FAQ_ITEMS: FaqItem[] = [
         answer:
             'The platform is a cloud-based web application that runs entirely in your browser — no installation or plugins required. It supports CSV export for every list view, presigned S3 document downloads, and Auth0 SSO integration for enterprise identity providers including SAML and OAuth 2.0. A REST API is available for custom integrations with existing firm systems.',
     },
+    {
+        question: 'Is AI-generated patent drafting safe for filing?',
+        answer:
+            'AI-generated drafts are designed as a starting point, not a final filing. Every AI draft includes a mandatory disclaimer stating it requires attorney review before filing. The platform enforces a status workflow — draft, in review, approved — so no AI-generated content can be exported or acted on without human sign-off. Prior art snapshots, model versions, and token counts are preserved for every generation, giving you a complete audit trail for compliance.',
+    },
+    {
+        question: 'Which jurisdictions does AI patent drafting support?',
+        answer:
+            'The AI drafting engine supports six jurisdictions: US (USPTO — 35 USC 101/102/103), EP (EPO — Article 52/54/56 EPC), IN (Indian Patent Office — Section 3(d)/(i)/(j)/(k) exclusions), WO (WIPO/PCT — international-stage neutral drafting), JP (JPO — Articles 29/36), and CN (CNIPA — Article 22/25/26). Each jurisdiction has specialized rules embedded in the generation process, so claims format, novelty language, and compliance checks adapt automatically.',
+    },
+    {
+        question: 'How does prior art search work in the platform?',
+        answer:
+            'The prior art search queries the EPO global patent database covering 100+ jurisdictions — without leaving your patent family view. Four search modes are available: Keywords (technical terms across titles and abstracts), Inventor (handles name variations and titles), Applicant (strips corporate suffixes automatically), and Patent Number (any format, kind codes handled). Results can be filtered by IPC classification, date range, and jurisdiction. Relevant patents are saved directly to your family with relevance scoring and attorney notes, creating an auditable prior art record.',
+    },
 ];

@@ -39,14 +39,17 @@ const TRUST_BADGES = [
 const FOOTER_LINKS = {
     Product: [
         { label: 'Features', href: '/#features' },
+        { label: 'AI Patent Drafting', href: '/#ai-drafting' },
         { label: 'Compliance', href: '/#compliance' },
         { label: 'Pricing', href: '/#pricing' },
         { label: 'FAQ', href: '/#faq' },
     ],
     Resources: [
-        { label: 'What Is IP Management?', href: '/#faq' },
-        { label: 'Portfolio Import', href: '/#import' },
-        { label: 'Security Overview', href: '/#security' },
+        { label: 'What Is IP Management?', href: '/blog/what-is-ip-management-software/' },
+        { label: 'Patent Docketing Guide', href: '/blog/patent-docketing-best-practices/' },
+        { label: 'FDA 21 CFR Part 11 Guide', href: '/blog/fda-21-cfr-part-11-compliance-guide/' },
+        { label: 'PCT Filing Management', href: '/blog/pct-filing-management-tips/' },
+        { label: 'Blog', href: '/blog/' },
     ],
     Company: [
         { label: 'Contact', href: '/#contact' },

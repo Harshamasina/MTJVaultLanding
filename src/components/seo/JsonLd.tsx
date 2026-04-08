@@ -50,6 +50,12 @@ const softwareSchema = {
         'Deadline Reminders',
         'Fee Analytics Dashboard',
         'Bulk Portfolio Import (XLSX/CSV)',
+        'AI-Powered Prior Art Search (100+ jurisdictions via EPO)',
+        'AI Patent Draft Generation (6 jurisdictions: US, EP, IN, WO, JP, CN)',
+        'Jurisdiction-Specific Patent Law Rules',
+        'Prior Art Snapshot & Version Control',
+        'DOCX Export with Patent-Standard Formatting',
+        'Cost Analytics with Multi-Currency FX Conversion',
     ],
 };
 
