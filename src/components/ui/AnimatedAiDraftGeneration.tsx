@@ -229,10 +229,10 @@ export function AnimatedAiDraftGeneration() {
             </div>
 
             {/* ── Two-Panel Body — flex-1 fills remaining height ── */}
-            <div className="flex flex-col sm:flex-row flex-1 min-h-0 overflow-hidden">
+            <div className="flex flex-row flex-1 min-h-0 overflow-hidden">
 
                 {/* ── Left Sidebar — stretches full height ── */}
-                <div className="hidden sm:flex sm:flex-[1] sm:min-w-[140px] sm:max-w-[180px] bg-white border-r border-card-border flex-col">
+                <div className="flex flex-1 min-w-27.5 max-w-35 sm:min-w-35 sm:max-w-45 bg-white border-r border-card-border flex-col">
                     {/* Sidebar Header */}
                     <div className="px-2.5 sm:px-3 pt-2 sm:pt-3 pb-1.5 flex items-center justify-between shrink-0">
                         <span className="text-[9px] sm:text-[11px] font-bold text-text-primary" style={{ fontFamily: 'var(--font-dashboard)' }}>Drafts</span>

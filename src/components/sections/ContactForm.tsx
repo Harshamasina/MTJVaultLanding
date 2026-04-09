@@ -138,7 +138,7 @@ export function ContactForm() {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Honeypot — hidden from real users, uncontrolled to avoid autofill issues */}
+            {/* Honeypot - hidden from real users, uncontrolled to avoid autofill issues */}
             <input
                 ref={hpRef}
                 type="text"

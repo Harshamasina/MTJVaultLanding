@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (!post) return {};
 
     return {
-        title: `${post.title} — ${SITE_NAME}`,
+        title: `${post.title} - ${SITE_NAME}`,
         description: post.description,
         keywords: post.keywords,
         alternates: {

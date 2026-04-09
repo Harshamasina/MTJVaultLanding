@@ -36,16 +36,16 @@ const STATS = [
 ];
 
 const ACTIVITY_ITEMS = [
-    { id: 'DEMO-SGLT-002', type: 'Prior Art Reference', action: 'CREATE', time: '3 hours ago' },
-    { id: 'DEMO-FREE-01', type: 'Patent Draft', action: 'EXPORT', time: '4 hours ago' },
-    { id: 'DEMO-2025-007', type: 'Prior Art Reference', action: 'CREATE', time: '14 hours ago' },
-    { id: 'DEMO-ADC-004', type: 'Npe Annuity Fee', action: 'UPDATE', time: '5 days ago' },
-    { id: 'DEMO-RNA-003', type: 'Npe Case', action: 'UPDATE', time: '9 days ago' },
-    { id: 'DEMO-BIO-002', type: 'Npe Case', action: 'UPDATE', time: '9 days ago' },
-    { id: 'DEMO-2025-004', type: 'Prv Application', action: 'CREATE', time: '9 days ago' },
-    { id: 'DEMO-2024-003', type: 'Npe Office Action', action: 'CREATE', time: '18 days ago' },
-    { id: 'DEMO-CAR-006', type: 'Prv Application', action: 'UPDATE', time: '19 days ago' },
-    { id: 'DEMO-2023-019', type: 'Application Family', action: 'CREATE', time: '19 days ago' },
+    { id: 'DEMO-SGLT-002', appNo: '18/567,890', type: 'Prior Art Reference', action: 'CREATE', time: '3 hours ago' },
+    { id: 'DEMO-FREE-01', appNo: '17/234,567', type: 'Patent Draft', action: 'EXPORT', time: '4 hours ago' },
+    { id: 'DEMO-2025-007', appNo: '18/890,123', type: 'Prior Art Reference', action: 'CREATE', time: '14 hours ago' },
+    { id: 'DEMO-ADC-004', appNo: 'EP25801111.1', type: 'Npe Annuity Fee', action: 'UPDATE', time: '5 days ago' },
+    { id: 'DEMO-RNA-003', appNo: 'PCT/US25/044', type: 'Npe Case', action: 'UPDATE', time: '9 days ago' },
+    { id: 'DEMO-BIO-002', appNo: '18/345,678', type: 'Npe Case', action: 'UPDATE', time: '9 days ago' },
+    { id: 'DEMO-2025-004', appNo: 'FR2025/012', type: 'Prv Application', action: 'CREATE', time: '9 days ago' },
+    { id: 'DEMO-2024-003', appNo: 'EP25809876.3', type: 'Npe Office Action', action: 'CREATE', time: '18 days ago' },
+    { id: 'DEMO-CAR-006', appNo: '17/901,234', type: 'Prv Application', action: 'UPDATE', time: '19 days ago' },
+    { id: 'DEMO-2023-019', appNo: 'JP2025-56789', type: 'Application Family', action: 'CREATE', time: '19 days ago' },
 ];
 
 const ACTION_COLORS: Record<string, { bg: string; text: string }> = {
@@ -215,7 +215,11 @@ export function AnimatedDashboard() {
                                             style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
                                             {item.id}
                                         </span>
-                                        <span className="text-[6px] sm:text-[8px] text-text-muted truncate flex-1 hidden sm:block"
+                                        <span className="text-[6px] sm:text-[8px] text-text-muted shrink-0 w-13.75 sm:w-17.5 truncate"
+                                            style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
+                                            {item.appNo}
+                                        </span>
+                                        <span className="text-[6px] sm:text-[8px] text-text-muted truncate flex-1"
                                             style={{ fontFamily: 'var(--font-dashboard)' }}>
                                             {item.type}
                                         </span>

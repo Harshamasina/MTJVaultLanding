@@ -6,7 +6,7 @@ function Content() {
         <>
             <p>
                 IP management software is a specialized platform that helps law firms, corporations, and patent teams
-                manage their entire intellectual property portfolio — from initial filings through prosecution, grants,
+                manage their entire intellectual property portfolio - from initial filings through prosecution, grants,
                 maintenance, and enforcement. For organizations handling dozens or hundreds of patent families, manual
                 tracking with spreadsheets becomes a liability. A single missed deadline can invalidate a patent worth
                 millions.
@@ -18,11 +18,11 @@ function Content() {
                 spreadsheets create dangerous blind spots:
             </p>
             <ul>
-                <li><strong>No audit trail</strong> — when someone changes a deadline, there is no record of who changed it, when, or why. For teams subject to FDA 21 CFR Part 11, this is a compliance violation.</li>
-                <li><strong>No relationship mapping</strong> — patent families have complex hierarchies: provisional applications, PCT filings, national phase entries, continuations. Spreadsheets flatten these relationships into rows, losing critical context.</li>
-                <li><strong>No automated reminders</strong> — missed deadlines for office action responses, annuity fee payments, or PCT Chapter II elections can result in abandoned applications. Spreadsheets do not alert you.</li>
-                <li><strong>No access control</strong> — every paralegal, attorney, and manager sees the same sheet. There is no way to restrict sensitive client data by role or responsibility.</li>
-                <li><strong>Version conflicts</strong> — multiple people editing the same file leads to overwrites and lost data. This is especially dangerous for docketing information where accuracy is non-negotiable.</li>
+                <li><strong>No audit trail</strong> - when someone changes a deadline, there is no record of who changed it, when, or why. For teams subject to FDA 21 CFR Part 11, this is a compliance violation.</li>
+                <li><strong>No relationship mapping</strong> - patent families have complex hierarchies: provisional applications, PCT filings, national phase entries, continuations. Spreadsheets flatten these relationships into rows, losing critical context.</li>
+                <li><strong>No automated reminders</strong> - missed deadlines for office action responses, annuity fee payments, or PCT Chapter II elections can result in abandoned applications. Spreadsheets do not alert you.</li>
+                <li><strong>No access control</strong> - every paralegal, attorney, and manager sees the same sheet. There is no way to restrict sensitive client data by role or responsibility.</li>
+                <li><strong>Version conflicts</strong> - multiple people editing the same file leads to overwrites and lost data. This is especially dangerous for docketing information where accuracy is non-negotiable.</li>
             </ul>
 
             <h2>What IP Management Software Does</h2>
@@ -40,7 +40,7 @@ function Content() {
 
             <h3>Application Family Management</h3>
             <p>
-                Visualize the complete hierarchy of a patent family — from the original provisional application through
+                Visualize the complete hierarchy of a patent family - from the original provisional application through
                 PCT filings and into each national phase entry. This tree structure mirrors how patent families actually
                 work, making it intuitive for attorneys and paralegals to navigate complex portfolios.
             </p>
@@ -56,7 +56,7 @@ function Content() {
             <p>
                 Patent maintenance fees, annuity payments, and filing fees vary by jurisdiction and change over the life
                 of a patent. Tracking which fees are paid, due, waived, or overdue across a portfolio requires structured
-                data — not a color-coded spreadsheet column.
+                data - not a color-coded spreadsheet column.
             </p>
 
             <h3>Compliance and Audit Trails</h3>
@@ -83,13 +83,13 @@ function Content() {
                 When choosing an IP management platform, look for these capabilities:
             </p>
             <ol>
-                <li><strong>Patent family visualization</strong> — can you see the complete tree of related applications, filings, and cases?</li>
-                <li><strong>Automated deadline tracking</strong> — does the system calculate and remind you of critical dates?</li>
-                <li><strong>Role-based access control</strong> — can you restrict data access by role (admin, attorney, paralegal, viewer)?</li>
-                <li><strong>Audit trail</strong> — is every change logged with who, what, when, and why?</li>
-                <li><strong>Document management</strong> — can you store and version-control patent documents securely?</li>
-                <li><strong>Export capabilities</strong> — can you export docket views to CSV for reporting?</li>
-                <li><strong>Multi-tenant isolation</strong> — if you are a law firm, is each client&apos;s data truly isolated?</li>
+                <li><strong>Patent family visualization</strong> - can you see the complete tree of related applications, filings, and cases?</li>
+                <li><strong>Automated deadline tracking</strong> - does the system calculate and remind you of critical dates?</li>
+                <li><strong>Role-based access control</strong> - can you restrict data access by role (admin, attorney, paralegal, viewer)?</li>
+                <li><strong>Audit trail</strong> - is every change logged with who, what, when, and why?</li>
+                <li><strong>Document management</strong> - can you store and version-control patent documents securely?</li>
+                <li><strong>Export capabilities</strong> - can you export docket views to CSV for reporting?</li>
+                <li><strong>Multi-tenant isolation</strong> - if you are a law firm, is each client&apos;s data truly isolated?</li>
             </ol>
 
             <h2>Getting Started</h2>

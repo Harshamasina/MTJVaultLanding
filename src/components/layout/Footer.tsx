@@ -174,7 +174,7 @@ export function Footer() {
                             >
                                 Enterprise IP management software for law firms and
                                 pharma companies. Patent docketing, PCT/PRV/NPE case
-                                management, and FDA 21 CFR Part 11 compliance — all
+                                management, and FDA 21 CFR Part 11 compliance, all
                                 in one secure, multi-tenant platform.
                             </p>
 

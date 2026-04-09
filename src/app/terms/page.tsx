@@ -3,14 +3,14 @@ import { SITE_URL, SITE_NAME } from '@/lib/constants';
 import { Container } from '@/components/ui/Container';
 
 export const metadata: Metadata = {
-    title: `Terms of Service — ${SITE_NAME}`,
+    title: `Terms of Service - ${SITE_NAME}`,
     description:
         'Terms of Service for Design Your Invention, the enterprise IP management platform. Read our terms governing use of the patent docketing and compliance platform.',
     alternates: {
         canonical: `${SITE_URL}/terms/`,
     },
     openGraph: {
-        title: `Terms of Service — ${SITE_NAME}`,
+        title: `Terms of Service - ${SITE_NAME}`,
         description:
             'Terms of Service governing use of the Design Your Invention IP management platform.',
         url: `${SITE_URL}/terms/`,
@@ -194,7 +194,7 @@ export default function TermsPage() {
                                         settings
                                     </li>
                                     <li>
-                                        Refunds are handled on a case-by-case basis — contact our support
+                                        Refunds are handled on a case-by-case basis - contact our support
                                         team
                                     </li>
                                     <li>

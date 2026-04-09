@@ -5,7 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-    title: `Support — ${SITE_NAME} | IP Management Software Help & Resources`,
+    title: `Support - ${SITE_NAME} | IP Management Software Help & Resources`,
     description:
         'Get help with Design Your Invention IP management platform. Contact our support team, browse FAQs, and access resources for patent docketing, compliance, and portfolio management.',
     keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         canonical: `${SITE_URL}/support/`,
     },
     openGraph: {
-        title: `Support — ${SITE_NAME}`,
+        title: `Support - ${SITE_NAME}`,
         description:
             'Get help with Design Your Invention IP management platform. Contact support, browse FAQs, and access resources.',
         url: `${SITE_URL}/support/`,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary',
-        title: `Support — ${SITE_NAME}`,
+        title: `Support - ${SITE_NAME}`,
         description:
             'Get help with Design Your Invention IP management platform.',
     },
@@ -54,7 +54,7 @@ const SUPPORT_CHANNELS = [
     {
         icon: Clock,
         title: 'Response Time',
-        description: 'Our support team is available Monday through Friday, 9 AM — 6 PM EST.',
+        description: 'Our support team is available Monday through Friday, 9 AM - 6 PM EST.',
         action: 'Within 1 business day',
         href: null,
         linkText: null,
@@ -85,7 +85,7 @@ const RESOURCES = [
 const COMMON_QUESTIONS = [
     {
         q: 'How do I import my existing patent portfolio?',
-        a: 'Use our Portfolio Import tool — upload an XLSX or CSV file, preview the changes, and confirm with one click. Supports up to 5,000 filings per file.',
+        a: 'Use our Portfolio Import tool - upload an XLSX or CSV file, preview the changes, and confirm with one click. Supports up to 5,000 filings per file.',
     },
     {
         q: 'What file formats are supported for document uploads?',
@@ -101,7 +101,7 @@ const COMMON_QUESTIONS = [
     },
     {
         q: 'How does the deadline reminder system work?',
-        a: 'Design Your Invention tracks deadlines across all modules — office actions, PCT filings, annuity fees, and custom reminders. Email notifications are sent based on configurable lead times.',
+        a: 'Design Your Invention tracks deadlines across all modules - office actions, PCT filings, annuity fees, and custom reminders. Email notifications are sent based on configurable lead times.',
     },
     {
         q: 'Is my data backed up?',

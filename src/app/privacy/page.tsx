@@ -3,14 +3,14 @@ import { SITE_URL, SITE_NAME } from '@/lib/constants';
 import { Container } from '@/components/ui/Container';
 
 export const metadata: Metadata = {
-    title: `Privacy Policy — ${SITE_NAME}`,
+    title: `Privacy Policy - ${SITE_NAME}`,
     description:
         'Learn how Design Your Invention collects, uses, and protects your personal data. Our privacy policy covers data handling for our IP management platform.',
     alternates: {
         canonical: `${SITE_URL}/privacy/`,
     },
     openGraph: {
-        title: `Privacy Policy — ${SITE_NAME}`,
+        title: `Privacy Policy - ${SITE_NAME}`,
         description:
             'Learn how Design Your Invention collects, uses, and protects your personal data.',
         url: `${SITE_URL}/privacy/`,
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
                                 <ul className="list-disc pl-6 space-y-2 mt-2">
                                     <li>All data encrypted in transit (HTTPS/TLS) and at rest</li>
                                     <li>Authentication via Auth0 with support for SSO, SAML, and MFA</li>
-                                    <li>Tokens stored in-memory only — never in localStorage or cookies</li>
+                                    <li>Tokens stored in-memory only - never in localStorage or cookies</li>
                                     <li>Row-Level Security (RLS) at the database layer for tenant isolation</li>
                                     <li>Documents stored in encrypted S3 buckets with presigned URL access</li>
                                     <li>Immutable audit trail for all data modifications</li>

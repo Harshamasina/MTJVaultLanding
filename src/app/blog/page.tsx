@@ -6,7 +6,7 @@ import { getAllPosts } from '@/content/blog';
 import { SITE_URL, SITE_NAME } from '@/lib/constants';
 
 export const metadata: Metadata = {
-    title: `IP Management Blog — ${SITE_NAME}`,
+    title: `IP Management Blog - ${SITE_NAME}`,
     description:
         'Insights on IP management, patent docketing, FDA 21 CFR Part 11 compliance, PCT filing management, and portfolio analytics for law firms and pharma companies.',
     keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         canonical: `${SITE_URL}/blog/`,
     },
     openGraph: {
-        title: `IP Management Blog — ${SITE_NAME}`,
+        title: `IP Management Blog - ${SITE_NAME}`,
         description: 'Insights on IP management, patent docketing, and compliance for law firms and pharma.',
         url: `${SITE_URL}/blog/`,
         siteName: SITE_NAME,
