@@ -4,7 +4,7 @@ module.exports = {
     generateRobotsTxt: true,
     generateIndexSitemap: false,
     outDir: './out',
-    exclude: ['/blog', '/blog/*'],
+    exclude: [],
     robotsTxtOptions: {
         policies: [
             { userAgent: '*', allow: '/' },

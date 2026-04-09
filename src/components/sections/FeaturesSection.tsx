@@ -179,9 +179,9 @@ export function FeaturesSection() {
                             className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
-                            Why IP Teams Choose{' '}
+                            IP Management Software{' '}
                             <span className="text-primary">
-                                Design Your Invention
+                                Built for Patent Teams
                             </span>
                         </h2>
                         <p

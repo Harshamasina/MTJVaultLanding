@@ -1,7 +1,7 @@
 export const SITE_URL = 'https://designyourinvention.com';
 export const SITE_NAME = 'Design Your Invention';
 export const SITE_DESCRIPTION =
-    'Enterprise IP management with AI-powered prior art search and patent drafting. Patent docketing, PCT/PRV/NPE case management, and FDA 21 CFR Part 11 compliance — built for law firms and pharma teams.';
+    'Enterprise IP management with AI-powered prior art search and patent drafting. Patent docketing, PCT/PRV/NPE case management, and FDA 21 CFR Part 11 compliance.';
 
 export const NAV_LINKS = [
     { label: 'Features', href: '/#features' },
@@ -9,7 +9,7 @@ export const NAV_LINKS = [
     { label: 'Compliance', href: '/#compliance' },
     { label: 'Security', href: '/#security' },
     { label: 'Pricing', href: '/#pricing' },
-    { label: 'FAQ', href: '/#faq' },
+    { label: 'Blog', href: '/blog/' },
     { label: 'Contact', href: '/#contact' },
 ] as const;
 

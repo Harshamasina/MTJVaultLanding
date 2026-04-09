@@ -32,7 +32,7 @@ import { FadeIn } from '@/components/motion/FadeIn';
 export const metadata: Metadata = buildMetadata({
     title: 'AI-Powered Prior Art Search & Patent Drafting Software',
     description:
-        'Search 100+ patent jurisdictions, generate jurisdiction-compliant drafts in under 2 minutes, and maintain a complete audit trail. Built for patent attorneys, IP managers, and pharma teams.',
+        'Search 100+ patent jurisdictions and generate jurisdiction-compliant drafts in under 2 minutes. AI patent drafting for attorneys, IP managers, and pharma teams.',
     path: '/ai-patent-drafting/',
 });
 

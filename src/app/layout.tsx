@@ -9,10 +9,10 @@ import '@/styles/globals.css';
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
-    title: `${SITE_NAME} — IP Management Software for Law Firms & Pharma`,
+    title: `${SITE_NAME} | IP Management Software for Law Firms & Pharma`,
     description: SITE_DESCRIPTION,
     openGraph: {
-        title: `${SITE_NAME} — IP Management Software for Law Firms & Pharma`,
+        title: `${SITE_NAME} | IP Management Software for Law Firms & Pharma`,
         description: SITE_DESCRIPTION,
         url: SITE_URL,
         siteName: SITE_NAME,
@@ -29,12 +29,15 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: `${SITE_NAME} — IP Management Software for Law Firms & Pharma`,
+        title: `${SITE_NAME} | IP Management Software for Law Firms & Pharma`,
         description: SITE_DESCRIPTION,
         images: ['/og-image.png'],
     },
     alternates: {
         canonical: SITE_URL,
+    },
+    other: {
+        'theme-color': '#6366f1',
     },
     robots: {
         index: true,

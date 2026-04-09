@@ -17,6 +17,12 @@ export const metadata: Metadata = {
         siteName: SITE_NAME,
         type: 'website',
     },
+    twitter: {
+        card: 'summary',
+        title: `Terms of Service - ${SITE_NAME}`,
+        description:
+            'Terms of Service governing use of the Design Your Invention IP management platform.',
+    },
 };
 
 const LAST_UPDATED = 'March 15, 2026';

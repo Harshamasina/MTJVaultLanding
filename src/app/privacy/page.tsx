@@ -17,6 +17,12 @@ export const metadata: Metadata = {
         siteName: SITE_NAME,
         type: 'website',
     },
+    twitter: {
+        card: 'summary',
+        title: `Privacy Policy - ${SITE_NAME}`,
+        description:
+            'Learn how Design Your Invention collects, uses, and protects your personal data.',
+    },
 };
 
 const LAST_UPDATED = 'March 15, 2026';

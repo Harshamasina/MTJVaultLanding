@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
     title: `Support - ${SITE_NAME} | IP Management Software Help & Resources`,
     description:
-        'Get help with Design Your Invention IP management platform. Contact our support team, browse FAQs, and access resources for patent docketing, compliance, and portfolio management.',
+        'Get help with Design Your Invention IP management platform. Browse FAQs and access resources for patent docketing and compliance.',
     keywords: [
         'IP management support',
         'patent docketing help',
