@@ -19,6 +19,11 @@ const TREE_NODE_IDS: TreeNodeConfig[] = [
     { elementId: 'tree-security', label: 'Security', isDark: true },
     { elementId: 'tree-pricing', label: 'Pricing' },
     { elementId: 'tree-faq', label: 'FAQ' },
+    { elementId: 'tree-contact', label: 'Contact' },
+    // Final branch — the Enterprise Trust eyebrow inside the Footer's trust
+    // card. isDark because the trust card sits on a navy-light surface and
+    // uses the lighter indigo color for contrast (matches Security pattern).
+    { elementId: 'tree-end', label: 'Enterprise Trust', isDark: true },
 ];
 
 interface ComputedNode {
@@ -70,12 +75,21 @@ export function TreeSpine() {
             }
         });
 
-        // End at CTA section
-        const ctaEl = document.querySelector('#main-content > section:last-child');
+        // End at the Enterprise Trust eyebrow inside the Footer's trust card.
+        // The spine extends past the CtaSection and terminates at the vertical
+        // center of this element. Fallback to CtaSection center if the element
+        // is ever missing (e.g. during hot-reload transitions).
+        const endEl = document.getElementById('tree-end');
         let endY = 5000;
-        if (ctaEl) {
-            const ctaRect = ctaEl.getBoundingClientRect();
-            endY = ctaRect.top + ctaRect.height / 2 + window.scrollY - startY;
+        if (endEl) {
+            const endRect = endEl.getBoundingClientRect();
+            endY = endRect.top + endRect.height / 2 + window.scrollY - startY;
+        } else {
+            const ctaEl = document.querySelector('#main-content > section:last-child');
+            if (ctaEl) {
+                const ctaRect = ctaEl.getBoundingClientRect();
+                endY = ctaRect.top + ctaRect.height / 2 + window.scrollY - startY;
+            }
         }
 
         setTreeStart(startY);

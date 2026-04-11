@@ -35,7 +35,16 @@ export function CtaSection() {
                 <div className="grid gap-16 lg:grid-cols-5 lg:gap-20">
                     {/* Left Column — CTA copy + contact info */}
                     <div className="lg:col-span-2">
-                        <FadeIn>
+                        {/* Section Heading — tree branch anchor */}
+                        <div id="tree-contact" className="flex items-center gap-3 mb-6">
+                            <span
+                                className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
+                                style={{ fontFamily: 'var(--font-mono)' }}
+                            >
+                                Contact
+                            </span>
+                        </div>
+                        <FadeIn treeNode="tree-contact">
                             <h2
                                 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                                 style={{ fontFamily: 'var(--font-display)' }}
@@ -125,7 +134,7 @@ export function CtaSection() {
 
                     {/* Right Column — Contact Form */}
                     <div className="lg:col-span-3">
-                        <FadeIn delay={0.15}>
+                        <FadeIn treeNode="tree-contact" delay={0.15}>
                             <div className="rounded-2xl border border-card-border bg-card-bg p-8 lg:p-10 shadow-lg shadow-black/5">
                                 <ContactForm />
                             </div>

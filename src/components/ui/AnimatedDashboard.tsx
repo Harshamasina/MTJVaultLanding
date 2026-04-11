@@ -405,8 +405,11 @@ function DonutChart({ inView }: { inView: boolean }) {
             {segments.map(seg => {
                 if (seg.value < 3) return null;
                 const angle = (seg.midPct / 100) * 2 * Math.PI - Math.PI / 2;
-                const lx = size / 2 + r * Math.cos(angle);
-                const ly = size / 2 + r * Math.sin(angle);
+                // Round to 2 decimals — Math.sin/cos can return values that differ
+                // by 1 ULP between Node (server) and browser (client), causing
+                // hydration mismatches when React serializes them as DOM attrs.
+                const lx = Math.round((size / 2 + r * Math.cos(angle)) * 100) / 100;
+                const ly = Math.round((size / 2 + r * Math.sin(angle)) * 100) / 100;
                 return (
                     <text
                         key={`lbl-${seg.label}`}

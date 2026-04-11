@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShieldCheck, FileCheck, Building2, Lock, Fingerprint, Server } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
+import { BrandLogoLink } from '@/components/ui/BrandLogoLink';
 import { SITE_NAME } from '@/lib/constants';
 
 function LinkedInIcon({ className }: { className?: string }) {
@@ -80,6 +82,7 @@ export function Footer() {
                             {/* Left: Trust Badges */}
                             <div className="flex-[3]">
                                 <p
+                                    id="tree-end"
                                     className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light mb-4"
                                     style={{ fontFamily: 'var(--font-mono)' }}
                                 >
@@ -161,13 +164,24 @@ export function Footer() {
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6 lg:gap-12">
                         {/* Brand Column */}
                         <div className="lg:col-span-2 lg:pr-8">
-                            <Link
-                                href="/"
-                                className="inline-flex items-center gap-2 text-xl font-bold tracking-tight no-underline"
-                                style={{ fontFamily: 'var(--font-display)' }}
+                            <BrandLogoLink
+                                ariaLabel={`${SITE_NAME} — Back to top`}
+                                className="group inline-flex items-center gap-5 no-underline"
                             >
-                                <span className="text-white">{SITE_NAME}</span>
-                            </Link>
+                                <Image
+                                    src="/logos/dyi-logo-mark.svg"
+                                    alt=""
+                                    width={128}
+                                    height={128}
+                                    className="h-24 w-24 shrink-0 opacity-95 transition-opacity duration-400 ease-out group-hover:opacity-100 sm:h-28 sm:w-28"
+                                />
+                                <span
+                                    className="text-2xl font-bold tracking-tight text-white transition-colors duration-400 ease-out group-hover:text-primary-light sm:text-[1.6rem]"
+                                    style={{ fontFamily: 'var(--font-display)' }}
+                                >
+                                    {SITE_NAME}
+                                </span>
+                            </BrandLogoLink>
                             <p
                                 className="mt-5 text-[15px] leading-relaxed text-text-on-dark/60 max-w-md"
                                 style={{ fontFamily: 'var(--font-body)' }}

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
                 url: '/og-image.png',
                 width: 1200,
                 height: 630,
-                alt: 'MTJVault IP Management Platform',
+                alt: 'Design Your Invention — Compliance-Native IP Portfolio Management',
             },
         ],
         locale: 'en_US',
@@ -35,6 +35,14 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: SITE_URL,
+    },
+    icons: {
+        icon: [
+            { url: '/icon.svg', type: 'image/svg+xml' },
+            { url: '/icon-32.png', sizes: '32x32', type: 'image/png' },
+        ],
+        shortcut: '/favicon.ico',
+        apple: '/apple-icon.png',
     },
     other: {
         'theme-color': '#6366f1',

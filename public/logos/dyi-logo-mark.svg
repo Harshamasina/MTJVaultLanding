@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="215 25 250 290" width="512" height="512">
+  <defs>
+    <linearGradient id="hg5a" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#A5B4FC"/><stop offset="100%" stop-color="#818CF8"/></linearGradient>
+    <linearGradient id="hg5b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#6366F1"/></linearGradient>
+    <linearGradient id="hg5c" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient>
+    <linearGradient id="hg5d" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#4F46E5"/><stop offset="100%" stop-color="#312E81"/></linearGradient>
+    <linearGradient id="hg5e" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#312E81"/><stop offset="100%" stop-color="#0F1B2D"/></linearGradient>
+    <linearGradient id="hg5f" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#0F1B2D"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient>
+  </defs>
+  <!-- Six triangular facets radiating from center (340, 175) -->
+  <polygon points="340,50 440,108 340,175" fill="url(#hg5a)"/>
+  <polygon points="440,108 440,233 340,175" fill="url(#hg5b)"/>
+  <polygon points="440,233 340,291 340,175" fill="url(#hg5c)"/>
+  <polygon points="340,291 240,233 340,175" fill="url(#hg5d)"/>
+  <polygon points="240,233 240,108 340,175" fill="url(#hg5e)"/>
+  <polygon points="240,108 340,50 340,175" fill="url(#hg5f)"/>
+  <!-- Edge lines between facets -->
+  <line x1="340" y1="50" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.15"/>
+  <line x1="440" y1="108" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.12"/>
+  <line x1="440" y1="233" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+  <line x1="340" y1="291" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.08"/>
+  <line x1="240" y1="233" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+  <line x1="240" y1="108" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.12"/>
+  <!-- Outer hex border -->
+  <polygon points="340,50 440,108 440,233 340,291 240,233 240,108" fill="none" stroke="#6366F1" stroke-width="1" opacity="0.3"/>
+  <!-- Inner white hex core -->
+  <polygon points="340,140 370,157 370,193 340,210 310,193 310,157" fill="#ffffff" opacity="0.92"/>
+  <!-- Core inner stroke -->
+  <polygon points="340,147 364,161 364,189 340,203 316,189 316,161" fill="none" stroke="#6366F1" stroke-width="0.5" opacity="0.3"/>
+  <!-- Center dot -->
+  <circle cx="340" cy="175" r="4" fill="#6366F1"/>
+  <circle cx="340" cy="175" r="1.5" fill="#ffffff"/>
+</svg>

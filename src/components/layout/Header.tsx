@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 import { Container } from '@/components/ui/Container';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
+import { BrandLogoLink } from '@/components/ui/BrandLogoLink';
 
 export function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -46,25 +48,31 @@ export function Header() {
             >
                 <Container>
                     <nav
-                        className="flex items-center justify-between h-16 lg:h-20"
+                        className="flex items-center h-16 xl:h-20 gap-6"
                         aria-label="Main navigation"
                     >
                         {/* Logo */}
-                        <Link
-                            href="/"
-                            className="flex items-center gap-2 text-xl font-bold tracking-tight"
-                            style={{ fontFamily: 'var(--font-display)' }}
+                        <BrandLogoLink
+                            ariaLabel={`${SITE_NAME} — Back to top`}
+                            className="group flex shrink-0 items-center no-underline mr-auto xl:mr-0"
                         >
-                            <span className="text-text-primary">{SITE_NAME}</span>
-                        </Link>
+                            <Image
+                                src="/logos/dyi-wordmark.svg"
+                                alt={SITE_NAME}
+                                width={320}
+                                height={36}
+                                priority
+                                className="h-7 w-auto opacity-95 transition-opacity duration-400 ease-out group-hover:opacity-100 xl:h-8 2xl:h-9"
+                            />
+                        </BrandLogoLink>
 
                         {/* Desktop Nav */}
-                        <ul className="hidden lg:flex items-center gap-8">
+                        <ul className="hidden xl:flex flex-1 items-center justify-between px-8 2xl:px-12">
                             {NAV_LINKS.map((link) => (
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
-                                        className="text-text-primary/70 hover:text-primary transition-colors duration-200 text-[15px] font-semibold"
+                                        className="whitespace-nowrap text-text-primary/70 hover:text-primary transition-colors duration-200 text-[15px] font-semibold"
                                         style={{ fontFamily: 'var(--font-body)' }}
                                     >
                                         {link.label}
@@ -74,14 +82,14 @@ export function Header() {
                         </ul>
 
                         {/* Desktop CTA */}
-                        <div className="hidden lg:flex items-center gap-6">
+                        <div className="hidden xl:flex shrink-0 items-center">
                             <BookDemoButton size="md" />
                         </div>
 
                         {/* Mobile Menu Toggle */}
                         <button
                             type="button"
-                            className="lg:hidden p-2 -mr-2 text-text-primary hover:text-primary transition-colors cursor-pointer"
+                            className="xl:hidden p-2 -mr-2 text-text-primary hover:text-primary transition-colors cursor-pointer"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                             aria-expanded={isMobileMenuOpen}
                             aria-controls="mobile-menu"
@@ -101,15 +109,28 @@ export function Header() {
             {mounted && createPortal(
                 <div
                     id="mobile-menu"
-                    className={`fixed inset-0 bg-white z-60 transition-all duration-300 lg:hidden ${
+                    className={`fixed inset-0 bg-white z-60 transition-all duration-300 xl:hidden ${
                         isMobileMenuOpen
                             ? 'opacity-100 translate-y-0'
                             : 'opacity-0 -translate-y-full pointer-events-none'
                     }`}
                     aria-hidden={!isMobileMenuOpen}
                 >
-                    {/* Close button */}
-                    <div className="absolute top-4 right-4">
+                    {/* Top bar — brand mark + close button */}
+                    <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 h-16">
+                        <BrandLogoLink
+                            ariaLabel={`${SITE_NAME} — Back to top`}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="group flex items-center no-underline"
+                        >
+                            <Image
+                                src="/logos/dyi-wordmark.svg"
+                                alt={SITE_NAME}
+                                width={320}
+                                height={36}
+                                className="h-9 w-auto opacity-95 transition-opacity duration-400 ease-out group-hover:opacity-100"
+                            />
+                        </BrandLogoLink>
                         <button
                             type="button"
                             className="p-2 text-text-primary hover:text-primary transition-colors cursor-pointer"

@@ -8,8 +8,15 @@ import { ArrowRight, Play } from 'lucide-react';
 export function HeroSection() {
     return (
         <>
-            {/* Hero — natural flow on mobile, full viewport on desktop */}
-            <section className="flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:h-screen lg:justify-center lg:pt-28 lg:pb-10 overflow-hidden">
+            {/* Hero — natural flow on mobile, min-viewport-height on desktop.
+                min-h-screen (not h-screen) so short viewports can GROW the
+                section to fit content instead of overflowing above the
+                padding into the fixed navbar. */}
+            <section
+                id="hero"
+                aria-label="Hero"
+                className="flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:min-h-screen lg:justify-center lg:pt-32 xl:pt-36 lg:pb-10 overflow-hidden"
+            >
                 <Container>
                     <div className="flex items-start gap-8 lg:gap-16 xl:gap-20">
                         {/* Text Content — left */}

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" fill="#0A0E14"/>
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#A5B4FC"/><stop offset="100%" stop-color="#818CF8"/></linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#6366F1"/></linearGradient>
+    <linearGradient id="c" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient>
+    <linearGradient id="d" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#4F46E5"/><stop offset="100%" stop-color="#312E81"/></linearGradient>
+    <linearGradient id="e" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#312E81"/><stop offset="100%" stop-color="#0F1B2D"/></linearGradient>
+    <linearGradient id="f" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#0F1B2D"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient>
+  </defs>
+  <polygon points="256,46 406,133 406,307 256,394 106,307 106,133" fill="url(#a)" opacity="0"/>
+  <polygon points="256,46 406,133 256,220" fill="url(#a)"/>
+  <polygon points="406,133 406,307 256,220" fill="url(#b)"/>
+  <polygon points="406,307 256,394 256,220" fill="url(#c)"/>
+  <polygon points="256,394 106,307 256,220" fill="url(#d)"/>
+  <polygon points="106,307 106,133 256,220" fill="url(#e)"/>
+  <polygon points="106,133 256,46 256,220" fill="url(#f)"/>
+  <line x1="256" y1="46" x2="256" y2="220" stroke="#ffffff" stroke-width="0.5" opacity="0.15"/>
+  <line x1="406" y1="133" x2="256" y2="220" stroke="#ffffff" stroke-width="0.5" opacity="0.12"/>
+  <line x1="406" y1="307" x2="256" y2="220" stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+  <line x1="256" y1="394" x2="256" y2="220" stroke="#ffffff" stroke-width="0.5" opacity="0.08"/>
+  <line x1="106" y1="307" x2="256" y2="220" stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+  <line x1="106" y1="133" x2="256" y2="220" stroke="#ffffff" stroke-width="0.5" opacity="0.12"/>
+  <polygon points="256,46 406,133 406,307 256,394 106,307 106,133" fill="none" stroke="#6366F1" stroke-width="1" opacity="0.3"/>
+  <polygon points="256,181 292,199 292,239 256,257 220,239 220,199" fill="#ffffff" opacity="0.92"/>
+  <polygon points="256,189 284,205 284,235 256,251 228,235 228,205" fill="none" stroke="#6366F1" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="256" cy="220" r="5" fill="#6366F1"/>
+  <circle cx="256" cy="220" r="2" fill="#ffffff"/>
+</svg>

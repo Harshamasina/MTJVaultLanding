@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F1B2D"/>
+      <stop offset="100%" stop-color="#0A1220"/>
+    </linearGradient>
+    <linearGradient id="oa" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#A5B4FC"/><stop offset="100%" stop-color="#818CF8"/></linearGradient>
+    <linearGradient id="ob" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#6366F1"/></linearGradient>
+    <linearGradient id="oc" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient>
+    <linearGradient id="od" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#4F46E5"/><stop offset="100%" stop-color="#312E81"/></linearGradient>
+    <linearGradient id="oe" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#312E81"/><stop offset="100%" stop-color="#0F1B2D"/></linearGradient>
+    <linearGradient id="of" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#0F1B2D"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Logo mark: hex center (340,170) maps to screen (600,200) with scale 0.55 -->
+  <g transform="translate(413, 107) scale(0.55)">
+    <polygon points="340,50 440,108 340,175" fill="url(#oa)"/>
+    <polygon points="440,108 440,233 340,175" fill="url(#ob)"/>
+    <polygon points="440,233 340,291 340,175" fill="url(#oc)"/>
+    <polygon points="340,291 240,233 340,175" fill="url(#od)"/>
+    <polygon points="240,233 240,108 340,175" fill="url(#oe)"/>
+    <polygon points="240,108 340,50 340,175" fill="url(#of)"/>
+    <line x1="340" y1="50" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.15"/>
+    <line x1="440" y1="108" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.12"/>
+    <line x1="440" y1="233" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+    <line x1="340" y1="291" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.08"/>
+    <line x1="240" y1="233" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+    <line x1="240" y1="108" x2="340" y2="175" stroke="#ffffff" stroke-width="0.5" opacity="0.12"/>
+    <polygon points="340,50 440,108 440,233 340,291 240,233 240,108" fill="none" stroke="#6366F1" stroke-width="1" opacity="0.3"/>
+    <polygon points="340,140 370,157 370,193 340,210 310,193 310,157" fill="#ffffff" opacity="0.92"/>
+    <polygon points="340,147 364,161 364,189 340,203 316,189 316,161" fill="none" stroke="#6366F1" stroke-width="0.5" opacity="0.3"/>
+    <circle cx="340" cy="175" r="4" fill="#6366F1"/>
+    <circle cx="340" cy="175" r="1.5" fill="#ffffff"/>
+  </g>
+  <!-- Brand name -->
+  <text x="600" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="44" font-weight="400" fill="#ffffff" letter-spacing="1">Design Your Invention</text>
+  <!-- Tagline -->
+  <text x="600" y="425" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="400" fill="#A5B4FC" letter-spacing="3" opacity="0.8">COMPLIANCE-NATIVE IP PORTFOLIO MANAGEMENT</text>
+  <!-- Separator -->
+  <line x1="480" y1="450" x2="720" y2="450" stroke="#6366F1" stroke-width="1" opacity="0.2"/>
+  <!-- URL -->
+  <text x="600" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="400" fill="#818CF8" letter-spacing="2" opacity="0.5">designyourinvention.com</text>
+</svg>

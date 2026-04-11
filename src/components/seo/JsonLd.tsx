@@ -7,6 +7,7 @@ const organizationSchema = {
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
+    image: `${SITE_URL}/logo.png`,
     description:
         'Enterprise IP management and patent docketing platform for law firms and pharma companies.',
     sameAs: [],
