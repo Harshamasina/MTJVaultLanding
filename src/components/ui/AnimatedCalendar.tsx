@@ -16,6 +16,7 @@ interface CalendarEvent {
 }
 
 interface MonthData {
+    monthIndex: number;
     name: string;
     shortName: string;
     year: number;
@@ -71,6 +72,7 @@ function buildMonth(monthIndex: number, year: number): MonthData {
     });
 
     return {
+        monthIndex,
         name: MONTH_NAMES[monthIndex],
         shortName: MONTH_NAMES[monthIndex],
         year,
@@ -141,42 +143,60 @@ export function AnimatedCalendar() {
                 <div className="w-[40px]" />
             </div>
 
-            {/* Calendar Header */}
-            <div className="px-3 pt-2 pb-1.5 flex items-center justify-between">
-                <p className="text-[10px] text-text-muted" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
-                    Showing 01 {month.name} {month.year} to {month.totalDays} {month.name} {month.year}
-                </p>
-                <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] text-text-secondary font-medium px-2 py-1 rounded border border-card-border bg-white" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
-                        {month.year}
-                    </span>
-                    {/* Month pills */}
-                    <div className="flex">
-                        {months.map((m, i) => (
-                            <motion.span
-                                key={m.name + m.year}
-                                className={`text-[10px] font-semibold px-2.5 py-1 rounded cursor-default transition-colors duration-300 ${
-                                    i === activeIndex
-                                        ? 'bg-primary text-white'
-                                        : 'text-text-muted hover:text-text-secondary'
-                                }`}
-                                style={{ fontFamily: 'var(--font-dashboard-mono)' }}
-                                layout
-                            >
-                                {m.name}
-                            </motion.span>
-                        ))}
-                    </div>
-                    <div className="flex ml-1">
-                        <span className={`text-[10px] font-medium px-2 py-1 rounded-l border border-card-border bg-primary text-white`}
-                            style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
-                            Month
-                        </span>
-                        <span className="text-[10px] font-medium px-2 py-1 rounded-r border border-l-0 border-card-border text-text-muted"
-                            style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
-                            Year
-                        </span>
-                    </div>
+            {/* Filter row 1: Date range picker (left) + Showing text (right) */}
+            <div className="px-3 pt-2 pb-1 flex items-center justify-between gap-2">
+                <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-card-border bg-white" style={{ fontFamily: 'var(--font-dashboard)' }}>
+                    <span className="text-[9px] text-text-muted/70">Start date</span>
+                    <svg className="w-2.5 h-2.5 text-text-muted/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                    <span className="text-[9px] text-text-muted/70">End date</span>
+                    <svg className="w-3 h-3 text-text-muted ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <AnimatePresence mode="wait">
+                    <motion.p
+                        key={`showing-${month.year}-${month.monthIndex}`}
+                        initial={{ opacity: 0, y: -3 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 3 }}
+                        transition={{ duration: 0.25 }}
+                        className="text-[9px] text-text-muted"
+                        style={{ fontFamily: 'var(--font-dashboard-mono)' }}
+                    >
+                        Showing {month.year}-{String(month.monthIndex + 1).padStart(2, '0')}-01 to {month.year}-{String(month.monthIndex + 1).padStart(2, '0')}-{String(month.totalDays).padStart(2, '0')}
+                    </motion.p>
+                </AnimatePresence>
+            </div>
+
+            {/* Filter row 2: Year + Month dropdowns + Month/Year toggle (right-aligned) */}
+            <div className="px-3 pb-1.5 flex items-center justify-end gap-1.5">
+                <span className="inline-flex items-center gap-1 text-[10px] text-text-primary font-medium px-2 py-1 rounded border border-card-border bg-white cursor-default" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
+                    {month.year}
+                    <svg className="w-2 h-2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </span>
+                <AnimatePresence mode="wait">
+                    <motion.span
+                        key={month.name + month.year}
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.25 }}
+                        className="inline-flex items-center gap-1 text-[10px] text-text-primary font-medium px-2 py-1 rounded border border-card-border bg-white cursor-default"
+                        style={{ fontFamily: 'var(--font-dashboard-mono)' }}
+                    >
+                        {month.name}
+                        <svg className="w-2 h-2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </motion.span>
+                </AnimatePresence>
+                <div className="flex ml-1">
+                    <span className="text-[10px] font-medium px-2 py-1 rounded-l border border-primary bg-primary text-white cursor-default" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>Month</span>
+                    <span className="text-[10px] font-medium px-2 py-1 rounded-r border border-l-0 border-card-border text-text-muted cursor-default" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>Year</span>
                 </div>
             </div>
 

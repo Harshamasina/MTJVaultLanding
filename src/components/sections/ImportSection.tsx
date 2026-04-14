@@ -1,14 +1,12 @@
-'use client';
-
 import {
     Upload,
     Eye,
     CheckCircle2,
     ArrowDown,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { ImportConnectors } from '@/components/ui/ImportConnectors';
 
 const STEPS = [
     {
@@ -91,30 +89,7 @@ export function ImportSection() {
                 {/* 3-Step Flow */}
                 <div className="grid gap-0 lg:grid-cols-3 lg:gap-0 relative">
                     {/* Desktop connector lines */}
-                    <div className="hidden lg:block absolute top-[3.5rem] left-[calc(33.33%+0.5rem)] right-[calc(33.33%+0.5rem)] z-0">
-                        <div className="flex items-center justify-between gap-0">
-                            <motion.div
-                                className="flex-1 flex items-center"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.5 }}
-                            >
-                                <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-primary/20" />
-                                <div className="w-2 h-2 rounded-full bg-primary/30 -mx-1" />
-                            </motion.div>
-                            <motion.div
-                                className="flex-1 flex items-center"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.8 }}
-                            >
-                                <div className="w-2 h-2 rounded-full bg-primary/30 -mx-1" />
-                                <div className="flex-1 h-px bg-gradient-to-r from-primary/20 to-primary/30" />
-                            </motion.div>
-                        </div>
-                    </div>
+                    <ImportConnectors />
 
                     {STEPS.map((step, i) => (
                         <FadeIn key={step.number} treeNode="tree-import" delay={i * 0.15}>

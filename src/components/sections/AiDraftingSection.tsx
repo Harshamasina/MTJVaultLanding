@@ -60,7 +60,7 @@ export function AiDraftingSection() {
                             className="mt-4 text-lg text-text-secondary leading-relaxed"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            One search bar. 100+ jurisdictions. Jurisdiction-compliant
+                            One search bar. 200M+ Patents Available Worldwide. Jurisdiction-compliant
                             drafts in under 2 minutes. Every step audited.
                         </p>
                     </div>
@@ -155,12 +155,12 @@ const PRIOR_ART_CARDS: { icon: React.ElementType; title: string; description: st
     {
         icon: Globe,
         title: '100+ Jurisdictions, One Search Bar',
-        description: 'Search the entire EPO global patent database without leaving your portfolio or switching tools.',
+        description: 'Search the entire global patent database without leaving your portfolio or switching tools.',
     },
     {
         icon: Search,
-        title: 'Four Search Modes',
-        description: 'Keywords, Inventor, Applicant, and Patent Number. Each handles edge cases like hyphens, suffixes, and kind codes automatically.',
+        title: 'Six Search Modes',
+        description: 'Keywords(Full Text), Inventor, Applicant, IPC, CPC, and Patent Number. Each handles edge cases like hyphens, suffixes, and kind codes automatically.',
     },
     {
         icon: BookmarkPlus,
@@ -170,7 +170,7 @@ const PRIOR_ART_CARDS: { icon: React.ElementType; title: string; description: st
     {
         icon: FileSearch,
         title: 'Deep Patent Detail',
-        description: 'Bibliographic data, abstracts, claims, and family members, all accessible from every search result.',
+        description: 'Bibliographic data, abstracts, claims, Cited By, Status,and family members, all accessible from every search result.',
     },
 ];
 
