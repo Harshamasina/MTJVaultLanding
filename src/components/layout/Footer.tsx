@@ -4,6 +4,7 @@ import { ShieldCheck, FileCheck, Building2, Lock, Fingerprint, Server } from 'lu
 import { Container } from '@/components/ui/Container';
 import { BrandLogoLink } from '@/components/ui/BrandLogoLink';
 import { SITE_NAME } from '@/lib/constants';
+import { getLatestPosts } from '@/content/blog';
 
 function LinkedInIcon({ className }: { className?: string }) {
     return (
@@ -38,20 +39,13 @@ const TRUST_BADGES = [
     { icon: Server, label: 'AWS Infrastructure' },
 ];
 
-const FOOTER_LINKS = {
+const STATIC_FOOTER_LINKS = {
     Product: [
         { label: 'Features', href: '/#features' },
         { label: 'AI Patent Drafting', href: '/#ai-drafting' },
         { label: 'Compliance', href: '/#compliance' },
         { label: 'Pricing', href: '/#pricing' },
         { label: 'FAQ', href: '/#faq' },
-    ],
-    Resources: [
-        { label: 'What Is IP Management?', href: '/blog/what-is-ip-management-software/' },
-        { label: 'Patent Docketing Guide', href: '/blog/patent-docketing-best-practices/' },
-        { label: 'FDA 21 CFR Part 11 Guide', href: '/blog/fda-21-cfr-part-11-compliance-guide/' },
-        { label: 'PCT Filing Management', href: '/blog/pct-filing-management-tips/' },
-        { label: 'Blog', href: '/blog/' },
     ],
     Company: [
         { label: 'Contact', href: '/#contact' },
@@ -71,6 +65,27 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
+
+    // Build Resources column dynamically: latest 4 blog posts + index link.
+    // Re-evaluated at build time so the footer always reflects the newest posts.
+    const latestPosts = getLatestPosts(4);
+    const resourcesLinks = [
+        ...latestPosts.map((p) => ({
+            label: p.shortTitle ?? p.title,
+            href: `/blog/${p.slug}/`,
+        })),
+        { label: 'Blog', href: '/blog/' },
+    ];
+
+    const footerColumns: Array<{
+        category: string;
+        links: ReadonlyArray<{ label: string; href: string }>;
+    }> = [
+        { category: 'Product', links: STATIC_FOOTER_LINKS.Product },
+        { category: 'Resources', links: resourcesLinks },
+        { category: 'Company', links: STATIC_FOOTER_LINKS.Company },
+        { category: 'Legal', links: STATIC_FOOTER_LINKS.Legal },
+    ];
 
     return (
         <div>
@@ -210,7 +225,7 @@ export function Footer() {
                         </div>
 
                         {/* Link Columns */}
-                        {Object.entries(FOOTER_LINKS).map(([category, links]) => (
+                        {footerColumns.map(({ category, links }) => (
                             <div key={category}>
                                 <h3
                                     className="text-xs font-bold uppercase tracking-[0.15em] text-primary-light mb-5"
@@ -220,7 +235,7 @@ export function Footer() {
                                 </h3>
                                 <ul className="space-y-3.5">
                                     {links.map((link) => (
-                                        <li key={link.label}>
+                                        <li key={link.href}>
                                             <Link
                                                 href={link.href}
                                                 className="text-sm text-text-on-dark/60 hover:text-white transition-colors duration-200 no-underline"

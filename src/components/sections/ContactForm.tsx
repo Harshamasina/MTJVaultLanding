@@ -5,6 +5,7 @@ import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { ROLE_OPTIONS, INQUIRY_TYPE_OPTIONS } from '@/lib/constants';
 import { submitContactMessage, type ApiError } from '@/lib/api';
+import { validateContactForm, hasErrors } from '@/lib/validation';
 
 interface FormData {
     name: string;
@@ -63,6 +64,15 @@ export function ContactForm() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        const clientErrors = validateContactForm(form);
+        if (hasErrors(clientErrors)) {
+            setFieldErrors(clientErrors);
+            setStatus('error');
+            setErrorMessage('Please fix the errors above.');
+            return;
+        }
+
         setStatus('submitting');
         setErrorMessage('');
         setFieldErrors({});
@@ -88,7 +98,7 @@ export function ContactForm() {
 
             if (apiErr.code === 'validation_error' && 'details' in apiErr) {
                 setFieldErrors(apiErr.details.fieldErrors);
-                setErrorMessage('Please fix the errors below.');
+                setErrorMessage('Please fix the errors above.');
             } else if (apiErr.code === 'rate_limit_exceeded') {
                 setErrorMessage('Too many attempts. Please try again in a minute.');
             } else {
@@ -137,7 +147,7 @@ export function ContactForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             {/* Honeypot - hidden from real users, uncontrolled to avoid autofill issues */}
             <input
                 ref={hpRef}
@@ -222,16 +232,25 @@ export function ContactForm() {
                     name="message"
                     value={form.message}
                     onChange={handleChange}
-                    required
+                    aria-required="true"
+                    aria-invalid={!!getFieldError('message')}
+                    aria-describedby={getFieldError('message') ? 'message-error' : undefined}
                     rows={4}
                     placeholder="Tell us about your IP management needs..."
-                    className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors resize-y ${
-                        getFieldError('message') ? 'border-danger' : 'border-card-border'
+                    className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none transition-colors resize-y ${
+                        getFieldError('message')
+                            ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
+                            : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
                     }`}
                     style={{ fontFamily: 'var(--font-body)' }}
                 />
                 {getFieldError('message') && (
-                    <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                    <p
+                        id="message-error"
+                        role="alert"
+                        className="mt-1.5 text-xs text-danger"
+                        style={{ fontFamily: 'var(--font-body)' }}
+                    >
                         {getFieldError('message')}
                     </p>
                 )}
@@ -303,15 +322,24 @@ function FormField({
                 type={type}
                 value={value}
                 onChange={onChange}
-                required={required}
+                aria-required={required}
+                aria-invalid={!!error}
+                aria-describedby={error ? `${name}-error` : undefined}
                 placeholder={placeholder}
-                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors ${
-                    error ? 'border-danger' : 'border-card-border'
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none transition-colors ${
+                    error
+                        ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
+                        : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
                 }`}
                 style={{ fontFamily: 'var(--font-body)' }}
             />
             {error && (
-                <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                <p
+                    id={`${name}-error`}
+                    role="alert"
+                    className="mt-1.5 text-xs text-danger"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                >
                     {error}
                 </p>
             )}
@@ -350,9 +378,13 @@ function FormSelect({
                 name={name}
                 value={value}
                 onChange={onChange}
-                required={required}
-                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors appearance-none cursor-pointer ${
-                    error ? 'border-danger' : 'border-card-border'
+                aria-required={required}
+                aria-invalid={!!error}
+                aria-describedby={error ? `${name}-error` : undefined}
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary focus:outline-none transition-colors appearance-none cursor-pointer ${
+                    error
+                        ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
+                        : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
                 }`}
                 style={{ fontFamily: 'var(--font-body)' }}
             >
@@ -363,7 +395,12 @@ function FormSelect({
                 ))}
             </select>
             {error && (
-                <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                <p
+                    id={`${name}-error`}
+                    role="alert"
+                    className="mt-1.5 text-xs text-danger"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                >
                     {error}
                 </p>
             )}

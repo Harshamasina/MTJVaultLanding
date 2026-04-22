@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
-import { Container } from '@/components/ui/Container';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
 import { BrandLogoLink } from '@/components/ui/BrandLogoLink';
 
@@ -39,16 +38,36 @@ export function Header() {
 
     return (
         <>
-            <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-                    isScrolled
-                        ? 'bg-white/80 backdrop-blur-xl shadow-sm border-card-border'
-                        : 'bg-transparent border-transparent'
-                }`}
+            {/* Top blur veil — constrained to header width so it doesn't blur
+                the tree spine running down the page edges. */}
+            <div
+                aria-hidden="true"
+                className="fixed top-0 left-0 right-0 z-40 pointer-events-none"
             >
-                <Container>
+                <div className="mx-auto w-full max-w-352 px-3 sm:px-4 lg:px-6">
+                    <div
+                        className="h-24 sm:h-28 backdrop-blur-md"
+                        style={{
+                            maskImage:
+                                'linear-gradient(to bottom, black 55%, transparent)',
+                            WebkitMaskImage:
+                                'linear-gradient(to bottom, black 55%, transparent)',
+                        }}
+                    />
+                </div>
+            </div>
+
+            <header
+                className="fixed top-0 left-0 right-0 z-50 pt-2 sm:pt-3"
+                role="banner"
+            >
+                <div className="mx-auto w-full max-w-352 px-3 sm:px-4 lg:px-6">
                     <nav
-                        className="flex items-center h-16 xl:h-20 gap-6"
+                        className={`flex items-center h-14 xl:h-16 gap-4 px-3 sm:px-4 xl:pl-6 xl:pr-3 rounded-lg border backdrop-blur-xl transition-all duration-300 ${
+                            isScrolled
+                                ? 'bg-white/80 shadow-lg shadow-black/5 border-card-border'
+                                : 'bg-white/60 shadow-sm border-card-border/50'
+                        }`}
                         aria-label="Main navigation"
                     >
                         {/* Logo */}
@@ -62,17 +81,17 @@ export function Header() {
                                 width={320}
                                 height={36}
                                 priority
-                                className="h-7 w-auto opacity-95 transition-opacity duration-400 ease-out group-hover:opacity-100 xl:h-8 2xl:h-9"
+                                className="h-6 w-auto opacity-95 transition-opacity duration-400 ease-out group-hover:opacity-100 sm:h-7 xl:h-8"
                             />
                         </BrandLogoLink>
 
                         {/* Desktop Nav */}
-                        <ul className="hidden xl:flex flex-1 items-center justify-between px-8 2xl:px-12">
+                        <ul className="hidden xl:flex flex-1 items-center justify-center gap-6 2xl:gap-8">
                             {NAV_LINKS.map((link) => (
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
-                                        className="whitespace-nowrap text-text-primary/70 hover:text-primary transition-colors duration-200 text-[15px] font-semibold"
+                                        className="whitespace-nowrap text-text-primary/70 hover:text-primary transition-colors duration-200 text-[14px] 2xl:text-[15px] font-semibold"
                                         style={{ fontFamily: 'var(--font-body)' }}
                                     >
                                         {link.label}
@@ -83,13 +102,13 @@ export function Header() {
 
                         {/* Desktop CTA */}
                         <div className="hidden xl:flex shrink-0 items-center">
-                            <BookDemoButton size="md" />
+                            <BookDemoButton size="sm" />
                         </div>
 
                         {/* Mobile Menu Toggle */}
                         <button
                             type="button"
-                            className="xl:hidden p-2 -mr-2 text-text-primary hover:text-primary transition-colors cursor-pointer"
+                            className="xl:hidden p-2 text-text-primary hover:text-primary transition-colors cursor-pointer rounded-lg"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                             aria-expanded={isMobileMenuOpen}
                             aria-controls="mobile-menu"
@@ -102,7 +121,7 @@ export function Header() {
                             )}
                         </button>
                     </nav>
-                </Container>
+                </div>
             </header>
 
             {/* Mobile Menu — portaled to body to escape header backdrop-filter */}

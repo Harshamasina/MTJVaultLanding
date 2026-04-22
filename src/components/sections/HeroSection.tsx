@@ -15,10 +15,10 @@ export function HeroSection() {
             <section
                 id="hero"
                 aria-label="Hero"
-                className="flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:min-h-screen lg:justify-center lg:pt-32 xl:pt-36 lg:pb-10 overflow-hidden"
+                className="flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:min-h-screen lg:justify-center lg:pt-32 lg:pb-32 xl:pt-36 xl:pb-36 overflow-hidden"
             >
                 <Container>
-                    <div className="flex items-start gap-8 lg:gap-16 xl:gap-20">
+                    <div className="flex items-start lg:items-center gap-8 lg:gap-16 xl:gap-20">
                         {/* Text Content — left */}
                         <div className="w-full lg:max-w-[52%] lg:shrink-0">
                             <h1
@@ -52,7 +52,7 @@ export function HeroSection() {
                         </div>
 
                         {/* Family Tree Visual — right, hidden below lg */}
-                        <div className="hidden lg:flex flex-1 min-w-0 items-start justify-center pt-2">
+                        <div className="hidden lg:flex flex-1 min-w-0 items-center justify-center">
                             <div className="w-full max-w-[420px]">
                                 <HeroTreeVisual />
                             </div>

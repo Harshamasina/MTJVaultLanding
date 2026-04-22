@@ -111,6 +111,7 @@ function Content() {
 export const post: BlogPost = {
     slug: 'what-is-ip-management-software',
     title: 'What Is IP Management Software? A Complete Guide for 2026',
+    shortTitle: 'What Is IP Management?',
     description:
         'IP management software helps law firms and pharma companies track patents, deadlines, fees, and compliance. Learn why spreadsheets fail and what to look for in a modern platform.',
     publishedAt: '2026-03-10',

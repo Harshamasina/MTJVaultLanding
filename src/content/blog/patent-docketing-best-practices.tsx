@@ -127,6 +127,7 @@ function Content() {
 export const post: BlogPost = {
     slug: 'patent-docketing-best-practices',
     title: 'Patent Docketing Best Practices for Law Firms in 2026',
+    shortTitle: 'Patent Docketing Guide',
     description:
         'Learn the 7 essential best practices for patent docketing, from automated deadline calculations to audit trails. Avoid the most common docketing mistakes that put patent portfolios at risk.',
     publishedAt: '2026-03-08',

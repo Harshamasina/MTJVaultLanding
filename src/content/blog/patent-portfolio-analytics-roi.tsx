@@ -130,6 +130,7 @@ function Content() {
 export const post: BlogPost = {
     slug: 'patent-portfolio-analytics-roi',
     title: 'How Patent Portfolio Analytics Drives ROI for IP Teams',
+    shortTitle: 'Portfolio Analytics ROI',
     description:
         'Learn how patent portfolio analytics helps IP teams cut costs, optimize filing strategy, and identify licensing opportunities. Practical metrics and a step-by-step approach for getting started.',
     publishedAt: '2026-02-25',

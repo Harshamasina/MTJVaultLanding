@@ -117,6 +117,7 @@ function Content() {
 export const post: BlogPost = {
     slug: 'fda-21-cfr-part-11-compliance-guide',
     title: 'FDA 21 CFR Part 11 Compliance: What IP Teams Need to Know',
+    shortTitle: 'FDA 21 CFR Part 11 Guide',
     description:
         'A practical guide to FDA 21 CFR Part 11 compliance for pharmaceutical IP teams. Learn the audit trail, electronic signature, and access control requirements for patent management systems.',
     publishedAt: '2026-03-05',

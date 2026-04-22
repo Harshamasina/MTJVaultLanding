@@ -7,6 +7,7 @@ import { X, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { ROLE_OPTIONS } from '@/lib/constants';
 import { submitDemoRequest, type ApiError } from '@/lib/api';
+import { validateDemoForm, hasErrors } from '@/lib/validation';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -130,6 +131,15 @@ function DemoModal({ onClose }: { onClose: () => void }) {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        const clientErrors = validateDemoForm(form);
+        if (hasErrors(clientErrors)) {
+            setFieldErrors(clientErrors);
+            setStatus('error');
+            setErrorMessage('Please fix the errors above.');
+            return;
+        }
+
         setStatus('submitting');
         setErrorMessage('');
         setFieldErrors({});
@@ -154,7 +164,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
 
             if (apiErr.code === 'validation_error' && 'details' in apiErr) {
                 setFieldErrors(apiErr.details.fieldErrors);
-                setErrorMessage('Please fix the errors below.');
+                setErrorMessage('Please fix the errors above.');
             } else if (apiErr.code === 'rate_limit_exceeded') {
                 setErrorMessage('Too many attempts. Please try again in a minute.');
             } else {
@@ -247,7 +257,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                             workflow. We&apos;ll reach out to schedule a time.
                         </p>
 
-                        <form onSubmit={handleSubmit} className="space-y-5">
+                        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                             {/* Honeypot — hidden from real users, uncontrolled to avoid autofill */}
                             <input
                                 ref={hpRef}
@@ -311,9 +321,13 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                         name="role"
                                         value={form.role}
                                         onChange={handleChange}
-                                        required
-                                        className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors appearance-none cursor-pointer ${
-                                            getFieldError('role') ? 'border-danger' : 'border-card-border'
+                                        aria-required="true"
+                                        aria-invalid={!!getFieldError('role')}
+                                        aria-describedby={getFieldError('role') ? 'demo-role-error' : undefined}
+                                        className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary focus:outline-none transition-colors appearance-none cursor-pointer ${
+                                            getFieldError('role')
+                                                ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
+                                                : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
                                         }`}
                                         style={{
                                             fontFamily: 'var(--font-body)',
@@ -330,7 +344,12 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                         ))}
                                     </select>
                                     {getFieldError('role') && (
-                                        <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                                        <p
+                                            id="demo-role-error"
+                                            role="alert"
+                                            className="mt-1.5 text-xs text-danger"
+                                            style={{ fontFamily: 'var(--font-body)' }}
+                                        >
                                             {getFieldError('role')}
                                         </p>
                                     )}
@@ -368,6 +387,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                     value={form.notes}
                                     onChange={handleChange}
                                     rows={2}
+                                    maxLength={1000}
                                     placeholder="e.g. PCT filing workflows, compliance audit trail..."
                                     className="w-full rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors resize-y"
                                     style={{
@@ -448,15 +468,24 @@ function ModalField({
                 type={type}
                 value={value}
                 onChange={onChange}
-                required={required}
+                aria-required={required}
+                aria-invalid={!!error}
+                aria-describedby={error ? `demo-${name}-error` : undefined}
                 placeholder={placeholder}
-                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors ${
-                    error ? 'border-danger' : 'border-card-border'
+                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none transition-colors ${
+                    error
+                        ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
+                        : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
                 }`}
                 style={{ fontFamily: 'var(--font-body)' }}
             />
             {error && (
-                <p className="mt-1 text-xs text-danger" style={{ fontFamily: 'var(--font-body)' }}>
+                <p
+                    id={`demo-${name}-error`}
+                    role="alert"
+                    className="mt-1.5 text-xs text-danger"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                >
                     {error}
                 </p>
             )}

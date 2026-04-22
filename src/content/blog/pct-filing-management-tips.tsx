@@ -135,6 +135,7 @@ function Content() {
 export const post: BlogPost = {
     slug: 'pct-filing-management-tips',
     title: 'PCT Filing Management: Deadlines, Phases, and Tools for IP Teams',
+    shortTitle: 'PCT Filing Management',
     description:
         'Master PCT filing management with these 5 practical tips. Learn how to track the 30-month national phase deadline, manage translations, and avoid the most common PCT pitfalls.',
     publishedAt: '2026-03-01',
