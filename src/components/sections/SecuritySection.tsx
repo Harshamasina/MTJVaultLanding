@@ -30,11 +30,10 @@ export function SecuritySection() {
                             className="mt-4 text-lg text-text-on-dark/60 leading-relaxed"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            Your intellectual property is your most valuable asset.
-                            Every facet of our architecture is a layer of defense,
-                            from the AI tier that never trains on your data to the
-                            row-level isolation that even a rogue query can&apos;t
-                            bypass.
+                            Every patent record, draft, fee event, and audit log
+                            is protected through layered controls &mdash; from
+                            zero-retention AI workflows to tenant-scoped queries
+                            and enforced row-level security.
                         </p>
                     </div>
                 </FadeIn>

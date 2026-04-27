@@ -1,9 +1,13 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { ROLE_OPTIONS, INQUIRY_TYPE_OPTIONS } from '@/lib/constants';
+import {
+    ROLE_OPTIONS,
+    INQUIRY_TYPE_OPTIONS,
+    PORTFOLIO_SIZE_OPTIONS,
+} from '@/lib/constants';
 import { submitContactMessage, type ApiError } from '@/lib/api';
 import { validateContactForm, hasErrors } from '@/lib/validation';
 
@@ -12,6 +16,7 @@ interface FormData {
     email: string;
     company: string;
     role: string;
+    portfolioSize: string;
     inquiryType: string;
     message: string;
 }
@@ -23,6 +28,7 @@ const INITIAL_FORM: FormData = {
     email: '',
     company: '',
     role: '',
+    portfolioSize: '',
     inquiryType: '',
     message: '',
 };
@@ -41,6 +47,7 @@ export function ContactForm() {
         email: 'work_email',
         company: 'company',
         role: 'role',
+        portfolioSize: 'portfolio_size',
         inquiryType: 'inquiry_type',
         message: 'message',
     };
@@ -77,6 +84,13 @@ export function ContactForm() {
         setErrorMessage('');
         setFieldErrors({});
 
+        // Portfolio size is a new lead-qualification field. We fold it into
+        // the message body so existing backends that don't yet know about
+        // `portfolio_size` still surface the value to the recipient. Once the
+        // backend accepts the field directly, drop the prefix and add it to
+        // ContactMessagePayload instead.
+        const messageWithContext = `Portfolio size: ${form.portfolioSize}\n\n${form.message}`;
+
         try {
             await submitContactMessage(
                 {
@@ -85,7 +99,7 @@ export function ContactForm() {
                     company: form.company,
                     role: form.role,
                     inquiry_type: form.inquiryType,
-                    message: form.message,
+                    message: messageWithContext,
                     _hp_field: hpRef.current?.value || undefined,
                 },
                 idempotencyKey,
@@ -207,16 +221,27 @@ export function ContactForm() {
                 />
             </div>
 
-            {/* Inquiry Type */}
-            <FormSelect
-                label="Inquiry Type"
-                name="inquiryType"
-                value={form.inquiryType}
-                onChange={handleChange}
-                required
-                options={INQUIRY_TYPE_OPTIONS}
-                error={getFieldError('inquiry_type')}
-            />
+            {/* Portfolio Size + Inquiry Type row */}
+            <div className="grid gap-6 sm:grid-cols-2">
+                <FormSelect
+                    label="Portfolio Size"
+                    name="portfolioSize"
+                    value={form.portfolioSize}
+                    onChange={handleChange}
+                    required
+                    options={PORTFOLIO_SIZE_OPTIONS}
+                    error={getFieldError('portfolio_size')}
+                />
+                <FormSelect
+                    label="Inquiry Type"
+                    name="inquiryType"
+                    value={form.inquiryType}
+                    onChange={handleChange}
+                    required
+                    options={INQUIRY_TYPE_OPTIONS}
+                    error={getFieldError('inquiry_type')}
+                />
+            </div>
 
             {/* Message */}
             <div>
@@ -236,7 +261,7 @@ export function ContactForm() {
                     aria-invalid={!!getFieldError('message')}
                     aria-describedby={getFieldError('message') ? 'message-error' : undefined}
                     rows={4}
-                    placeholder="Tell us about your IP management needs..."
+                    placeholder="Tell us about your patent workflow, portfolio size, or compliance needs..."
                     className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none transition-colors resize-y ${
                         getFieldError('message')
                             ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
@@ -277,8 +302,8 @@ export function ContactForm() {
                     'Sending...'
                 ) : (
                     <>
-                        Send Message
-                        <Send className="w-4 h-4" />
+                        Request a Demo
+                        <ArrowRight className="w-4 h-4" />
                     </>
                 )}
             </Button>

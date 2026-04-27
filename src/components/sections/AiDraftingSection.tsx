@@ -28,7 +28,7 @@ const JURISDICTIONS = [
 const TRUST_ITEMS = [
     { icon: Shield, label: 'Zero Data Retention' },
     { icon: Lock, label: '5-Layer Prompt Defense' },
-    { icon: UserCheck, label: 'Mandatory Attorney Review' },
+    { icon: UserCheck, label: 'Attorney Review Required' },
     { icon: ClipboardList, label: 'Complete Audit Trail' },
 ];
 
@@ -53,15 +53,14 @@ export function AiDraftingSection() {
                             className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
-                            AI-Powered Prior Art Search &{' '}
+                            AI-Assisted Prior Art Search &{' '}
                             <span className="text-primary">Patent Drafting</span>
                         </h2>
                         <p
                             className="mt-4 text-lg text-text-secondary leading-relaxed"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            One search bar. 200M+ Patents Available Worldwide. Jurisdiction-compliant
-                            drafts in under 2 minutes. Every step audited.
+                            Access 200M+ patent records across major jurisdictions without leaving your portfolio. Jurisdiction-aware draft generation in under 5 minutes. Every step audited.
                         </p>
                     </div>
                 </FadeIn>
@@ -115,15 +114,18 @@ export function AiDraftingSection() {
 
                 {/* ── Trust Strip ── */}
                 <FadeIn delay={0.1}>
-                    <div className="mt-16 lg:mt-24 flex flex-wrap items-center justify-center gap-3 lg:gap-5">
+                    <div className="mt-16 lg:mt-24 flex flex-wrap items-center justify-center gap-3 lg:gap-4">
                         {TRUST_ITEMS.map((item) => (
                             <div
                                 key={item.label}
-                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-primary/15 bg-primary/[0.03]"
+                                className="flex items-center gap-2.5 px-5 py-3 sm:px-6 sm:py-3.5 rounded-lg border border-primary/15 bg-primary/3"
                             >
-                                <item.icon className="w-4 h-4 text-primary shrink-0" />
+                                <item.icon
+                                    className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-primary shrink-0"
+                                    strokeWidth={1.75}
+                                />
                                 <span
-                                    className="text-[11px] sm:text-xs font-semibold text-text-primary"
+                                    className="text-xs sm:text-sm font-semibold text-text-primary"
                                     style={{ fontFamily: 'var(--font-mono)' }}
                                 >
                                     {item.label}
@@ -137,7 +139,7 @@ export function AiDraftingSection() {
                 <FadeIn delay={0.15}>
                     <div className="mt-10 flex justify-center">
                         <BookDemoButton size="lg">
-                            Book a Demo
+                            Book a Drafting Demo
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
@@ -200,7 +202,7 @@ const DRAFTING_CARDS: { icon: React.ElementType; title: string; description: str
 function AiCard({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) {
     return (
         <article className="group flex gap-4 items-start p-4 rounded-xl border border-transparent transition-all duration-200 hover:border-card-border hover:bg-card-bg hover:shadow-md hover:shadow-black/[0.03]">
-            <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 mt-0.5">
+            <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg border border-indigo-100/80 bg-linear-to-br from-indigo-50 via-white to-indigo-50/40 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(99,102,241,0.08)] mt-0.5">
                 <Icon className="w-5 h-5 text-primary" />
             </div>
             <div className="min-w-0">
@@ -247,8 +249,8 @@ function DraftingContent() {
                 className="text-2xl font-bold text-text-primary sm:text-3xl mb-4"
                 style={{ fontFamily: 'var(--font-display)' }}
             >
-                Generate Patent Drafts{' '}
-                <span className="text-primary">Across 6 Jurisdictions</span>
+                From Prior Art to First Draft,{' '}
+                <span className="text-primary">With Attorney Review Built In</span>
             </h3>
             <div className="flex flex-col gap-1 mb-6">
                 {DRAFTING_CARDS.map((card) => (

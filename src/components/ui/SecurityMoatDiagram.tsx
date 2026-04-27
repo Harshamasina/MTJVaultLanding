@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-    Sparkles,
-    KeyRound,
-    Users,
-    ScrollText,
-    Building2,
+    Shield,
     Database,
+    FileClock,
+    Users,
+    UserCheck,
+    Brain,
     type LucideIcon,
 } from 'lucide-react';
 
@@ -19,13 +19,9 @@ import {
    advances, the matching card highlights, and a node line draws out
    from the facet ending in the layer name.
 
-   Facet → layer mapping (light → dark = surface → bedrock):
-       0  top-right (lightest #A5B4FC) → AI Intelligence (Zero Retention)
-       1  right             #818CF8    → Auth0 SSO
-       2  bottom-right      #6366F1    → RBAC
-       3  bottom-left       #4F46E5    → Audit Trails
-       4  left              #312E81    → Tenant Isolation
-       5  top-left (darkest #0F1B2D)  → Row-Level Security
+   Cards are ordered foundation → surface (RLS at the bedrock; AI at
+   the visible top), reinforcing the architecture story. Each LAYERS
+   index maps to the FACETS index of the same number.
    ────────────────────────────────────────────────────────────────────── */
 
 interface Layer {
@@ -36,40 +32,40 @@ interface Layer {
 
 const LAYERS: readonly Layer[] = [
     {
-        title: 'AI Intelligence (Zero Retention)',
+        title: 'Enforced Row-Level Security',
         description:
-            'Claude API integration on the zero data retention tier. The feature that attracts prospects first.',
-        Icon: Sparkles,
+            'Database-level access policies help prevent cross-tenant exposure, even from accidental or rogue queries.',
+        Icon: Shield,
     },
     {
-        title: 'Auth0 SSO',
+        title: 'Strict Tenant Isolation',
         description:
-            'Enterprise SSO with Auth0 Organizations. SAML and OIDC federation per tenant.',
-        Icon: KeyRound,
+            "Tenant-scoped transactions keep every organization's patent families, filings, documents, and users separated.",
+        Icon: Database,
     },
     {
-        title: 'RBAC',
+        title: 'Immutable Audit Trails',
         description:
-            'Four roles (Admin, Attorney, Paralegal, Read-only) plus granular permissions, enforced in your database, not in Auth0.',
+            'Every critical mutation records actor, timestamp, reason-for-change, and before/after values.',
+        Icon: FileClock,
+    },
+    {
+        title: 'Granular RBAC',
+        description:
+            'Admin, Attorney, Paralegal, and Viewer roles control access by module and action.',
         Icon: Users,
     },
     {
-        title: 'Audit Trails',
+        title: 'Enterprise SSO',
         description:
-            'Immutable, append-only logging on every mutation. The compliance feature pharma firms ask about first.',
-        Icon: ScrollText,
+            'Auth0 Organizations, SAML/OIDC, and tenant-level identity controls for enterprise teams.',
+        Icon: UserCheck,
     },
     {
-        title: 'Tenant Isolation',
+        title: 'Zero-Retention AI',
         description:
-            "withTenantContext() transaction scoping. No tenant can ever see another's data.",
-        Icon: Building2,
-    },
-    {
-        title: 'Row-Level Security',
-        description:
-            "FORCE ROW LEVEL SECURITY on every table. The bedrock that even a rogue query can't bypass.",
-        Icon: Database,
+            'AI drafting workflows are designed so confidential invention data is not used for model training.',
+        Icon: Brain,
     },
 ];
 
@@ -92,78 +88,72 @@ interface FacetGeometry {
 }
 
 const FACETS: readonly FacetGeometry[] = [
-    /* 0 — top-right (lightest) */
+    /* 0 — top-right (lightest) → Enforced Row-Level Security */
     {
         points: '340,50 440,108 340,175',
         line: { x1: 390, y1: 79, x2: 430, y2: 0 },
         dot: { cx: 430, cy: 0 },
-        labelLines: ['AI', 'Intelligence'],
+        labelLines: ['Row-Level', 'Security'],
         labelX: 438,
         labelY: -14,
         labelAnchor: 'start',
         annotationColor: '#A5B4FC',
         gradId: 'moat-g0',
     },
-    /* 1 — right
-     * Line endpoint pulled in from x=540 → 520 so the "Auth0" tspan at
-     * fontSize 12 with anchor=start fits inside the viewBox right edge (580).
-     */
+    /* 1 — right → Strict Tenant Isolation */
     {
         points: '440,108 440,233 340,175',
         line: { x1: 440, y1: 170.5, x2: 520, y2: 170 },
         dot: { cx: 520, cy: 170 },
-        labelLines: ['Auth0', 'SSO'],
+        labelLines: ['Tenant', 'Isolation'],
         labelX: 528,
         labelY: 165,
         labelAnchor: 'start',
         annotationColor: '#818CF8',
         gradId: 'moat-g1',
     },
-    /* 2 — bottom-right */
+    /* 2 — bottom-right → Immutable Audit Trails */
     {
         points: '440,233 340,291 340,175',
         line: { x1: 390, y1: 262, x2: 430, y2: 345 },
         dot: { cx: 430, cy: 345 },
-        labelLines: ['RBAC'],
+        labelLines: ['Audit', 'Trails'],
         labelX: 438,
         labelY: 349,
         labelAnchor: 'start',
         annotationColor: '#6366F1',
         gradId: 'moat-g2',
     },
-    /* 3 — bottom-left */
+    /* 3 — bottom-left → Granular RBAC */
     {
         points: '340,291 240,233 340,175',
         line: { x1: 290, y1: 262, x2: 250, y2: 345 },
         dot: { cx: 250, cy: 345 },
-        labelLines: ['Audit', 'Trails'],
+        labelLines: ['RBAC'],
         labelX: 242,
         labelY: 349,
         labelAnchor: 'end',
         annotationColor: '#4F46E5',
         gradId: 'moat-g3',
     },
-    /* 4 — left
-     * Line endpoint pulled in from x=140 → 160 so the "Isolation" tspan at
-     * fontSize 12 with anchor=end fits inside the viewBox left edge (100).
-     */
+    /* 4 — left → Enterprise SSO */
     {
         points: '240,233 240,108 340,175',
         line: { x1: 240, y1: 170.5, x2: 160, y2: 170 },
         dot: { cx: 160, cy: 170 },
-        labelLines: ['Tenant', 'Isolation'],
+        labelLines: ['Enterprise', 'SSO'],
         labelX: 152,
         labelY: 165,
         labelAnchor: 'end',
         annotationColor: '#818CF8',
         gradId: 'moat-g4',
     },
-    /* 5 — top-left (darkest) */
+    /* 5 — top-left (darkest) → Zero-Retention AI */
     {
         points: '240,108 340,50 340,175',
         line: { x1: 290, y1: 79, x2: 250, y2: 0 },
         dot: { cx: 250, cy: 0 },
-        labelLines: ['Row-Level', 'Security'],
+        labelLines: ['Zero-Retention', 'AI'],
         labelX: 242,
         labelY: -14,
         labelAnchor: 'end',
@@ -242,9 +232,9 @@ export function SecurityMoatDiagram() {
             >
                 <svg
                     viewBox="100 -10 480 380"
-                    className="w-full max-w-[480px] overflow-visible"
+                    className="w-full max-w-160 overflow-visible"
                     role="img"
-                    aria-label="Six-layer security architecture diagram. Cube facets represent: AI Intelligence with zero data retention, Auth0 SSO, RBAC, Audit Trails, Tenant Isolation, and Row-Level Security."
+                    aria-label="Six-layer security architecture diagram. Cube facets represent: Enforced Row-Level Security, Strict Tenant Isolation, Immutable Audit Trails, Granular RBAC, Enterprise SSO, and Zero-Retention AI."
                 >
                     <defs>
                         <linearGradient id="moat-g0" x1="0" y1="0" x2="1" y2="1">
@@ -272,18 +262,37 @@ export function SecurityMoatDiagram() {
                             <stop offset="100%" stopColor="#4F46E5" />
                         </linearGradient>
                         <radialGradient id="moat-coreGlow" cx="0.5" cy="0.5" r="0.5">
-                            <stop offset="0%" stopColor="#A5B4FC" stopOpacity="0.55" />
+                            <stop offset="0%" stopColor="#A5B4FC" stopOpacity="0.7" />
+                            <stop offset="60%" stopColor="#818CF8" stopOpacity="0.18" />
+                            <stop offset="100%" stopColor="#A5B4FC" stopOpacity="0" />
+                        </radialGradient>
+                        <radialGradient id="moat-bloom" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+                            <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+                        </radialGradient>
+                        <radialGradient id="moat-bottom-bloom" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.85" />
+                            <stop offset="45%" stopColor="#C7D2FE" stopOpacity="0.35" />
                             <stop offset="100%" stopColor="#A5B4FC" stopOpacity="0" />
                         </radialGradient>
                     </defs>
 
-                    {/* Core glow halo — intensifies behind the active layer */}
+                    {/* Outer ambient halo — soft purple wash behind the cube */}
                     <circle
                         cx="340"
                         cy="175"
-                        r="55"
+                        r="120"
                         fill="url(#moat-coreGlow)"
-                        opacity="0.55"
+                        opacity="0.65"
+                    />
+
+                    {/* Inner bright bloom — concentrated white-violet around the core */}
+                    <circle
+                        cx="340"
+                        cy="175"
+                        r="40"
+                        fill="url(#moat-bloom)"
+                        opacity="0.5"
                     />
 
                     {/* Cube facets — clickable, dim when not active */}
@@ -319,6 +328,25 @@ export function SecurityMoatDiagram() {
                     <circle cx="340" cy="175" r="4" fill="#6366F1" />
                     <circle cx="340" cy="175" r="1.5" fill="#ffffff" />
 
+                    {/* Bottom reflection bloom — light from the core bleeding
+                        onto the surface below the cube, anchoring it in space. */}
+                    <ellipse
+                        cx="340"
+                        cy="318"
+                        rx="80"
+                        ry="7"
+                        fill="url(#moat-bottom-bloom)"
+                        opacity="0.85"
+                    />
+                    <ellipse
+                        cx="340"
+                        cy="316"
+                        rx="22"
+                        ry="2.5"
+                        fill="#ffffff"
+                        opacity="0.9"
+                    />
+
                     {/* Node lines, endpoint dots, and end-of-line labels.
                         Visible at every viewport. Each label is split into 1
                         or 2 lines via tspan so the text always fits inside
@@ -334,26 +362,32 @@ export function SecurityMoatDiagram() {
                                         y1={facet.line.y1}
                                         x2={facet.line.x2}
                                         y2={facet.line.y2}
-                                        stroke={facet.annotationColor}
-                                        strokeWidth="2"
+                                        stroke="#E0E7FF"
+                                        strokeWidth="2.25"
                                         strokeLinecap="round"
                                         strokeDasharray="100"
                                         style={{
                                             strokeDashoffset: isActive ? 0 : 100,
-                                            opacity: isActive ? 1 : 0,
+                                            opacity: isActive ? 0.95 : 0,
                                             transition:
                                                 'stroke-dashoffset 700ms ease-out, opacity 300ms ease-out',
+                                            filter: isActive
+                                                ? 'drop-shadow(0 0 4px rgba(165,180,252,0.55))'
+                                                : 'none',
                                         }}
                                     />
                                     <circle
                                         cx={facet.dot.cx}
                                         cy={facet.dot.cy}
-                                        r="3.5"
-                                        fill={facet.annotationColor}
+                                        r="4"
+                                        fill="#E0E7FF"
                                         style={{
                                             opacity: isActive ? 1 : 0,
                                             transition: 'opacity 300ms ease-out',
                                             transitionDelay: isActive ? '500ms' : '0ms',
+                                            filter: isActive
+                                                ? 'drop-shadow(0 0 6px rgba(165,180,252,0.7))'
+                                                : 'none',
                                         }}
                                     />
                                     <text
@@ -402,16 +436,18 @@ export function SecurityMoatDiagram() {
                             key={layer.title}
                             type="button"
                             onClick={() => jumpTo(i)}
+                            onMouseEnter={() => jumpTo(i)}
+                            onFocus={() => jumpTo(i)}
                             aria-pressed={isActive}
                             aria-label={`${layer.title}, layer ${i + 1} of ${LAYERS.length}`}
-                            className={`group relative cursor-pointer rounded-2xl border p-6 text-left transition-all duration-[350ms] ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-light focus-visible:ring-offset-2 focus-visible:ring-offset-navy ${
+                            className={`group relative cursor-pointer rounded-2xl border p-6 text-left transition-all duration-350 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-light focus-visible:ring-offset-2 focus-visible:ring-offset-navy ${
                                 isActive
-                                    ? '-translate-y-0.5 border-primary-light/55 bg-primary/[0.14] shadow-[0_12px_40px_-12px_rgba(99,102,241,0.35)]'
-                                    : 'border-white/10 bg-white/[0.04] hover:border-primary-light/30 hover:bg-primary/[0.07]'
+                                    ? '-translate-y-0.5 border-primary-light/55 bg-primary/14 shadow-[0_12px_40px_-12px_rgba(99,102,241,0.45),inset_0_1px_0_rgba(255,255,255,0.05)]'
+                                    : 'border-white/10 bg-white/4 hover:border-primary-light/30 hover:bg-primary/7'
                             }`}
                         >
                             <span
-                                className={`absolute right-5 top-4 font-mono text-[10px] font-semibold tracking-[0.08em] transition-opacity duration-[350ms] ${
+                                className={`absolute right-5 top-4 font-mono text-[10px] font-semibold tracking-[0.08em] transition-opacity duration-350 ${
                                     isActive
                                         ? 'text-primary-light opacity-100'
                                         : 'text-primary-light opacity-50'
@@ -421,13 +457,14 @@ export function SecurityMoatDiagram() {
                                 {`0${i + 1}`}
                             </span>
                             <span
-                                className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-[10px] transition-all duration-[350ms] ${
+                                className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-350 ${
                                     isActive
-                                        ? 'scale-[1.08] bg-primary-light/20 text-white'
-                                        : 'bg-primary-light/[0.12] text-primary-light'
+                                        ? 'scale-[1.05] border-primary-light/45 bg-linear-to-br from-primary-light/30 via-primary-light/15 to-transparent text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_2px_10px_rgba(165,180,252,0.28)]'
+                                        : 'border-white/15 bg-linear-to-br from-white/8 via-white/4 to-transparent text-primary-light shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
                                 }`}
+                                aria-hidden="true"
                             >
-                                <Icon className="h-5 w-5" />
+                                <Icon className="h-5 w-5" strokeWidth={1.75} />
                             </span>
                             <h3
                                 className="text-[17px] font-bold leading-tight text-white"
@@ -436,7 +473,7 @@ export function SecurityMoatDiagram() {
                                 {layer.title}
                             </h3>
                             <p
-                                className="mt-2 text-[13px] leading-relaxed text-text-on-dark/45"
+                                className="mt-2 text-[13px] leading-relaxed text-text-on-dark/55"
                                 style={{ fontFamily: 'var(--font-body)' }}
                             >
                                 {layer.description}

@@ -1,6 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShieldCheck, FileCheck, Building2, Lock, Fingerprint, Server } from 'lucide-react';
+import {
+    ShieldCheck,
+    FileCheck,
+    Building2,
+    Lock,
+    Fingerprint,
+    Server,
+} from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { BrandLogoLink } from '@/components/ui/BrandLogoLink';
 import { SITE_NAME } from '@/lib/constants';
@@ -31,12 +38,12 @@ function YouTubeIcon({ className }: { className?: string }) {
 }
 
 const TRUST_BADGES = [
-    { icon: ShieldCheck, label: 'SOC 2 Ready' },
-    { icon: FileCheck, label: 'FDA 21 CFR Part 11' },
+    { icon: ShieldCheck, label: 'SOC 2-Aligned Controls' },
+    { icon: FileCheck, label: '21 CFR Part 11-Ready' },
     { icon: Building2, label: 'Enterprise SSO' },
     { icon: Lock, label: 'AES-256 Encryption' },
-    { icon: Fingerprint, label: 'MFA Authentication' },
-    { icon: Server, label: 'AWS Infrastructure' },
+    { icon: Fingerprint, label: 'MFA Support' },
+    { icon: Server, label: 'Encrypted Infrastructure' },
 ];
 
 const STATIC_FOOTER_LINKS = {
@@ -92,7 +99,7 @@ export function Footer() {
             {/* ── Trust Card — sits on white bg, bottom half overlaps into footer ── */}
             <div className="relative z-10 pb-0">
                 <Container>
-                    <div className="rounded-2xl border border-primary/15 bg-navy-light p-8 sm:p-10 lg:p-12 shadow-2xl shadow-primary/10 mb-[-120px] sm:mb-[-140px]">
+                    <div className="rounded-2xl border border-primary/15 bg-navy-light p-8 sm:p-10 lg:p-12 shadow-2xl shadow-primary/10 mb-12 sm:-mb-35">
                         <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
                             {/* Left: Trust Badges */}
                             <div className="flex-[3]">
@@ -113,7 +120,7 @@ export function Footer() {
                                     {TRUST_BADGES.map((badge) => (
                                         <div
                                             key={badge.label}
-                                            className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/[0.04]"
+                                            className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/4"
                                         >
                                             <div className="w-8 h-8 rounded-lg bg-primary-light/10 flex items-center justify-center shrink-0">
                                                 <badge.icon className="w-4 h-4 text-primary-light" />
@@ -140,8 +147,9 @@ export function Footer() {
                                             className="text-base sm:text-lg text-white/90 leading-relaxed italic"
                                             style={{ fontFamily: 'var(--font-body)' }}
                                         >
-                                            Built by patent professionals, for patent professionals.
-                                            Every feature exists because an IP team needed it.
+                                            Built for regulated patent teams handling
+                                            confidential invention data, audit-sensitive
+                                            workflows, and multi-jurisdiction portfolios.
                                         </p>
                                     </blockquote>
                                     <div className="mt-5 flex items-center gap-3">
@@ -168,12 +176,15 @@ export function Footer() {
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </Container>
             </div>
 
-            {/* ── Footer — dark navy, padded top to accommodate card overlap ── */}
-            <footer className="bg-navy text-text-on-dark pt-40 sm:pt-48" role="contentinfo">
+            {/* ── Footer — dark navy. From sm+ the trust card overlaps via
+                negative margin, so we pad the top heavily; on mobile the card
+                sits in normal flow so we use a smaller, conventional pt. ── */}
+            <footer className="bg-navy text-text-on-dark pt-16 sm:pt-48" role="contentinfo">
                 <Container>
                     {/* Footer Links Grid */}
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6 lg:gap-12">
@@ -201,10 +212,11 @@ export function Footer() {
                                 className="mt-5 text-[15px] leading-relaxed text-text-on-dark/60 max-w-md"
                                 style={{ fontFamily: 'var(--font-body)' }}
                             >
-                                Enterprise IP management software for law firms and
-                                pharma companies. Patent docketing, PCT/PRV/NPE case
-                                management, and FDA 21 CFR Part 11 compliance, all
-                                in one secure, multi-tenant platform.
+                                Compliance-native patent operations software for law
+                                firms, pharma teams, and biotech companies &mdash;
+                                combining docketing, portfolio management, AI-assisted
+                                drafting, and audit-ready workflows in one secure
+                                platform.
                             </p>
 
                             {/* Social Icons */}

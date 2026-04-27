@@ -3,10 +3,14 @@ import {
     Eye,
     CheckCircle2,
     ArrowDown,
+    ArrowRight,
+    Play,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { ImportConnectors } from '@/components/ui/ImportConnectors';
+import { BookDemoButton } from '@/components/ui/BookDemoModal';
+import { WatchDemoButton } from '@/components/ui/WatchDemoModal';
 
 const STEPS = [
     {
@@ -15,10 +19,9 @@ const STEPS = [
         title: 'Upload',
         subtitle: 'Drop your file',
         details: [
-            'Download our pre-built template or use your own spreadsheet',
+            'Download our template or use your spreadsheet',
             'Supports XLSX and CSV formats',
-            'Up to 5,000 filings per file (~1,000 patent families)',
-            'Extra columns are safely ignored',
+            'Import up to 5,000 filings per file',
         ],
     },
     {
@@ -27,10 +30,9 @@ const STEPS = [
         title: 'Preview',
         subtitle: 'See what changes',
         details: [
-            'Every row validated before anything touches your database',
-            'Color-coded summary: new families, provisionals, PCTs, national entries',
-            'Existing records flagged. Skip duplicates automatically',
-            'Clear error messages with row number and field',
+            'Validate every row before import',
+            'See new families, provisionals, PCTs, and national entries',
+            'Flag duplicates and errors automatically',
         ],
     },
     {
@@ -39,10 +41,9 @@ const STEPS = [
         title: 'Confirm',
         subtitle: 'One click. Done.',
         details: [
-            'All records created in a single atomic transaction',
-            'Full audit trail logged for every record',
-            'Import history with download links to original files',
-            'If anything fails, nothing is written. Zero partial imports',
+            'Create records in one atomic transaction',
+            'Log every import in the audit trail',
+            'Roll back safely if validation fails',
         ],
     },
 ];
@@ -97,7 +98,7 @@ export function ImportSection() {
                                 {/* Mobile connector */}
                                 {i > 0 && (
                                     <div className="flex flex-col items-center py-2 lg:hidden">
-                                        <div className="w-px h-4 bg-gradient-to-b from-primary/30 to-primary/15" />
+                                        <div className="w-px h-4 bg-linear-to-b from-primary/30 to-primary/15" />
                                         <ArrowDown className="w-4 h-4 text-primary/30 -mt-0.5" />
                                     </div>
                                 )}
@@ -106,7 +107,7 @@ export function ImportSection() {
                                     {/* Step number + icon */}
                                     <div className="flex items-center gap-4 mb-5">
                                         <div className="relative">
-                                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl border border-indigo-100/80 bg-linear-to-br from-indigo-50 via-white to-indigo-50/40 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(99,102,241,0.08)] flex items-center justify-center group-hover:border-indigo-200/80 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_2px_8px_rgba(99,102,241,0.14)] transition-all">
                                                 <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                                             </div>
                                             <span
@@ -151,6 +152,24 @@ export function ImportSection() {
                         </FadeIn>
                     ))}
                 </div>
+
+                {/* Mid-page CTA — high-intent moment after seeing the import flow */}
+                <FadeIn treeNode="tree-import" delay={0.15}>
+                    <div className="mt-12 lg:mt-16 flex flex-col items-center gap-5 sm:gap-6 text-center">
+                        <h3
+                            className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-text-primary"
+                            style={{ fontFamily: 'var(--font-display)' }}
+                        >
+                            Ready to migrate your patent portfolio?
+                        </h3>
+                        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                            <BookDemoButton size="md">
+                                Book a Demo
+                                <ArrowRight className="w-4 h-4" />
+                            </BookDemoButton>
+                        </div>
+                    </div>
+                </FadeIn>
             </Container>
         </section>
     );

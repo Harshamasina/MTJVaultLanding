@@ -121,11 +121,15 @@ export function AnimatedCalendar() {
     const month = months[activeIndex];
     const blanks = Array.from({ length: month.startDay }, (_, i) => i);
     const days = Array.from({ length: month.totalDays }, (_, i) => i + 1);
+    // Row count — varies 4-6 depending on start day + total days. Used to
+    // build an evenly-distributed grid that fills the container regardless
+    // of month length, so there's no trailing whitespace.
+    const rowCount = Math.ceil((month.startDay + month.totalDays) / 7);
 
     return (
-        <div aria-hidden="true" role="img" className="relative rounded-xl border border-card-border bg-white shadow-2xl shadow-black/10 overflow-hidden select-none h-[460px]">
+        <div aria-hidden="true" role="img" className="relative rounded-xl border border-card-border bg-white shadow-2xl shadow-black/10 overflow-hidden select-none h-[520px] sm:h-[540px] lg:h-[560px] flex flex-col">
             {/* Chrome Bar */}
-            <div className="flex items-center gap-2 px-3 py-2 bg-page-bg-alt border-b border-card-border">
+            <div className="shrink-0 flex items-center gap-2 px-3 py-2 bg-page-bg-alt border-b border-card-border">
                 <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
@@ -144,7 +148,7 @@ export function AnimatedCalendar() {
             </div>
 
             {/* Filter row 1: Date range picker (left) + Showing text (right) */}
-            <div className="px-3 pt-2 pb-1 flex items-center justify-between gap-2">
+            <div className="shrink-0 px-3 pt-2 pb-1 flex items-center justify-between gap-2">
                 <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-card-border bg-white" style={{ fontFamily: 'var(--font-dashboard)' }}>
                     <span className="text-[9px] text-text-muted/70">Start date</span>
                     <svg className="w-2.5 h-2.5 text-text-muted/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -171,7 +175,7 @@ export function AnimatedCalendar() {
             </div>
 
             {/* Filter row 2: Year + Month dropdowns + Month/Year toggle (right-aligned) */}
-            <div className="px-3 pb-1.5 flex items-center justify-end gap-1.5">
+            <div className="shrink-0 px-3 pb-1.5 flex items-center justify-end gap-1.5">
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-primary font-medium px-2 py-1 rounded border border-card-border bg-white cursor-default" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
                     {month.year}
                     <svg className="w-2 h-2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -200,8 +204,9 @@ export function AnimatedCalendar() {
                 </div>
             </div>
 
-            {/* Calendar Grid */}
-            <div className="px-3 pb-2">
+            {/* Calendar Grid — fills remaining vertical space so cells
+                stretch to fit and there's no trailing whitespace. */}
+            <div className="flex-1 min-h-0 px-3 pb-2 flex flex-col">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={month.name}
@@ -209,9 +214,10 @@ export function AnimatedCalendar() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.35 }}
+                        className="flex-1 min-h-0 flex flex-col"
                     >
                         {/* Day Headers */}
-                        <div className="grid grid-cols-7 mb-1">
+                        <div className="shrink-0 grid grid-cols-7 mb-1">
                             {DAYS.map(d => (
                                 <div key={d} className="text-center py-1.5 text-[9px] font-semibold text-text-muted uppercase tracking-wider"
                                     style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
@@ -220,19 +226,27 @@ export function AnimatedCalendar() {
                             ))}
                         </div>
 
-                        {/* Day Cells */}
-                        <div className="grid grid-cols-7">
+                        {/* Day Cells — fill remaining height; rows distribute evenly */}
+                        <div
+                            className="flex-1 grid grid-cols-7"
+                            style={{ gridTemplateRows: `repeat(${rowCount}, minmax(0, 1fr))` }}
+                        >
                             {blanks.map(i => (
-                                <div key={`blank-${i}`} className="border-t border-card-border/50 min-h-[44px]" />
+                                <div key={`blank-${i}`} className="border-t border-card-border/50" />
                             ))}
                             {days.map(day => {
                                 const dayEvents = month.events.filter(e => e.day === day);
+                                // Cap at 2 visible chips so dense cells don't
+                                // overflow their 1fr row and clip the bottom
+                                // of the calendar on smaller viewports.
+                                const visibleEvents = dayEvents.slice(0, 2);
+                                const overflowCount = dayEvents.length - visibleEvents.length;
                                 return (
-                                    <div key={day} className="border-t border-card-border/50 min-h-[44px] px-0.5 py-1">
+                                    <div key={day} className="border-t border-card-border/50 px-0.5 py-1 overflow-hidden">
                                         <span className="text-[10px] text-text-secondary font-medium pl-1" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
                                             {String(day).padStart(2, '0')}
                                         </span>
-                                        {dayEvents.map((event, ei) => (
+                                        {visibleEvents.map((event, ei) => (
                                             <motion.div
                                                 key={event.label}
                                                 className={`mt-0.5 px-1 py-0.5 rounded text-[7px] font-medium truncate ${event.color} ${event.textColor}`}
@@ -244,6 +258,17 @@ export function AnimatedCalendar() {
                                                 {event.label}
                                             </motion.div>
                                         ))}
+                                        {overflowCount > 0 && (
+                                            <motion.span
+                                                className="block mt-0.5 pl-1 text-[7px] font-semibold text-text-muted"
+                                                style={{ fontFamily: 'var(--font-dashboard-mono)' }}
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ duration: 0.3, delay: 0.15 + visibleEvents.length * 0.06 + (day / month.totalDays) * 0.4 }}
+                                            >
+                                                +{overflowCount} more
+                                            </motion.span>
+                                        )}
                                     </div>
                                 );
                             })}
@@ -251,9 +276,6 @@ export function AnimatedCalendar() {
                     </motion.div>
                 </AnimatePresence>
             </div>
-
-            {/* Bottom fade */}
-            <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-xl" />
         </div>
     );
 }

@@ -19,20 +19,33 @@ export const CTA_DEMO_URL = '/#contact';
 
 export const ROLE_OPTIONS = [
     { value: '', label: 'Select your role' },
-    { value: 'IP Attorney', label: 'IP Attorney' },
-    { value: 'Patent Paralegal', label: 'Patent Paralegal' },
-    { value: 'IP Director', label: 'IP Director' },
-    { value: 'CTO / VP Engineering', label: 'CTO / VP Engineering' },
-    { value: 'Legal Operations', label: 'Legal Operations' },
+    { value: 'Patent Attorney', label: 'Patent Attorney' },
+    { value: 'IP Manager', label: 'IP Manager' },
+    { value: 'Paralegal / Docketing Specialist', label: 'Paralegal / Docketing Specialist' },
+    { value: 'Pharma / Biotech IP Team', label: 'Pharma / Biotech IP Team' },
+    { value: 'Law Firm Partner', label: 'Law Firm Partner' },
+    { value: 'Founder / Inventor', label: 'Founder / Inventor' },
     { value: 'Other', label: 'Other' },
 ] as const;
 
 export const INQUIRY_TYPE_OPTIONS = [
     { value: '', label: 'What can we help with?' },
-    { value: 'General Inquiry', label: 'General Inquiry' },
-    { value: 'Product Question', label: 'Product Question' },
-    { value: 'Pricing', label: 'Pricing & Plans' },
-    { value: 'Partnership', label: 'Partnership' },
-    { value: 'Technical Support', label: 'Technical Support' },
+    { value: 'Book a product demo', label: 'Book a product demo' },
+    { value: 'Discuss pricing', label: 'Discuss pricing' },
+    { value: 'Migrate existing portfolio', label: 'Migrate existing portfolio' },
+    { value: 'AI drafting workflow', label: 'AI drafting workflow' },
+    { value: 'Compliance / Part 11 controls', label: 'Compliance / Part 11 controls' },
     { value: 'Other', label: 'Other' },
+] as const;
+
+/* Portfolio Size — used for lead qualification. Submitted to the backend
+ * as a structured field via ContactMessagePayload; also folded into the
+ * message body so existing backends that don't yet know about the field
+ * still surface it to the recipient. */
+export const PORTFOLIO_SIZE_OPTIONS = [
+    { value: '', label: 'Select portfolio size' },
+    { value: '1-50 families', label: '1–50 families' },
+    { value: '51-250 families', label: '51–250 families' },
+    { value: '251-1,000 families', label: '251–1,000 families' },
+    { value: '1,000+ families', label: '1,000+ families' },
 ] as const;

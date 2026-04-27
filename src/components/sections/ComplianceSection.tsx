@@ -69,19 +69,16 @@ export function ComplianceSection() {
                             className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
-                            FDA 21 CFR Part 11{' '}
+                            21 CFR Part 11 Ready Controls, {' '}
                             <span className="text-primary">
-                                Built In, Not Bolted On
+                                Built In - Not Bolted On
                             </span>
                         </h2>
                         <p
                             className="mt-4 text-lg text-text-secondary leading-relaxed"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            Every workflow in Design Your Invention is designed for
-                            regulatory compliance from day one. Not an afterthought,
-                            not an add-on. Compliance is baked into every edit,
-                            every action, every record.
+                            Every regulated workflow is built around traceability, approval control, and immutable records. Capture reasons for change, preserve audit history, require review checkpoints, and keep every edit tied to a user, timestamp, and record.
                         </p>
                     </div>
                 </FadeIn>
@@ -119,6 +116,17 @@ export function ComplianceSection() {
                         </FadeIn>
                     </div>
                 </div>
+
+                {/* Trust disclaimer — signals regulatory maturity to pharma buyers
+                    without overpromising compliance certification. */}
+                <FadeIn treeNode="tree-compliance" delay={0.3}>
+                    <p
+                        className="mt-12 lg:mt-16 max-w-3xl mx-auto text-center text-xs sm:text-[13px] italic text-text-muted leading-relaxed"
+                        style={{ fontFamily: 'var(--font-body)' }}
+                    >
+                        Supports regulated workflows; final validation depends on each organization&rsquo;s SOPs, configuration, and quality process.
+                    </p>
+                </FadeIn>
             </Container>
         </section>
     );
@@ -127,7 +135,7 @@ export function ComplianceSection() {
 function ComplianceCard({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) {
     return (
         <article className="group flex gap-4 items-start p-4 rounded-xl border border-transparent transition-all duration-200 hover:border-card-border hover:bg-card-bg hover:shadow-md hover:shadow-black/[0.03]">
-            <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 mt-0.5">
+            <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg border border-indigo-100/80 bg-linear-to-br from-indigo-50 via-white to-indigo-50/40 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(99,102,241,0.08)] mt-0.5">
                 <Icon className="w-5 h-5 text-primary" />
             </div>
             <div className="min-w-0">

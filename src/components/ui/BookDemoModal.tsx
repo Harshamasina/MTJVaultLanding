@@ -3,11 +3,15 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { X, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { ROLE_OPTIONS } from '@/lib/constants';
+import {
+    ROLE_OPTIONS,
+    PORTFOLIO_SIZE_OPTIONS,
+    INQUIRY_TYPE_OPTIONS,
+} from '@/lib/constants';
 import { submitDemoRequest, type ApiError } from '@/lib/api';
-import { validateDemoForm, hasErrors } from '@/lib/validation';
+import { validateContactForm, hasErrors } from '@/lib/validation';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -24,8 +28,9 @@ interface DemoFormData {
     email: string;
     company: string;
     role: string;
-    phone: string;
-    notes: string;
+    portfolioSize: string;
+    inquiryType: string;
+    message: string;
 }
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
@@ -35,8 +40,9 @@ const INITIAL_FORM: DemoFormData = {
     email: '',
     company: '',
     role: '',
-    phone: '',
-    notes: '',
+    portfolioSize: '',
+    inquiryType: '',
+    message: '',
 };
 
 export function BookDemoButton({
@@ -108,8 +114,9 @@ function DemoModal({ onClose }: { onClose: () => void }) {
         email: 'work_email',
         company: 'company',
         role: 'role',
-        phone: 'phone',
-        notes: 'message',
+        portfolioSize: 'portfolio_size',
+        inquiryType: 'inquiry_type',
+        message: 'message',
     };
 
     function handleChange(
@@ -132,7 +139,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        const clientErrors = validateDemoForm(form);
+        const clientErrors = validateContactForm(form);
         if (hasErrors(clientErrors)) {
             setFieldErrors(clientErrors);
             setStatus('error');
@@ -144,6 +151,15 @@ function DemoModal({ onClose }: { onClose: () => void }) {
         setErrorMessage('');
         setFieldErrors({});
 
+        // Portfolio size + inquiry type fold into the message body so this
+        // submission survives backends that don't yet know about those fields
+        // as structured columns. Mirrors ContactForm's approach so both
+        // entry-points produce comparable lead context for the recipient.
+        const messageWithContext =
+            `Inquiry: ${form.inquiryType}\n` +
+            `Portfolio size: ${form.portfolioSize}\n\n` +
+            form.message;
+
         try {
             await submitDemoRequest(
                 {
@@ -151,8 +167,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                     work_email: form.email,
                     company: form.company,
                     role: form.role,
-                    phone: form.phone || undefined,
-                    message: form.notes || undefined,
+                    message: messageWithContext,
                     _hp_field: hpRef.current?.value || undefined,
                 },
                 idempotencyKey,
@@ -306,94 +321,80 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                     placeholder="Acme Law LLP"
                                     error={getFieldError('company')}
                                 />
-                                <div>
-                                    <label
-                                        htmlFor="demo-role"
-                                        className="block text-sm font-semibold text-text-primary mb-1.5"
-                                        style={{
-                                            fontFamily: 'var(--font-display)',
-                                        }}
-                                    >
-                                        Role
-                                    </label>
-                                    <select
-                                        id="demo-role"
-                                        name="role"
-                                        value={form.role}
-                                        onChange={handleChange}
-                                        aria-required="true"
-                                        aria-invalid={!!getFieldError('role')}
-                                        aria-describedby={getFieldError('role') ? 'demo-role-error' : undefined}
-                                        className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary focus:outline-none transition-colors appearance-none cursor-pointer ${
-                                            getFieldError('role')
-                                                ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
-                                                : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
-                                        }`}
-                                        style={{
-                                            fontFamily: 'var(--font-body)',
-                                        }}
-                                    >
-                                        {ROLE_OPTIONS.map((opt) => (
-                                            <option
-                                                key={opt.value}
-                                                value={opt.value}
-                                                disabled={opt.value === ''}
-                                            >
-                                                {opt.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {getFieldError('role') && (
-                                        <p
-                                            id="demo-role-error"
-                                            role="alert"
-                                            className="mt-1.5 text-xs text-danger"
-                                            style={{ fontFamily: 'var(--font-body)' }}
-                                        >
-                                            {getFieldError('role')}
-                                        </p>
-                                    )}
-                                </div>
+                                <ModalSelect
+                                    label="Role"
+                                    name="role"
+                                    value={form.role}
+                                    onChange={handleChange}
+                                    required
+                                    options={ROLE_OPTIONS}
+                                    error={getFieldError('role')}
+                                />
                             </div>
 
-                            {/* Phone */}
-                            <ModalField
-                                label="Phone (optional)"
-                                name="phone"
-                                type="tel"
-                                value={form.phone}
-                                onChange={handleChange}
-                                placeholder="+1 (555) 000-0000"
-                                error={getFieldError('phone')}
-                            />
+                            {/* Portfolio Size + Inquiry Type */}
+                            <div className="grid gap-5 sm:grid-cols-2">
+                                <ModalSelect
+                                    label="Portfolio Size"
+                                    name="portfolioSize"
+                                    value={form.portfolioSize}
+                                    onChange={handleChange}
+                                    required
+                                    options={PORTFOLIO_SIZE_OPTIONS}
+                                    error={getFieldError('portfolio_size')}
+                                />
+                                <ModalSelect
+                                    label="Inquiry Type"
+                                    name="inquiryType"
+                                    value={form.inquiryType}
+                                    onChange={handleChange}
+                                    required
+                                    options={INQUIRY_TYPE_OPTIONS}
+                                    error={getFieldError('inquiry_type')}
+                                />
+                            </div>
 
-                            {/* Notes */}
+                            {/* Message */}
                             <div>
                                 <label
-                                    htmlFor="demo-notes"
+                                    htmlFor="demo-message"
                                     className="block text-sm font-semibold text-text-primary mb-1.5"
                                     style={{
                                         fontFamily: 'var(--font-display)',
                                     }}
                                 >
-                                    Anything specific you&apos;d like to see?{' '}
-                                    <span className="font-normal text-text-muted">
-                                        (optional)
-                                    </span>
+                                    Message
                                 </label>
                                 <textarea
-                                    id="demo-notes"
-                                    name="notes"
-                                    value={form.notes}
+                                    id="demo-message"
+                                    name="message"
+                                    value={form.message}
                                     onChange={handleChange}
-                                    rows={2}
+                                    aria-required="true"
+                                    aria-invalid={!!getFieldError('message')}
+                                    aria-describedby={getFieldError('message') ? 'demo-message-error' : undefined}
+                                    rows={3}
                                     maxLength={1000}
-                                    placeholder="e.g. PCT filing workflows, compliance audit trail..."
-                                    className="w-full rounded-lg border border-card-border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors resize-y"
+                                    placeholder="Tell us about your patent workflow, portfolio size, or compliance needs..."
+                                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none transition-colors resize-y ${
+                                        getFieldError('message')
+                                            ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
+                                            : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
+                                    }`}
                                     style={{
                                         fontFamily: 'var(--font-body)',
                                     }}
                                 />
+                                {getFieldError('message') && (
+                                    <p
+                                        id="demo-message-error"
+                                        role="alert"
+                                        className="mt-1.5 text-xs text-danger"
+                                        style={{ fontFamily: 'var(--font-body)' }}
+                                    >
+                                        {getFieldError('message')}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Error */}
@@ -421,8 +422,8 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                                     'Sending...'
                                 ) : (
                                     <>
-                                        Request Demo
-                                        <Send className="w-4 h-4" />
+                                        Request a Demo
+                                        <ArrowRight className="w-4 h-4" />
                                     </>
                                 )}
                             </Button>
@@ -430,6 +431,67 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                     </>
                 )}
             </motion.div>
+        </div>
+    );
+}
+
+function ModalSelect({
+    label,
+    name,
+    value,
+    onChange,
+    required,
+    options,
+    error,
+}: {
+    label: string;
+    name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    required?: boolean;
+    options: ReadonlyArray<{ value: string; label: string }>;
+    error?: string;
+}) {
+    return (
+        <div>
+            <label
+                htmlFor={`demo-${name}`}
+                className="block text-sm font-semibold text-text-primary mb-1.5"
+                style={{ fontFamily: 'var(--font-display)' }}
+            >
+                {label}
+            </label>
+            <select
+                id={`demo-${name}`}
+                name={name}
+                value={value}
+                onChange={onChange}
+                aria-required={required}
+                aria-invalid={!!error}
+                aria-describedby={error ? `demo-${name}-error` : undefined}
+                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-text-primary focus:outline-none transition-colors appearance-none cursor-pointer ${
+                    error
+                        ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
+                        : 'border-card-border focus:border-primary focus:ring-2 focus:ring-primary/20'
+                }`}
+                style={{ fontFamily: 'var(--font-body)' }}
+            >
+                {options.map((opt) => (
+                    <option key={opt.value} value={opt.value} disabled={opt.value === ''}>
+                        {opt.label}
+                    </option>
+                ))}
+            </select>
+            {error && (
+                <p
+                    id={`demo-${name}-error`}
+                    role="alert"
+                    className="mt-1.5 text-xs text-danger"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                >
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

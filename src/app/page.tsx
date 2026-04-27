@@ -18,7 +18,11 @@ export default function HomePage() {
             <ImportSection />
             <AiDraftingSection />
             <ComplianceSection />
-            <StatsSection stats={PRODUCT_STATS} variant="minimal" />
+            <StatsSection
+                stats={PRODUCT_STATS}
+                variant="cards"
+                numberFont="display"
+            />
             <SecuritySection />
             <PricingSection />
             <FaqSection />

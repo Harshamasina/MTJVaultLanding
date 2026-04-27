@@ -1,12 +1,12 @@
-import { CreditCard, Clock, XCircle, Mail, MapPin } from 'lucide-react';
+import { Clock, ShieldCheck, Calendar, Mail, MapPin } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { ContactForm } from '@/components/sections/ContactForm';
 
 const TRUST_SIGNALS = [
-    { icon: CreditCard, text: 'No credit card required' },
-    { icon: Clock, text: 'Set up in minutes' },
-    { icon: XCircle, text: 'Cancel anytime' },
+    { icon: Calendar, text: '15-minute guided walkthrough' },
+    { icon: Clock, text: 'Response within 1 business day' },
+    { icon: ShieldCheck, text: 'Demo tailored to your patent workflow' },
 ];
 
 const CONTACT_INFO = [
@@ -49,18 +49,19 @@ export function CtaSection() {
                                 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                                 style={{ fontFamily: 'var(--font-display)' }}
                             >
-                                Ready to Modernize Your{' '}
+                                Modernize Patent Operations With a{' '}
                                 <span className="text-primary">
-                                    IP Management?
+                                    Guided Demo
                                 </span>
                             </h2>
                             <p
                                 className="mt-5 text-lg text-text-secondary leading-relaxed"
                                 style={{ fontFamily: 'var(--font-body)' }}
                             >
-                                Join law firms and pharma teams who trust Design
-                                Your Invention for patent docketing, compliance,
-                                and portfolio management.
+                                See how Design Your Invention helps patent teams
+                                manage docketing, prior art search, AI-assisted
+                                drafting, compliance, and portfolio workflows in
+                                one audited platform.
                             </p>
 
                             {/* Trust Signals */}
@@ -90,7 +91,7 @@ export function CtaSection() {
                                         key={item.label}
                                         className="flex items-start gap-4"
                                     >
-                                        <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                                        <div className="shrink-0 w-10 h-10 rounded-lg border border-indigo-100/80 bg-linear-to-br from-indigo-50 via-white to-indigo-50/40 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(99,102,241,0.08)] flex items-center justify-center">
                                             <item.icon className="w-5 h-5 text-primary" />
                                         </div>
                                         <div>
@@ -132,10 +133,17 @@ export function CtaSection() {
                         </FadeIn>
                     </div>
 
-                    {/* Right Column — Contact Form */}
-                    <div className="lg:col-span-3">
-                        <FadeIn treeNode="tree-contact" delay={0.15}>
-                            <div className="rounded-2xl border border-card-border bg-card-bg p-8 lg:p-10 shadow-lg shadow-black/5">
+                    {/* Right Column — Contact Form
+                        h-full chain (column → FadeIn → card div) makes the
+                        white card stretch to match the left column's height
+                        instead of collapsing around the form content. */}
+                    <div className="lg:col-span-3 lg:h-full">
+                        <FadeIn
+                            treeNode="tree-contact"
+                            delay={0.15}
+                            className="lg:h-full"
+                        >
+                            <div className="rounded-2xl border border-card-border bg-card-bg p-8 lg:p-10 shadow-lg shadow-black/5 lg:h-full">
                                 <ContactForm />
                             </div>
                         </FadeIn>

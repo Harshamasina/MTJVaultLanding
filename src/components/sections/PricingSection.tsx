@@ -1,11 +1,11 @@
-import { Check, X, Star } from 'lucide-react';
+import { Check, Star, Info } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { Button } from '@/components/ui/Button';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
 
 interface PlanFeature {
     text: string;
-    included: boolean;
     detail?: string;
 }
 
@@ -17,54 +17,63 @@ interface Plan {
     target: string;
     recommended?: boolean;
     features: PlanFeature[];
-    cta: string;
+    /** CTA label and routing — links go through next/link, demos open the
+     *  BookDemoModal. Lets each plan match its actual conversion intent. */
+    cta: {
+        label: string;
+        href?: string;
+    };
+    /** Small advisory line shown below the features list. Use it to point to
+     *  the higher-tier plan instead of cluttering the list with X-marks. */
+    note?: string;
 }
+
+const SIGNUP_HREF = 'https://app.designyourinvention.com/auth/sign-in';
 
 const PLANS: Plan[] = [
     {
         name: 'Starter',
         price: 'Free to start',
-        priceNote: 'No credit card required',
-        description: 'Everything you need to get off spreadsheets and manage your IP portfolio digitally.',
+        priceNote: 'Self-serve onboarding, sign up in minutes',
         target: 'Solo attorneys & small IP teams',
+        description:
+            'Everything you need to move off spreadsheets and manage patent operations digitally.',
+        cta: { label: 'Start Free', href: SIGNUP_HREF },
         features: [
-            { text: 'Unlimited patent families', included: true },
-            { text: 'PRV / PCT / NPE modules', included: true },
-            { text: 'Office action & deadline tracking', included: true },
-            { text: 'Annuity & maintenance fees', included: true },
-            { text: 'Email deadline reminders', included: true },
-            { text: 'CSV / Excel export', included: true },
-            { text: 'Document attachments', included: true },
-            { text: 'RBAC, up to 5 users', included: true, detail: '5 users' },
-            { text: 'Basic audit log', included: true, detail: 'View only' },
-            { text: 'Immutable audit trail', included: false },
-            { text: '21 CFR Part 11 compliance', included: false },
-            { text: 'Electronic signatures + re-auth', included: false },
-            { text: 'SSO / SAML integration', included: false },
+            { text: 'Unlimited patent families' },
+            { text: 'PRV / PCT / NPE modules' },
+            { text: 'Office action & deadline tracking' },
+            { text: 'Annuity & maintenance fees' },
+            { text: 'Email deadline reminders' },
+            { text: 'CSV / Excel export' },
+            { text: 'Document attachments' },
+            { text: 'RBAC up to 5 users' },
+            { text: 'Basic audit log' },
         ],
-        cta: 'Book a Demo',
+        note: 'Advanced compliance controls available in Compliance Pro.',
     },
     {
-        name: 'Pharma Pro',
-        price: 'Custom pricing',
-        priceNote: 'Based on team size & modules',
-        description: 'Regulatory-grade compliance and enterprise features for pharma IP teams.',
-        target: 'Pharma IP teams & specialty law firms',
+        name: 'Compliance Pro',
+        price: 'Tailored pricing',
+        priceNote: 'Based on users, modules, and portfolio size',
+        target: 'Pharma IP teams, biotech companies & specialty law firms',
+        description:
+            'Regulatory-ready controls and enterprise features for confidential, high-stakes patent workflows.',
         recommended: true,
+        cta: { label: 'Book a Compliance Demo' },
         features: [
-            { text: 'Everything in Starter', included: true, detail: 'Included' },
-            { text: 'Unlimited users & roles', included: true },
-            { text: 'Immutable field-level audit trail', included: true, detail: 'FDA-grade' },
-            { text: '21 CFR Part 11 compliance package', included: true },
-            { text: 'Electronic signatures + re-auth', included: true },
-            { text: 'SSO / SAML integration', included: true },
-            { text: 'Foreign associate portal', included: true },
-            { text: 'Orange Book / EMA auto-sync', included: true },
-            { text: 'Portfolio import tool', included: true },
-            { text: 'Dedicated onboarding', included: true },
-            { text: 'Priority support', included: true },
+            { text: 'Everything in Starter', detail: 'Included' },
+            { text: 'Unlimited users & roles' },
+            { text: 'Immutable field-level audit trail', detail: 'Part 11-ready' },
+            { text: '21 CFR Part 11-ready controls', detail: 'Part 11-ready' },
+            { text: 'Electronic signatures + re-auth' },
+            { text: 'SSO / SAML integration' },
+            { text: 'Foreign associate portal' },
+            { text: 'Orange Book / EMA auto-sync' },
+            { text: 'Portfolio import tool' },
+            { text: 'Dedicated onboarding' },
+            { text: 'Priority support' },
         ],
-        cta: 'Book a Demo',
     },
 ];
 
@@ -94,8 +103,9 @@ export function PricingSection() {
                             className="mt-4 text-lg text-text-secondary leading-relaxed"
                             style={{ fontFamily: 'var(--font-body)' }}
                         >
-                            Two plans built for different team sizes. Book a demo
-                            and we&apos;ll walk you through pricing tailored to your needs.
+                            Two plans built for different team sizes. Choose a
+                            self-serve start or book a guided demo for
+                            compliance-focused teams.
                         </p>
                     </div>
                 </FadeIn>
@@ -131,7 +141,7 @@ export function PricingSection() {
                                     </h3>
                                     <div className="mt-3">
                                         <span
-                                            className="text-xl font-bold text-text-primary"
+                                            className="text-xl font-bold text-primary"
                                             style={{ fontFamily: 'var(--font-mono)' }}
                                         >
                                             {plan.price}
@@ -144,27 +154,40 @@ export function PricingSection() {
                                         </p>
                                     </div>
                                     <p
-                                        className="mt-3 text-sm text-text-secondary leading-relaxed"
+                                        className="mt-4 text-sm text-text-secondary"
+                                        style={{ fontFamily: 'var(--font-body)' }}
+                                    >
+                                        <span className="font-semibold text-text-primary">
+                                            Best for:
+                                        </span>{' '}
+                                        {plan.target}
+                                    </p>
+                                    <p
+                                        className="mt-2 text-sm text-text-secondary leading-relaxed"
                                         style={{ fontFamily: 'var(--font-body)' }}
                                     >
                                         {plan.description}
                                     </p>
-                                    <p
-                                        className="mt-2 text-xs text-text-muted"
-                                        style={{ fontFamily: 'var(--font-body)' }}
-                                    >
-                                        Best for: {plan.target}
-                                    </p>
                                 </div>
 
-                                {/* CTA Button */}
+                                {/* CTA Button — link for self-serve, modal for demo */}
                                 <div className="mb-6">
-                                    <BookDemoButton
-                                        variant={plan.recommended ? 'primary' : 'secondary'}
-                                        className="w-full justify-center"
-                                    >
-                                        {plan.cta}
-                                    </BookDemoButton>
+                                    {plan.cta.href ? (
+                                        <Button
+                                            href={plan.cta.href}
+                                            variant={plan.recommended ? 'primary' : 'secondary'}
+                                            className="w-full justify-center"
+                                        >
+                                            {plan.cta.label}
+                                        </Button>
+                                    ) : (
+                                        <BookDemoButton
+                                            variant={plan.recommended ? 'primary' : 'secondary'}
+                                            className="w-full justify-center"
+                                        >
+                                            {plan.cta.label}
+                                        </BookDemoButton>
+                                    )}
                                 </div>
 
                                 {/* Divider */}
@@ -177,21 +200,13 @@ export function PricingSection() {
                                             key={feature.text}
                                             className="flex items-start gap-3"
                                         >
-                                            {feature.included ? (
-                                                <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
-                                            ) : (
-                                                <X className="w-4 h-4 text-text-muted/30 shrink-0 mt-0.5" />
-                                            )}
+                                            <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
                                             <span
-                                                className={`text-sm leading-snug ${
-                                                    feature.included
-                                                        ? 'text-text-primary'
-                                                        : 'text-text-muted/40'
-                                                }`}
+                                                className="text-sm leading-snug text-text-primary"
                                                 style={{ fontFamily: 'var(--font-body)' }}
                                             >
                                                 {feature.text}
-                                                {feature.detail && feature.included && (
+                                                {feature.detail && (
                                                     <span
                                                         className="ml-1.5 text-[11px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded"
                                                         style={{ fontFamily: 'var(--font-mono)' }}
@@ -203,6 +218,28 @@ export function PricingSection() {
                                         </li>
                                     ))}
                                 </ul>
+
+                                {/* Optional advisory note — points to the higher
+                                    tier instead of stacking X-marks for missing
+                                    features. */}
+                                {plan.note && (
+                                    <div
+                                        className="mt-6 flex items-start gap-2.5 rounded-lg border border-primary/15 bg-primary/4 px-3.5 py-3"
+                                        role="note"
+                                    >
+                                        <Info
+                                            className="w-4 h-4 text-primary shrink-0 mt-0.5"
+                                            strokeWidth={2}
+                                            aria-hidden="true"
+                                        />
+                                        <p
+                                            className="text-xs leading-relaxed text-text-secondary"
+                                            style={{ fontFamily: 'var(--font-body)' }}
+                                        >
+                                            {plan.note}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
                         </FadeIn>
                     ))}

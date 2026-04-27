@@ -22,16 +22,16 @@ export function HeroSection() {
                         {/* Text Content — left */}
                         <div className="w-full lg:max-w-[52%] lg:shrink-0">
                             <h1
-                                className="text-[2rem] font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem]"
+                                className="text-[2.375rem] font-bold leading-[1.1] tracking-tight text-text-primary sm:text-[2.75rem] md:text-5xl lg:text-[3.5rem] xl:text-[4rem]"
                                 style={{ fontFamily: 'var(--font-display)' }}
                             >
-                                IP Management That Replaces Your{' '}
+                                Patent IP Management That Replaces Your{' '}
                                 <span className="text-primary italic">
                                     Spreadsheets, Scattered Searches, and Drafting Tools
                                 </span>
                             </h1>
                             <p
-                                className="mt-5 text-base leading-relaxed text-text-secondary sm:mt-6 sm:text-lg sm:max-w-2xl"
+                                className="mt-5 text-[17px] leading-relaxed text-text-secondary sm:mt-6 sm:text-lg sm:max-w-2xl"
                                 style={{ fontFamily: 'var(--font-body)' }}
                             >
                                 Patent docketing, prior art search, and AI-powered drafting
