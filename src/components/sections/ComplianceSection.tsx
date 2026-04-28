@@ -52,8 +52,43 @@ const COMPLIANCE_ITEMS = [
 
 export function ComplianceSection() {
     return (
-        <section id="compliance" className="py-24 lg:py-32 bg-page-bg-alt">
-            <Container>
+        <section
+            id="compliance"
+            className="relative overflow-hidden py-24 lg:py-32 bg-page-bg-alt"
+        >
+            {/* Pure indigo aurora — same palette as hero/CTA. Two
+                positions because the layout stacks on mobile vs side-by-
+                side on desktop:
+                  - Mobile/tablet: centered horizontally, positioned in
+                    the lower portion of the section where the audit
+                    mockup stacks below the items list.
+                  - Desktop (lg+): mirrored to the right edge so it sits
+                    behind the mockup column, clear of the items text
+                    on the left. */}
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 overflow-hidden"
+            >
+                {/* Mobile / tablet — follows stacked mockup down the page */}
+                <div
+                    className="lg:hidden absolute top-[68%] left-1/2 -translate-x-1/2 -translate-y-1/2 h-110 w-150 sm:h-130 sm:w-180"
+                    style={{
+                        background:
+                            'radial-gradient(ellipse at center, rgba(99,102,241,0.20) 0%, rgba(129,140,248,0.10) 35%, transparent 65%)',
+                        filter: 'blur(60px)',
+                    }}
+                />
+                {/* Desktop — anchors the right column behind the mockup */}
+                <div
+                    className="hidden lg:block absolute top-1/2 -right-[8%] -translate-y-1/2 lg:h-160 lg:w-220"
+                    style={{
+                        background:
+                            'radial-gradient(ellipse at center, rgba(99,102,241,0.20) 0%, rgba(129,140,248,0.10) 35%, transparent 65%)',
+                        filter: 'blur(60px)',
+                    }}
+                />
+            </div>
+            <Container className="relative">
                 {/* Section Heading */}
                 <div id="tree-compliance" className="flex items-center gap-3 mb-6">
                     <span
@@ -134,7 +169,7 @@ export function ComplianceSection() {
 
 function ComplianceCard({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) {
     return (
-        <article className="group flex gap-4 items-start p-4 rounded-xl border border-transparent transition-all duration-200 hover:border-card-border hover:bg-card-bg hover:shadow-md hover:shadow-black/[0.03]">
+        <article className="group flex gap-4 items-start p-4 rounded-xl border border-transparent transition-all duration-200 hover:border-card-border hover:bg-card-bg hover:shadow-md hover:shadow-black/3">
             <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg border border-indigo-100/80 bg-linear-to-br from-indigo-50 via-white to-indigo-50/40 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(99,102,241,0.08)] mt-0.5">
                 <Icon className="w-5 h-5 text-primary" />
             </div>

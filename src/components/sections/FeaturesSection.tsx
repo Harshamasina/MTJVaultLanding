@@ -11,6 +11,7 @@ import {
 import { Container } from '@/components/ui/Container';
 import { AnimatedFamiliesTable } from '@/components/ui/AnimatedFamiliesTable';
 import { AnimatedCalendar } from '@/components/ui/AnimatedCalendar';
+import { MockupHalo } from '@/components/ui/MockupHalo';
 import { FadeIn } from '@/components/motion/FadeIn';
 
 interface Feature {
@@ -149,7 +150,9 @@ function FeatureRowBlock({ row, index }: { row: FeatureRow; index: number }) {
     const mockup = (
         <FadeIn delay={index * 0.15 + 0.1} className="h-full">
             <div className="flex items-center justify-center h-full">
-                {row.mockup === 'families' ? <AnimatedFamiliesTable /> : <AnimatedCalendar />}
+                <MockupHalo>
+                    {row.mockup === 'families' ? <AnimatedFamiliesTable /> : <AnimatedCalendar />}
+                </MockupHalo>
             </div>
         </FadeIn>
     );
@@ -184,7 +187,10 @@ function FeatureRowBlock({ row, index }: { row: FeatureRow; index: number }) {
 
 export function FeaturesSection() {
     return (
-        <section id="features" className="py-24 lg:py-32">
+        <section
+            id="features"
+            className="relative overflow-hidden py-24 lg:py-32"
+        >
             <Container>
                 {/* Section Heading */}
                 <div id="tree-features" className="flex items-center gap-3 mb-6">

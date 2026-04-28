@@ -79,8 +79,31 @@ const PLANS: Plan[] = [
 
 export function PricingSection() {
     return (
-        <section id="pricing" className="py-24 lg:py-32">
-            <Container>
+        <section
+            id="pricing"
+            className="relative overflow-hidden py-24 lg:py-32"
+        >
+            {/* Soft indigo glow positioned behind the recommended
+                Compliance Pro tier to draw the eye to the upgrade
+                path. On lg+ where the cards sit side-by-side, the
+                glow shifts to the right (where the recommended card
+                renders). On smaller breakpoints where cards stack,
+                the glow shifts to the lower-mid area where the
+                recommended card sits below Starter. */}
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 overflow-hidden"
+            >
+                <div
+                    className="absolute top-[72%] left-1/2 -translate-x-1/2 -translate-y-1/2 h-110 w-110 sm:h-130 sm:w-130 lg:top-1/2 lg:left-[65%] lg:h-150 lg:w-150"
+                    style={{
+                        background:
+                            'radial-gradient(circle at center, rgba(99,102,241,0.20) 0%, rgba(129,140,248,0.10) 35%, transparent 65%)',
+                        filter: 'blur(60px)',
+                    }}
+                />
+            </div>
+            <Container className="relative">
                 {/* Section Heading */}
                 <div id="tree-pricing" className="flex items-center gap-3 mb-6">
                     <span

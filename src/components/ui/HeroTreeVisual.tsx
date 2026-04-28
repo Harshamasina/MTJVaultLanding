@@ -124,8 +124,6 @@ export function HeroTreeVisual() {
                     </FadeCard>
                 </div>
 
-                {/* Subtle fade at bottom edge */}
-                <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-page-bg to-transparent pointer-events-none" />
             </div>
         </motion.div>
     );
@@ -148,8 +146,8 @@ const LEVEL_STYLES: Record<CardLevel, { card: string; label: string }> = {
         label: 'bg-primary/[0.07] text-primary/80',
     },
     grandchild: {
-        card: 'px-3.5 py-3 bg-page-bg-alt border border-card-border/70 shadow-sm',
-        label: 'bg-primary/[0.06] text-primary/70',
+        card: 'px-3.5 py-3 bg-white border border-card-border shadow-md shadow-black/[0.03]',
+        label: 'bg-primary/[0.07] text-primary/80',
     },
 };
 

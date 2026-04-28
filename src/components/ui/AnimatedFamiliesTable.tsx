@@ -160,9 +160,7 @@ export function AnimatedFamiliesTable() {
                             <TH>Title</TH>
                             <TH className="hidden xl:table-cell">Jurisdiction</TH>
                             <TH className="hidden xl:table-cell">Technology Area</TH>
-                            <TH className="hidden 2xl:table-cell">Owner Safety</TH>
                             <TH>Priority Date</TH>
-                            <TH className="hidden xl:table-cell">Created</TH>
                         </tr>
                     </thead>
                     <tbody>
@@ -216,19 +214,9 @@ export function AnimatedFamiliesTable() {
                                             {row.techArea}
                                         </span>
                                     </td>
-                                    <td className="py-2 pr-3 hidden 2xl:table-cell">
-                                        <span className="text-[10px] text-text-secondary truncate block max-w-[100px]" style={{ fontFamily: 'var(--font-dashboard)' }}>
-                                            {row.owner}
-                                        </span>
-                                    </td>
                                     <td className="py-2 pr-3">
                                         <span className="text-[10px] text-text-muted whitespace-nowrap" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
                                             {row.priority}
-                                        </span>
-                                    </td>
-                                    <td className="py-2 hidden xl:table-cell">
-                                        <span className="text-[10px] text-text-muted whitespace-nowrap" style={{ fontFamily: 'var(--font-dashboard-mono)' }}>
-                                            {row.created}
                                         </span>
                                     </td>
                                 </tr>

@@ -93,8 +93,13 @@ export function ImportSection() {
                     <ImportConnectors />
 
                     {STEPS.map((step, i) => (
-                        <FadeIn key={step.number} treeNode="tree-import" delay={i * 0.15}>
-                            <div className="relative z-10 group">
+                        <FadeIn
+                            key={step.number}
+                            treeNode="tree-import"
+                            delay={i * 0.15}
+                            className="lg:h-full"
+                        >
+                            <div className="relative z-10 group lg:h-full">
                                 {/* Mobile connector */}
                                 {i > 0 && (
                                     <div className="flex flex-col items-center py-2 lg:hidden">

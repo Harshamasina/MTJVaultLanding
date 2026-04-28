@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/Container';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
 import { WatchDemoButton } from '@/components/ui/WatchDemoModal';
 import { HeroTreeVisual } from '@/components/ui/HeroTreeVisual';
+import { HoneycombPattern } from '@/components/ui/HoneycombPattern';
 import { AnimatedDashboard } from '@/components/ui/AnimatedDashboard';
 import { ArrowRight, Play } from 'lucide-react';
 
@@ -15,9 +16,10 @@ export function HeroSection() {
             <section
                 id="hero"
                 aria-label="Hero"
-                className="flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:min-h-screen lg:justify-center lg:pt-32 lg:pb-32 xl:pt-36 xl:pb-36 overflow-hidden"
+                className="relative flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:min-h-screen lg:justify-center lg:pt-32 lg:pb-32 xl:pt-36 xl:pb-36 overflow-hidden"
             >
-                <Container>
+                <HoneycombPattern />
+                <Container className="relative">
                     <div className="flex items-start lg:items-center gap-8 lg:gap-16 xl:gap-20">
                         {/* Text Content — left */}
                         <div className="w-full lg:max-w-[52%] lg:shrink-0">
@@ -53,7 +55,7 @@ export function HeroSection() {
 
                         {/* Family Tree Visual — right, hidden below lg */}
                         <div className="hidden lg:flex flex-1 min-w-0 items-center justify-center">
-                            <div className="w-full max-w-[420px]">
+                            <div className="w-full max-w-105">
                                 <HeroTreeVisual />
                             </div>
                         </div>
@@ -61,7 +63,12 @@ export function HeroSection() {
                 </Container>
             </section>
 
-            {/* Animated Dashboard — below the fold, appears on scroll */}
+            {/* Animated Dashboard — below the fold, appears on scroll.
+                No MockupHalo wrap: the dashboard spans the container's
+                full width on lg+, so the halo would extend past the
+                viewport and get clipped by overflow-hidden, breaking
+                the effect. The dashboard is already a strong focal
+                point with its own shadow and 2:1 aspect. */}
             <section id="hero-dashboard" className="py-10 sm:py-14 lg:py-16">
                 <Container>
                     <AnimatedDashboard />

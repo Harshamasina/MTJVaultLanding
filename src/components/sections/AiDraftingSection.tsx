@@ -13,6 +13,7 @@ import {
 import { Container } from '@/components/ui/Container';
 import { AnimatedPriorArtSearch } from '@/components/ui/AnimatedPriorArtSearch';
 import { AnimatedAiDraftGeneration } from '@/components/ui/AnimatedAiDraftGeneration';
+import { MockupHalo } from '@/components/ui/MockupHalo';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
 import { FadeIn } from '@/components/motion/FadeIn';
 
@@ -36,7 +37,10 @@ const TRUST_ITEMS = [
 
 export function AiDraftingSection() {
     return (
-        <section id="ai-drafting" className="py-24 lg:py-32">
+        <section
+            id="ai-drafting"
+            className="relative overflow-hidden py-24 lg:py-32"
+        >
             <Container>
                 {/* ── Section Heading ── */}
                 <div id="tree-ai" className="flex items-center gap-3 mb-6">
@@ -75,7 +79,9 @@ export function AiDraftingSection() {
                                 <PriorArtContent />
                             </FadeIn>
                             <FadeIn delay={0.2}>
-                                <AnimatedPriorArtSearch />
+                                <MockupHalo>
+                                    <AnimatedPriorArtSearch />
+                                </MockupHalo>
                             </FadeIn>
                         </div>
                         {/* Mobile */}
@@ -84,7 +90,9 @@ export function AiDraftingSection() {
                                 <PriorArtContent />
                             </FadeIn>
                             <FadeIn delay={0.15}>
-                                <AnimatedPriorArtSearch />
+                                <MockupHalo>
+                                    <AnimatedPriorArtSearch />
+                                </MockupHalo>
                             </FadeIn>
                         </div>
                     </div>
@@ -94,7 +102,9 @@ export function AiDraftingSection() {
                         {/* Desktop */}
                         <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-center">
                             <FadeIn delay={0.1}>
-                                <AnimatedAiDraftGeneration />
+                                <MockupHalo>
+                                    <AnimatedAiDraftGeneration />
+                                </MockupHalo>
                             </FadeIn>
                             <FadeIn delay={0.2}>
                                 <DraftingContent />
@@ -106,7 +116,9 @@ export function AiDraftingSection() {
                                 <DraftingContent />
                             </FadeIn>
                             <FadeIn delay={0.15}>
-                                <AnimatedAiDraftGeneration />
+                                <MockupHalo>
+                                    <AnimatedAiDraftGeneration />
+                                </MockupHalo>
                             </FadeIn>
                         </div>
                     </div>
