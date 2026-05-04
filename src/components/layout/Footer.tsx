@@ -56,6 +56,7 @@ const STATIC_FOOTER_LINKS = {
     ],
     Company: [
         { label: 'Contact', href: '/#contact' },
+        { label: 'Careers', href: '/careers/' },
         { label: 'Support', href: '/support/' },
     ],
     Legal: [

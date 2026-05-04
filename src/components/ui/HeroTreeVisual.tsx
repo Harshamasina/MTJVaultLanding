@@ -138,15 +138,15 @@ type CardLevel = 'root' | 'child' | 'grandchild';
 
 const LEVEL_STYLES: Record<CardLevel, { card: string; label: string }> = {
     root: {
-        card: 'px-5 py-4 bg-white border border-primary/15 shadow-lg shadow-primary/[0.06] ring-1 ring-primary/[0.04]',
+        card: 'px-5 py-4 bg-white border border-primary/22 shadow-lg shadow-primary/[0.10] ring-1 ring-primary/[0.07]',
         label: 'bg-primary/10 text-primary',
     },
     child: {
-        card: 'px-4 py-3.5 bg-white border border-card-border shadow-md shadow-black/[0.03]',
+        card: 'px-4 py-3.5 bg-white border border-card-border shadow-md shadow-black/[0.05]',
         label: 'bg-primary/[0.07] text-primary/80',
     },
     grandchild: {
-        card: 'px-3.5 py-3 bg-white border border-card-border shadow-md shadow-black/[0.03]',
+        card: 'px-3.5 py-3 bg-white border border-card-border shadow-md shadow-black/[0.05]',
         label: 'bg-primary/[0.07] text-primary/80',
     },
 };
@@ -230,7 +230,7 @@ function TreeCard({
 function ConnectorLine({ delay }: { delay: number }) {
     return (
         <motion.div
-            className="w-px h-8 bg-gradient-to-b from-primary/30 to-primary/15 mx-auto"
+            className="w-px h-8 bg-gradient-to-b from-primary/38 to-primary/22 mx-auto"
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
             transition={{ duration: 0.35, delay, ease: EASE }}
@@ -247,7 +247,7 @@ function NodeDot({ delay }: { delay: number }) {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3, delay, ease: EASE }}
         >
-            <div className="w-2.5 h-2.5 rounded-full bg-primary ring-[3px] ring-primary/10" />
+            <div className="w-2.5 h-2.5 rounded-full bg-primary ring-[3px] ring-primary/16" />
         </motion.div>
     );
 }
@@ -271,7 +271,7 @@ function BranchSplit({ delay, width = 140, branches = 2 }: { delay: number; widt
                     <motion.path
                         key={i}
                         d={`M ${cx} 0 C ${cx} 14, ${ex} 6, ${ex} 20`}
-                        stroke="rgb(99 102 241 / 0.25)"
+                        stroke="rgb(99 102 241 / 0.33)"
                         strokeWidth="1.5"
                         initial={{ pathLength: 0 }}
                         animate={{ pathLength: 1 }}
@@ -304,7 +304,7 @@ function MergeLine({ delay }: { delay: number }) {
             >
                 <motion.path
                     d={`M ${leftX} 0 C ${leftX} ${vh * 0.65}, ${cx} ${vh * 0.35}, ${cx} ${vh}`}
-                    stroke="rgb(99 102 241 / 0.25)"
+                    stroke="rgb(99 102 241 / 0.33)"
                     strokeWidth="1.5"
                     vectorEffect="non-scaling-stroke"
                     initial={{ pathLength: 0 }}
@@ -313,7 +313,7 @@ function MergeLine({ delay }: { delay: number }) {
                 />
                 <motion.path
                     d={`M ${rightX} 0 C ${rightX} ${vh * 0.65}, ${cx} ${vh * 0.35}, ${cx} ${vh}`}
-                    stroke="rgb(99 102 241 / 0.25)"
+                    stroke="rgb(99 102 241 / 0.33)"
                     strokeWidth="1.5"
                     vectorEffect="non-scaling-stroke"
                     initial={{ pathLength: 0 }}

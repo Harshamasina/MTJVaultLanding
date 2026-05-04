@@ -1,0 +1,279 @@
+{
+    "meta": {
+        "title": "Careers",
+        "description": "Join us in building the AI-native platform redefining how the world creates, manages, and protects intellectual property. Open roles for founding engineers and beyond.",
+        "path": "/careers/"
+    },
+    "hero": {
+        "eyebrow": "Careers",
+        "title": "Build the Future of Intellectual Property",
+        "description": "We're building the AI-native platform redefining how the world creates, manages, and protects innovation.",
+        "tags": ["Remote-first", "High impact", "Long-term thinking"]
+    },
+    "roles": [
+        {
+            "slug": "founding-engineer",
+            "department": "Engineering",
+            "title": "Founding Engineer",
+            "summary": "Join as one of the earliest engineers and help build the core platform powering the future of patent operations for leading law firms and pharma teams.",
+            "location": "Remote (India)",
+            "employmentType": "Full-time",
+            "compensation": "Equity offered",
+            "responsibilities": [
+                "Build and ship core features that power patent drafting, docketing, search, and compliance workflows.",
+                "Work closely with founders to shape product, architecture, and engineering culture.",
+                "Make technical decisions that scale with enterprise-grade security and reliability."
+            ],
+            "requirements": [
+                "5+ years building production TypeScript SaaS, including multi-tenant systems.",
+                "Deep PostgreSQL fluency including RLS, indexing, and query plan analysis, plus AWS operational experience.",
+                "Production LLM integration experience with prompt engineering and structured outputs."
+            ],
+            "applyEmail": "hiring@designyourinvention.com",
+            "applySubject": "Application - Founding Engineer",
+            "datePosted": "2026-05-04",
+            "active": true,
+            "detail": {
+                "tldr": "As founding engineer, you'll co-own the technical surface of a multi-tenant patent IP management platform combining AI-assisted drafting, multi-jurisdiction docketing, and chemistry-aware enrichment for pharma IP teams and IP law boutiques. You'll work closely with the founding team on architecture, infrastructure, AI integration, and customer engagement. The role offers meaningful equity, end-to-end ownership, direct customer exposure, and full code review authority on production from day one.",
+                "sections": [
+                    {
+                        "heading": "About the platform",
+                        "intro": "A patent operations platform purpose-built for pharma IP teams and IP law boutiques. Core capabilities:",
+                        "blocks": [
+                            {
+                                "kind": "bullets",
+                                "items": [
+                                    "Multi-tenant SaaS with PostgreSQL Row-Level Security, Auth0 RBAC, and audit-first design.",
+                                    "Patent docketing across US, PCT, EU, JP, and IN with composite-key tenant isolation.",
+                                    "AI patent drafting using the Claude API with prior-art-aware claim generation.",
+                                    "Prior art search via Google BigQuery (Google Patents Public Datasets) and EPO OPS.",
+                                    "Chemistry and drug enrichment via PubChem, SureChEMBL, Open Targets, RDKit, ClinicalTrials.gov, and CTRI.",
+                                    "Compliance posture designed for SOC 2 Type II, GDPR, and Indian DPDP."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "About us",
+                        "blocks": [
+                            {
+                                "kind": "bullets",
+                                "items": [
+                                    "Founded by an experienced technical lead working alongside a co-founder with deep pharma and IP domain expertise.",
+                                    "Working product with active customer engagement and pilots in motion.",
+                                    "Production stack: Node.js 20 with TypeScript on Express, PostgreSQL with FORCE RLS via Drizzle ORM, Auth0 RS256 with RBAC, React + Tailwind CSS on the frontend, AWS infrastructure (ECS Fargate, RDS, ElastiCache, S3, SES, Secrets Manager, EC2 etc.), and BullMQ with Redis for background jobs.",
+                                    "Two products in development: the closed-product IP management platform serving paid customers and a public patent search tool that drives lead generation for the platform funnel."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "What you'll do",
+                        "intro": "Concrete responsibilities, broken down by approximate time allocation:",
+                        "blocks": [
+                            {
+                                "kind": "group",
+                                "title": "Production code (60% of your time)",
+                                "bullets": [
+                                    "Build and ship features end-to-end: schema, migrations, services, APIs, frontend, tests, and deployments.",
+                                    "Co-own architecture decisions on caching strategy, search infrastructure, frontend boundaries, and service splits.",
+                                    "Participate in two-person code review on every production change until the engineering team grows.",
+                                    "Use AI tooling fluently as part of the workflow, including directing, reviewing, and refining AI-generated output."
+                                ]
+                            },
+                            {
+                                "kind": "group",
+                                "title": "Architecture and AI integration (20% of your time)",
+                                "bullets": [
+                                    "Build and refine the Claude API integration for patent drafting: system prompts, prior-art context assembly, output sanitization, streaming, and evaluations.",
+                                    "Design the prior-art search architecture across BigQuery, EPO OPS, and caching layers with relevance scoring.",
+                                    "Lead chemistry and drug enrichment integrations across PubChem, SureChEMBL, RDKit, and Open Targets GraphQL.",
+                                    "Make architectural decisions on synchronous vs. asynchronous workflows and long-running AI generation patterns."
+                                ]
+                            },
+                            {
+                                "kind": "group",
+                                "title": "Customer and stakeholder engagement (15% of your time)",
+                                "bullets": [
+                                    "Participate in customer demos and discussions with pharma IP heads and law firm partners.",
+                                    "Engage with investors during due diligence as the engineering point of contact.",
+                                    "Address technical questions from compliance officers regarding tenant isolation, RLS, and SOC 2 readiness."
+                                ]
+                            },
+                            {
+                                "kind": "group",
+                                "title": "Engineering foundation (5% of your time)",
+                                "bullets": [
+                                    "Lead implementation of SOC 2 Type I controls in partnership with a third-party vendor, including security policies, change management, and access reviews.",
+                                    "Author runbooks for incidents, deployments, and on-call rotation.",
+                                    "Lead interviews and onboarding as the engineering team grows."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "Required experience",
+                        "intro": "These are non-negotiable requirements for the role.",
+                        "blocks": [
+                            {
+                                "kind": "group",
+                                "title": "Production engineering",
+                                "bullets": [
+                                    "5+ years writing TypeScript or strongly-typed JavaScript at production scale.",
+                                    "Experience building and operating a multi-tenant SaaS, including hands-on tenant isolation implementation.",
+                                    "Deep PostgreSQL fluency: indexing strategies, RLS policies, transaction-scoped settings, and query plan analysis.",
+                                    "Production AWS operational experience across ECS, RDS, ALB, and IAM, including incident response."
+                                ]
+                            },
+                            {
+                                "kind": "group",
+                                "title": "Frontend depth",
+                                "bullets": [
+                                    "Production-level React and TypeScript experience. Familiarity with TanStack Query and Tailwind CSS, or willingness to ramp quickly.",
+                                    "Experience shipping complex, form-heavy applications with substantial validation and table-driven UIs.",
+                                    "Strong understanding of authentication flows including OIDC, JWT, sessions, cookies, and CSRF protection."
+                                ]
+                            },
+                            {
+                                "kind": "group",
+                                "title": "AI integration at the production level",
+                                "bullets": [
+                                    "Hands-on experience integrating an LLM API (Claude, GPT, or equivalent) into a production product, including prompt engineering, structured outputs, error handling, and evaluations.",
+                                    "Strong reasoning about token economics, latency, prompt caching, and streaming use cases.",
+                                    "Considered opinions on prompt structure, system messages, tool use, and the right boundaries for AI in a workflow."
+                                ]
+                            },
+                            {
+                                "kind": "group",
+                                "title": "Senior-level code review",
+                                "bullets": [
+                                    "Identifies subtle correctness and security issues in code review, including missing tenant isolation guards.",
+                                    "Calibrated judgment on premature optimization vs. necessary investment.",
+                                    "Comfortable giving and receiving direct technical feedback constructively."
+                                ]
+                            },
+                            {
+                                "kind": "group",
+                                "title": "Communication",
+                                "bullets": [
+                                    "Able to explain technical decisions clearly to non-technical stakeholders such as pharma IP leaders without oversimplifying.",
+                                    "Comfortable in investor due diligence settings and customer-facing technical discussions.",
+                                    "Writes clear design documents before implementing non-trivial work."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "Nice to have",
+                        "blocks": [
+                            {
+                                "kind": "bullets",
+                                "items": [
+                                    "Pharma, IP, or legal-tech industry background.",
+                                    "Prior founding-engineer or early-stage startup experience.",
+                                    "Open-source contributions.",
+                                    "Compliance experience with SOC 2, ISO 27001, or HIPAA frameworks.",
+                                    "Python experience for the chemistry microservice (RDKit) on the roadmap."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "How we work",
+                        "blocks": [
+                            {
+                                "kind": "bullets",
+                                "items": [
+                                    "Remote within India. Quarterly in-person sessions in Hyderabad for strategy and customer visits, with travel costs covered.",
+                                    "Async-first communication via GitHub and Google Space, with real-time meetings for complex discussions.",
+                                    "AI-augmented but human-owned engineering. Every AI-assisted output is reviewed and signed off before merge.",
+                                    "Weekly production deployments with feature flags for in-progress work and forward-only migrations.",
+                                    "Two-person code review on every change until the engineering team grows beyond three."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "Compensation and benefits",
+                        "blocks": [
+                            {
+                                "kind": "bullets",
+                                "items": [
+                                    "Base salary of 30-40 LPA, depending on experience.",
+                                    "Meaningful founding-engineer level equity, discussed at offer stage.",
+                                    "Health insurance for you and your dependents.",
+                                    "ESOPs with a 4-year vesting schedule and 1-year cliff once granted.",
+                                    "Flexible working hours."
+                                ]
+                            },
+                            {
+                                "kind": "paragraph",
+                                "text": "Final compensation will be discussed at the offer stage, taking experience and contribution scope into account."
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "Interview process",
+                        "intro": "A four-step process designed to be fast and high-signal, typically completed within three weeks.",
+                        "blocks": [
+                            {
+                                "kind": "steps",
+                                "items": [
+                                    {
+                                        "title": "Initial screen (30 minutes)",
+                                        "body": "Conversation with the founding team about your background, motivation for the role, and basic technical fit. No leetcode-style questions."
+                                    },
+                                    {
+                                        "title": "Take-home design exercise (90 minutes)",
+                                        "body": "An architecture decision drawn from our backlog, structured as a written design rather than a coding puzzle. We'll discuss your design in the next round."
+                                    },
+                                    {
+                                        "title": "Technical deep-dive (90 minutes)",
+                                        "body": "Walk-through of your design, followed by a paired live coding session on a small TypeScript task that involves AI tooling."
+                                    },
+                                    {
+                                        "title": "Founding team conversation (45 minutes)",
+                                        "body": "Meet the broader founding team to discuss the business, customer pipeline, and your interest in the domain."
+                                    }
+                                ]
+                            },
+                            {
+                                "kind": "paragraph",
+                                "text": "Decisions are communicated within a week of the final round, with written feedback provided regardless of the outcome."
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "How to apply",
+                        "intro": "Email hiring@designyourinvention.com with the following:",
+                        "blocks": [
+                            {
+                                "kind": "bullets",
+                                "items": [
+                                    "Your CV or LinkedIn profile.",
+                                    "A short paragraph describing a project you're particularly proud of, with technical specifics.",
+                                    "Links to your GitHub or portfolio, if available.",
+                                    "Optional: a short note on an AI integration you've shipped to production and what you learned from it."
+                                ]
+                            },
+                            {
+                                "kind": "paragraph",
+                                "text": "All applications are reviewed within 48 hours."
+                            },
+                            {
+                                "kind": "paragraph",
+                                "text": "Design Your Invention is based in Hyderabad, India. We are an equal opportunity employer and welcome applications from women in engineering and other groups underrepresented at the founding-engineer level in Indian SaaS."
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "generalCta": {
+        "title": "Don't see the right role? We're always looking for exceptional talent.",
+        "ctaLabel": "Send us your resume",
+        "ctaEmail": "hiring@designyourinvention.com",
+        "ctaSubject": "General application - Design Your Invention"
+    }
+}

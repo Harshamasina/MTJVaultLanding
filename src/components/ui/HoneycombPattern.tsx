@@ -1,4 +1,11 @@
 /**
+ * @deprecated Disabled in favour of the corner-gradient HeroAmbience
+ * pattern (see `src/components/ui/HeroAmbience.tsx`). The export
+ * below is a no-op so any lingering imports render nothing; the
+ * original full implementation is preserved underneath as a
+ * reference in case the hex-lattice direction is revisited.
+ *
+ * --- Original docstring ---
  * Honeycomb (benzene-ring) tessellation rendered as an SVG background.
  * Decorative atmosphere for the hero — the molecular lattice connotation
  * lands strongly for pharma IP buyers without alienating general patent
@@ -18,6 +25,14 @@
  * Place inside a relatively-positioned `overflow-hidden` ancestor; the
  * pattern absolute-fills its parent.
  */
+export function HoneycombPattern() {
+    return null;
+}
+
+/* === Original implementation preserved below for reference ===================
+   The export above short-circuits to null. The code below is intentionally
+   kept dead-code so the implementation can be revived without rewriting it.
+   ============================================================================ */
 
 interface HoneycombData {
     nodes: [number, number][];
@@ -146,7 +161,9 @@ function GridSvg({ data, viewBox, className }: GridSvgProps) {
     );
 }
 
-export function HoneycombPattern() {
+// Renamed from `HoneycombPattern` so the disabled no-op export at the
+// top of this file remains the active export. Body kept verbatim.
+function _HoneycombPatternDisabled() {
     return (
         <>
             {/* Portrait grid — phones (below md). Taller viewBox + radial

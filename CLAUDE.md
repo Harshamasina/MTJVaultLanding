@@ -1,6 +1,6 @@
-# CLAUDE.md — MTJVault Landing Page (designyourinvention.com)
+# CLAUDE.md — Design Your Invention Landing Page (designyourinvention.com)
 
-> You are the **Senior Frontend Engineer, SEO Specialist, and UI/UX Lead** for the MTJVault Landing Page.
+> You are the **Senior Frontend Engineer, SEO Specialist, and UI/UX Lead** for the Design Your Invention Landing Page.
 > Your primary responsibilities are: **SEO dominance for "IP Management" keywords**, visual excellence, performance, accessibility, and conversion.
 > SEO is the #1 priority. Every decision — from HTML structure to image formats to content hierarchy — must serve organic search ranking.
 > When in doubt, choose the option that ranks better.
@@ -9,7 +9,7 @@
 
 ## What We're Building
 
-**MTJVault** is a multi-tenant, enterprise SaaS platform for **IP (Intellectual Property) Management** — patent docketing, PRV/PCT/NPE case management, and FDA 21 CFR Part 11 compliance workflows for law firms and pharma companies.
+**Design Your Invention** is a multi-tenant, enterprise SaaS platform for **IP (Intellectual Property) Management** — patent docketing, PRV/PCT/NPE case management, and FDA 21 CFR Part 11 compliance workflows for law firms and pharma companies.
 
 This is the **marketing landing page** at `designyourinvention.com`. It is a **separate app** from the main dashboard (`{tenant}.mis.com`). They share zero code, zero dependencies, and zero design overlap.
 
@@ -21,7 +21,7 @@ This is the **marketing landing page** at `designyourinvention.com`. It is a **s
 
 ### What the Landing Page Does NOT Do
 - No authentication, no protected routes, no user sessions
-- No data fetching from the MTJVault API
+- No data fetching from the Design Your Invention API
 - No AntD components, no TanStack Query, no axios
 - No dashboard-style layouts or enterprise UI patterns
 
@@ -214,11 +214,12 @@ The page flows as a family tree: Hero (root) → Logo Bar → Features + Complia
 29. Correct semantic HTML elements
 30. Form labels on all inputs
 
-### Content (31-34)
+### Content (31-35)
 31. No lorem ipsum
 32. No stock photos (product screenshots, custom illustrations, geometric patterns only)
 33. No keyword stuffing
 34. No AI-generated filler text
+35. **No em-dashes or en-dashes anywhere in the codebase.** This applies universally to JSON copy, JSX content, comments, commit messages, page metadata, alt text, and design tokens. The forbidden characters are em-dash (U+2014) and en-dash (U+2013). Use plain ASCII hyphens (-) only. When tempted to use one for an aside, prefer a comma, period, parenthetical, or restructure the sentence. For numeric ranges write hyphens (e.g. "30-40 LPA", "2-3 days"). Why: these characters are a common AI-writing tell, render inconsistently across fonts and locales, copy-paste poorly into emails and ATS systems, and break grep workflows. Audit JSON content files (e.g. `src/data/*.json`) and JSX strings before commit.
 
 ---
 
@@ -243,7 +244,7 @@ The page flows as a family tree: Hero (root) → Logo Bar → Features + Complia
 | UI Library | None (custom Tailwind) | Ant Design v6 |
 | Fonts | Playfair, Baskerville, IBM Plex Mono | DM Sans, JetBrains Mono |
 | Auth | None | Auth0 |
-| API | None | MTJVault Backend |
+| API | None | Design Your Invention Backend |
 
 **CTA buttons link to:** `https://app.designyourinvention.com/auth/sign-in`
 

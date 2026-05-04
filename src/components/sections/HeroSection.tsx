@@ -2,9 +2,9 @@ import { Container } from '@/components/ui/Container';
 import { BookDemoButton } from '@/components/ui/BookDemoModal';
 import { WatchDemoButton } from '@/components/ui/WatchDemoModal';
 import { HeroTreeVisual } from '@/components/ui/HeroTreeVisual';
-import { HoneycombPattern } from '@/components/ui/HoneycombPattern';
+import { HeroAmbience } from '@/components/ui/HeroAmbience';
 import { AnimatedDashboard } from '@/components/ui/AnimatedDashboard';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, Play, ShieldCheck } from 'lucide-react';
 
 export function HeroSection() {
     return (
@@ -18,8 +18,8 @@ export function HeroSection() {
                 aria-label="Hero"
                 className="relative flex flex-col pt-28 sm:pt-32 pb-10 sm:pb-14 lg:min-h-screen lg:justify-center lg:pt-32 lg:pb-32 xl:pt-36 xl:pb-36 overflow-hidden"
             >
-                <HoneycombPattern />
-                <Container className="relative">
+                <HeroAmbience edge="bottom" />
+                <Container className="relative z-10">
                     <div className="flex items-start lg:items-center gap-8 lg:gap-16 xl:gap-20">
                         {/* Text Content — left */}
                         <div className="w-full lg:max-w-[52%] lg:shrink-0">
@@ -27,7 +27,7 @@ export function HeroSection() {
                                 className="text-[2.375rem] font-bold leading-[1.1] tracking-tight text-text-primary sm:text-[2.75rem] md:text-5xl lg:text-[3.5rem] xl:text-[4rem]"
                                 style={{ fontFamily: 'var(--font-display)' }}
                             >
-                                Patent IP Management That Replaces Your{' '}
+                                Patent Operations That Replace Your{' '}
                                 <span className="text-primary italic">
                                     Spreadsheets, Scattered Searches, and Drafting Tools
                                 </span>
@@ -37,20 +37,36 @@ export function HeroSection() {
                                 style={{ fontFamily: 'var(--font-body)' }}
                             >
                                 Patent docketing, prior art search, and AI-powered drafting
-                                in one audited platform, built for law firms and pharma
+                                in one audited platform, built for law firms and IP
                                 teams. Manage PCT/PRV/NPE cases, track fees and deadlines,
                                 and maintain FDA 21 CFR Part 11 compliance.
                             </p>
                             <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
                                 <BookDemoButton size="lg">
-                                    Book a Demo
+                                    Book a Product Demo
                                     <ArrowRight className="w-5 h-5" />
                                 </BookDemoButton>
                                 <WatchDemoButton variant="secondary" size="lg">
                                     <Play className="w-5 h-5 fill-current" />
-                                    Watch Demo
+                                    Watch 2-Min Demo
                                 </WatchDemoButton>
                             </div>
+                            {/* Enterprise trust pill: shield icon + supporting copy
+                                in a soft-bordered capsule. Translucent white over
+                                a backdrop blur so the hero ambience hue still
+                                shows through subtly without diluting legibility. */}
+                            <p
+                                className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-3.5 py-1.5 text-xs text-text-secondary shadow-sm backdrop-blur-sm sm:mt-6"
+                                style={{ fontFamily: 'var(--font-body)' }}
+                            >
+                                <ShieldCheck
+                                    aria-hidden="true"
+                                    className="h-3.5 w-3.5 shrink-0 text-primary"
+                                />
+                                <span>
+                                    Built for confidential invention workflows across all patent-filing sectors
+                                </span>
+                            </p>
                         </div>
 
                         {/* Family Tree Visual — right, hidden below lg */}
@@ -68,9 +84,18 @@ export function HeroSection() {
                 full width on lg+, so the halo would extend past the
                 viewport and get clipped by overflow-hidden, breaking
                 the effect. The dashboard is already a strong focal
-                point with its own shadow and 2:1 aspect. */}
-            <section id="hero-dashboard" className="py-10 sm:py-14 lg:py-16">
-                <Container>
+                point with its own shadow and 2:1 aspect.
+
+                relative + overflow-hidden host the matching top-corner
+                HeroAmbience quarter-circles, which combine with the
+                hero's bottom-corner pair into full half-circles
+                straddling the section boundary. */}
+            <section
+                id="hero-dashboard"
+                className="relative overflow-hidden py-10 sm:py-14 lg:py-16"
+            >
+                <HeroAmbience edge="top" />
+                <Container className="relative z-10">
                     <AnimatedDashboard />
                 </Container>
             </section>
