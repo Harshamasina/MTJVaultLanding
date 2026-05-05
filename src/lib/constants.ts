@@ -3,6 +3,37 @@ export const SITE_NAME = 'Design Your Invention';
 export const SITE_DESCRIPTION =
     'Enterprise IP management with AI-powered prior art search and patent drafting. Patent docketing, PCT/PRV/NPE case management, and FDA 21 CFR Part 11 compliance.';
 
+/* ── Brand entity metadata used by Organization JSON-LD.
+ * Keep these accurate. Google reads them to resolve the brand as a
+ * real entity. Update legalName once formal incorporation is done,
+ * and add socialUrls as profiles go live. Empty fields are filtered
+ * out of the schema, so it's safe to leave them blank for now. */
+export const BRAND = {
+    /** Formal registered name. Leave equal to SITE_NAME until incorporated. */
+    legalName: 'Design Your Invention',
+    /** YYYY or YYYY-MM-DD. */
+    foundingDate: '2025',
+    address: {
+        addressLocality: 'Hyderabad',
+        addressRegion: 'Telangana',
+        addressCountry: 'IN',
+    },
+    contact: {
+        email: 'support@designyourinvention.com',
+        contactType: 'customer support',
+        areaServed: 'IN',
+        availableLanguage: ['English'],
+    },
+    /** Add public profile URLs as you create them. Each entry must be a
+     * fully-qualified, working URL — Google penalizes broken sameAs. */
+    socialUrls: [
+        // 'https://www.linkedin.com/company/design-your-invention/',
+        // 'https://twitter.com/<handle>',
+        // 'https://github.com/<org>',
+        // 'https://www.crunchbase.com/organization/design-your-invention',
+    ] as readonly string[],
+} as const;
+
 export const NAV_LINKS = [
     { label: 'Features', href: '/#features' },
     { label: 'AI Drafting', href: '/#ai-drafting' },

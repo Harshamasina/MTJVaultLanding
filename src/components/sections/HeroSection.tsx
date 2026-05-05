@@ -48,7 +48,7 @@ export function HeroSection() {
                                 </BookDemoButton>
                                 <WatchDemoButton variant="secondary" size="lg">
                                     <Play className="w-5 h-5 fill-current" />
-                                    Watch 2-Min Demo
+                                    Watch 4-Min Demo
                                 </WatchDemoButton>
                             </div>
                             {/* Enterprise trust pill: shield icon + supporting copy
