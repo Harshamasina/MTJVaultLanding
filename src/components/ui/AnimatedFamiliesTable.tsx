@@ -37,7 +37,7 @@ const BULK_BAR_TIME = 2800;
 const RESET_TIME = 5500;
 const LOOP_TIME = 6500;
 
-const MOCKUP_HEIGHT = 'h-[380px] sm:h-[420px] lg:h-[540px]';
+const MOCKUP_HEIGHT = 'h-[440px] sm:h-[480px] lg:h-[520px]';
 
 export function AnimatedFamiliesTable() {
     const [checkedRows, setCheckedRows] = useState<Set<number>>(new Set());

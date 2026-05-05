@@ -65,10 +65,50 @@ function buildJobPostingSchema(role: Role) {
         }),
     ].join('\n\n');
 
-    return {
+    type JobPostingSchema = {
+        '@context': 'https://schema.org';
+        '@type': 'JobPosting';
+        title: string;
+        identifier: { '@type': 'PropertyValue'; name: string; value: string };
+        description: string;
+        datePosted: string;
+        validThrough: string;
+        employmentType: 'FULL_TIME';
+        hiringOrganization: {
+            '@type': 'Organization';
+            name: string;
+            sameAs: string;
+            logo: string;
+        };
+        jobLocationType: 'TELECOMMUTE';
+        applicantLocationRequirements: { '@type': 'Country'; name: string };
+        directApply: boolean;
+        url: string;
+        responsibilities: string;
+        qualifications: string;
+        incentiveCompensation: string;
+        baseSalary?: {
+            '@type': 'MonetaryAmount';
+            currency: string;
+            value: {
+                '@type': 'QuantitativeValue';
+                minValue: number;
+                maxValue: number;
+                unitText: string;
+            };
+        };
+        occupationalCategory?: string;
+    };
+
+    const schema: JobPostingSchema = {
         '@context': 'https://schema.org',
         '@type': 'JobPosting',
         title: role.title,
+        identifier: {
+            '@type': 'PropertyValue',
+            name: SITE_NAME,
+            value: role.slug,
+        },
         description: fullDescription,
         datePosted: role.datePosted,
         validThrough: validThrough.toISOString().slice(0, 10),
@@ -77,6 +117,7 @@ function buildJobPostingSchema(role: Role) {
             '@type': 'Organization',
             name: SITE_NAME,
             sameAs: SITE_URL,
+            logo: `${SITE_URL}/logos/dyi-logo-mark.svg`,
         },
         jobLocationType: 'TELECOMMUTE',
         applicantLocationRequirements: {
@@ -89,6 +130,25 @@ function buildJobPostingSchema(role: Role) {
         qualifications: role.requirements.join(' '),
         incentiveCompensation: role.compensation,
     };
+
+    if (role.baseSalary) {
+        schema.baseSalary = {
+            '@type': 'MonetaryAmount',
+            currency: role.baseSalary.currency,
+            value: {
+                '@type': 'QuantitativeValue',
+                minValue: role.baseSalary.minValue,
+                maxValue: role.baseSalary.maxValue,
+                unitText: role.baseSalary.unitText,
+            },
+        };
+    }
+
+    if (role.occupationalCategory) {
+        schema.occupationalCategory = role.occupationalCategory;
+    }
+
+    return schema;
 }
 
 export default async function RoleDetailPage({ params }: PageProps) {

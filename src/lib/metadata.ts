@@ -17,10 +17,10 @@ export function buildMetadata({
     const url = `${SITE_URL}${path}`;
 
     return {
-        title: `${title} — ${SITE_NAME}`,
+        title: `${title} - ${SITE_NAME}`,
         description,
         openGraph: {
-            title: `${title} — ${SITE_NAME}`,
+            title: `${title} - ${SITE_NAME}`,
             description,
             url,
             siteName: SITE_NAME,
@@ -29,7 +29,7 @@ export function buildMetadata({
                     url: ogImage,
                     width: 1200,
                     height: 630,
-                    alt: `${SITE_NAME} — ${title}`,
+                    alt: `${SITE_NAME} - ${title}`,
                 },
             ],
             locale: 'en_US',
@@ -37,7 +37,7 @@ export function buildMetadata({
         },
         twitter: {
             card: 'summary_large_image',
-            title: `${title} — ${SITE_NAME}`,
+            title: `${title} - ${SITE_NAME}`,
             description,
             images: [ogImage],
         },

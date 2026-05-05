@@ -1,5 +1,41 @@
+import { Fragment, type ReactNode } from 'react';
 import { Container } from '@/components/ui/Container';
 import type { DetailBlock, DetailSection, Role } from '@/types/careers';
+
+const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
+function highlightEmails(text: string): ReactNode {
+    const matches = Array.from(text.matchAll(EMAIL_REGEX));
+    if (matches.length === 0) return text;
+
+    const parts: ReactNode[] = [];
+    let cursor = 0;
+
+    matches.forEach((match, i) => {
+        const email = match[0];
+        const start = match.index ?? 0;
+        if (start > cursor) {
+            parts.push(<Fragment key={`t-${i}`}>{text.slice(cursor, start)}</Fragment>);
+        }
+        parts.push(
+            <a
+                key={`e-${i}`}
+                href={`mailto:${email}`}
+                className="font-semibold text-primary hover:text-primary-dark transition-colors no-underline"
+                style={{ fontFamily: 'var(--font-mono)' }}
+            >
+                {email}
+            </a>,
+        );
+        cursor = start + email.length;
+    });
+
+    if (cursor < text.length) {
+        parts.push(<Fragment key="t-end">{text.slice(cursor)}</Fragment>);
+    }
+
+    return <>{parts}</>;
+}
 
 interface RoleDetailBodyProps {
     role: Role;
@@ -50,7 +86,7 @@ function DetailSectionView({ section }: { section: DetailSection }) {
                     className="mt-3 text-[15px] text-text-secondary leading-relaxed"
                     style={{ fontFamily: 'var(--font-body)' }}
                 >
-                    {section.intro}
+                    {highlightEmails(section.intro)}
                 </p>
             ) : null}
             <div className="mt-5 space-y-6">
@@ -70,7 +106,7 @@ function BlockView({ block }: { block: DetailBlock }) {
                     className="text-[15px] text-text-secondary leading-relaxed"
                     style={{ fontFamily: 'var(--font-body)' }}
                 >
-                    {block.text}
+                    {highlightEmails(block.text)}
                 </p>
             );
 

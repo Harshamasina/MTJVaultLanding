@@ -8,7 +8,7 @@
         "eyebrow": "Careers",
         "title": "Build the Future of Intellectual Property",
         "description": "We're building the AI-native platform redefining how the world creates, manages, and protects innovation.",
-        "tags": ["Remote-first", "High impact", "Long-term thinking"]
+        "tags": ["High impact", "Long-term thinking", "B2B SaaS", "Early Team"]
     },
     "roles": [
         {
@@ -32,6 +32,13 @@
             "applyEmail": "hiring@designyourinvention.com",
             "applySubject": "Application - Founding Engineer",
             "datePosted": "2026-05-04",
+            "baseSalary": {
+                "currency": "INR",
+                "minValue": 3000000,
+                "maxValue": 4000000,
+                "unitText": "YEAR"
+            },
+            "occupationalCategory": "15-1252.00 Software Developers",
             "active": true,
             "detail": {
                 "tldr": "As founding engineer, you'll co-own the technical surface of a multi-tenant patent IP management platform combining AI-assisted drafting, multi-jurisdiction docketing, and chemistry-aware enrichment for pharma IP teams and IP law boutiques. You'll work closely with the founding team on architecture, infrastructure, AI integration, and customer engagement. The role offers meaningful equity, end-to-end ownership, direct customer exposure, and full code review authority on production from day one.",
@@ -61,7 +68,7 @@
                                 "items": [
                                     "Founded by an experienced technical lead working alongside a co-founder with deep pharma and IP domain expertise.",
                                     "Working product with active customer engagement and pilots in motion.",
-                                    "Production stack: Node.js 20 with TypeScript on Express, PostgreSQL with FORCE RLS via Drizzle ORM, Auth0 RS256 with RBAC, React + Tailwind CSS on the frontend, AWS infrastructure (ECS Fargate, RDS, ElastiCache, S3, SES, Secrets Manager, EC2 etc.), and BullMQ with Redis for background jobs.",
+                                    "Production stack: Node.js 20 with TypeScript on Express, PostgreSQL with FORCE RLS via Drizzle ORM, Auth0 RS256 with RBAC, React + Tailwind CSS on the frontend, AWS infrastructure (ECS Fargate, RDS, ElastiCache, S3, SES, Secrets Manager, EC2 etc.), BullMQ with Redis for background jobs, and Stripe for subscription billing and metered usage.",
                                     "Two products in development: the closed-product IP management platform serving paid customers and a public patent search tool that drives lead generation for the platform funnel."
                                 ]
                             }
@@ -77,6 +84,7 @@
                                 "bullets": [
                                     "Build and ship features end-to-end: schema, migrations, services, APIs, frontend, tests, and deployments.",
                                     "Co-own architecture decisions on caching strategy, search infrastructure, frontend boundaries, and service splits.",
+                                    "Build and operate the SaaS billing layer: Stripe subscriptions, metered usage, invoicing, plan upgrades and downgrades, proration, and webhook reconciliation.",
                                     "Participate in two-person code review on every production change until the engineering team grows.",
                                     "Use AI tooling fluently as part of the workflow, including directing, reviewing, and refining AI-generated output."
                                 ]
@@ -86,7 +94,7 @@
                                 "title": "Architecture and AI integration (20% of your time)",
                                 "bullets": [
                                     "Build and refine the Claude API integration for patent drafting: system prompts, prior-art context assembly, output sanitization, streaming, and evaluations.",
-                                    "Design the prior-art search architecture across BigQuery, EPO OPS, and caching layers with relevance scoring.",
+                                    "Design the prior-art search architecture across Lens.org, BigQuery, EPO OPS, and caching layers with relevance scoring.",
                                     "Lead chemistry and drug enrichment integrations across PubChem, SureChEMBL, RDKit, and Open Targets GraphQL.",
                                     "Make architectural decisions on synchronous vs. asynchronous workflows and long-running AI generation patterns."
                                 ]
@@ -104,7 +112,7 @@
                                 "kind": "group",
                                 "title": "Engineering foundation (5% of your time)",
                                 "bullets": [
-                                    "Lead implementation of SOC 2 Type I controls in partnership with a third-party vendor, including security policies, change management, and access reviews.",
+                                    "Lead implementation of SOC 2 Type I & II controls in partnership with a third-party vendor, including security policies, change management, and access reviews.",
                                     "Author runbooks for incidents, deployments, and on-call rotation.",
                                     "Lead interviews and onboarding as the engineering team grows."
                                 ]
@@ -171,6 +179,8 @@
                                 "items": [
                                     "Pharma, IP, or legal-tech industry background.",
                                     "Prior founding-engineer or early-stage startup experience.",
+                                    "Production experience integrating Stripe or an equivalent SaaS billing platform (subscriptions, metered usage, webhooks, invoicing, and dunning flows).",
+                                    "Familiarity with sales-tax and compliance tooling for SaaS (Stripe Tax, Avalara, or similar).",
                                     "Open-source contributions.",
                                     "Compliance experience with SOC 2, ISO 27001, or HIPAA frameworks.",
                                     "Python experience for the chemistry microservice (RDKit) on the roadmap."

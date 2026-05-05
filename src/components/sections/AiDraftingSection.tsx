@@ -191,7 +191,7 @@ const PRIOR_ART_CARDS: { icon: React.ElementType; title: string; description: st
 const DRAFTING_CARDS: { icon: React.ElementType; title: string; description: string }[] = [
     {
         icon: Brain,
-        title: 'Draft in Under 2 Minutes',
+        title: 'Draft in Under 5 Minutes',
         description: 'Select prior art references, describe your invention, and generate a full patent specification.',
     },
     {

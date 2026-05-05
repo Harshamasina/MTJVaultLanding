@@ -15,6 +15,13 @@ export interface RoleDetail {
     sections: DetailSection[];
 }
 
+export interface BaseSalary {
+    currency: string;
+    minValue: number;
+    maxValue: number;
+    unitText: 'HOUR' | 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
+}
+
 export interface Role {
     slug: string;
     department: string;
@@ -28,6 +35,10 @@ export interface Role {
     applyEmail: string;
     applySubject: string;
     datePosted: string;
+    /** Optional structured salary for JobPosting JSON-LD (Google for Jobs). */
+    baseSalary?: BaseSalary;
+    /** Optional occupational category (O*NET-SOC code or label). */
+    occupationalCategory?: string;
     active: boolean;
     detail: RoleDetail;
 }

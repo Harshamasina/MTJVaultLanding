@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/Container';
 import { CareersHero } from '@/components/sections/CareersHero';
 import { RoleCard } from '@/components/sections/RoleCard';
 import { CareersGeneralCta } from '@/components/sections/CareersGeneralCta';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_URL } from '@/lib/constants';
 import careersData from '@/data/careers.json';
 import type { CareersData, Role } from '@/types/careers';
 
@@ -16,26 +16,17 @@ export const metadata: Metadata = buildMetadata({
     path: careers.meta.path,
 });
 
-function buildJobPostingSchema(role: Role) {
+function buildItemListSchema(activeRoles: Role[]) {
     return {
         '@context': 'https://schema.org',
-        '@type': 'JobPosting',
-        title: role.title,
-        description: role.summary,
-        datePosted: role.datePosted,
-        employmentType: 'FULL_TIME',
-        hiringOrganization: {
-            '@type': 'Organization',
-            name: SITE_NAME,
-            sameAs: SITE_URL,
-        },
-        jobLocationType: 'TELECOMMUTE',
-        applicantLocationRequirements: {
-            '@type': 'Country',
-            name: 'India',
-        },
-        directApply: false,
-        url: `${SITE_URL}/careers/${role.slug}/`,
+        '@type': 'ItemList',
+        name: 'Open Roles',
+        itemListElement: activeRoles.map((role, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            url: `${SITE_URL}/careers/${role.slug}/`,
+            name: role.title,
+        })),
     };
 }
 
@@ -58,15 +49,14 @@ export default function CareersPage() {
 
             <CareersGeneralCta cta={careers.generalCta} />
 
-            {activeRoles.map((role) => (
+            {activeRoles.length > 0 ? (
                 <script
-                    key={`jsonld-${role.slug}`}
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(buildJobPostingSchema(role)),
+                        __html: JSON.stringify(buildItemListSchema(activeRoles)),
                     }}
                 />
-            ))}
+            ) : null}
         </main>
     );
 }
