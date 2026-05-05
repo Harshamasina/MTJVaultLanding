@@ -58,7 +58,7 @@ export function AiDraftingSection() {
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
                             AI-Assisted Prior Art Search &{' '}
-                            <span className="text-primary">Patent Drafting</span>
+                            <span className="italic">Patent Drafting</span>
                         </h2>
                         <p
                             className="mt-4 text-lg text-text-secondary leading-relaxed"
@@ -242,8 +242,7 @@ function PriorArtContent() {
                 className="text-2xl font-bold text-text-primary sm:text-3xl mb-4"
                 style={{ fontFamily: 'var(--font-display)' }}
             >
-                Search 100+ Patent Jurisdictions{' '}
-                <span className="text-primary">From One Place</span>
+                Search 100+ Patent Jurisdictions From One Place
             </h3>
             <div className="flex flex-col gap-1">
                 {PRIOR_ART_CARDS.map((card) => (
@@ -261,8 +260,7 @@ function DraftingContent() {
                 className="text-2xl font-bold text-text-primary sm:text-3xl mb-4"
                 style={{ fontFamily: 'var(--font-display)' }}
             >
-                From Prior Art to First Draft,{' '}
-                <span className="text-primary">With Attorney Review Built In</span>
+                From Prior Art to First Draft, With Attorney Review Built In
             </h3>
             <div className="flex flex-col gap-1 mb-6">
                 {DRAFTING_CARDS.map((card) => (

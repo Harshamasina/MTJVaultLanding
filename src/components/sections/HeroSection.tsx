@@ -41,12 +41,12 @@ export function HeroSection() {
                                 teams. Manage PCT/PRV/NPE cases, track fees and deadlines,
                                 and maintain FDA 21 CFR Part 11 compliance.
                             </p>
-                            <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
-                                <BookDemoButton size="lg">
+                            <div className="mt-7 flex flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-start sm:gap-4">
+                                <BookDemoButton size="lg" className="w-[88%] whitespace-nowrap px-5 sm:w-auto sm:px-8">
                                     Book a Product Demo
                                     <ArrowRight className="w-5 h-5" />
                                 </BookDemoButton>
-                                <WatchDemoButton variant="secondary" size="lg">
+                                <WatchDemoButton variant="secondary" size="lg" className="w-[88%] whitespace-nowrap px-5 sm:w-auto sm:px-8">
                                     <Play className="w-5 h-5 fill-current" />
                                     Watch 4-Min Demo
                                 </WatchDemoButton>

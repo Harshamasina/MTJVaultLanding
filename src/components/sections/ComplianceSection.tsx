@@ -92,7 +92,7 @@ export function ComplianceSection() {
                 {/* Section Heading */}
                 <div id="tree-compliance" className="flex items-center gap-3 mb-6">
                     <span
-                        className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
+                        className="text-xs font-bold uppercase tracking-[0.15em] text-compliance"
                         style={{ fontFamily: 'var(--font-mono)' }}
                     >
                         Compliance
@@ -104,10 +104,8 @@ export function ComplianceSection() {
                             className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
-                            21 CFR Part 11 Ready Controls, {' '}
-                            <span className="text-primary">
-                                Built In - Not Bolted On
-                            </span>
+                            21 CFR Part 11 Ready Controls,{' '}
+                            <span className="italic">Built In, Not Bolted On</span>
                         </h2>
                         <p
                             className="mt-4 text-lg text-text-secondary leading-relaxed"

@@ -34,8 +34,8 @@ const FEATURE_ROWS: FeatureRow[] = [
     {
         mockupSide: 'right',
         mockup: 'families',
-        heading: 'See Every Patent Family,',
-        headingAccent: 'From Provisional to National Phase',
+        heading: 'See Every Patent Family, From Provisional to National Phase',
+        headingAccent: '',
         features: [
             {
                 icon: FileText,
@@ -66,8 +66,8 @@ const FEATURE_ROWS: FeatureRow[] = [
     {
         mockupSide: 'left',
         mockup: 'calendar',
-        heading: 'Never Miss a ',
-        headingAccent: 'Patent Deadline Again',
+        heading: 'Never Miss a Patent Deadline Again',
+        headingAccent: '',
         features: [
             {
                 icon: Briefcase,
@@ -128,8 +128,7 @@ function FeatureRowBlock({ row, index }: { row: FeatureRow; index: number }) {
                 className="text-2xl font-bold text-text-primary sm:text-3xl mb-4 lg:mb-6"
                 style={{ fontFamily: 'var(--font-display)' }}
             >
-                {row.heading}{' '}
-                <span className="text-primary">{row.headingAccent}</span>
+                {row.heading}
             </h3>
         </FadeIn>
     );

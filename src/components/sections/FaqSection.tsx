@@ -22,8 +22,7 @@ export function FaqSection() {
                             className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
-                            Frequently Asked{' '}
-                            <span className="text-primary">Questions</span>
+                            Frequently Asked Questions
                         </h2>
                         <p
                             className="mt-4 text-lg text-text-secondary leading-relaxed"

@@ -110,7 +110,7 @@ export function PricingSection() {
                         className="text-xs font-bold uppercase tracking-[0.15em] text-primary"
                         style={{ fontFamily: 'var(--font-mono)' }}
                     >
-                        Pricing
+                        Plans
                     </span>
                 </div>
                 <FadeIn treeNode="tree-pricing">
@@ -119,8 +119,7 @@ export function PricingSection() {
                             className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
                             style={{ fontFamily: 'var(--font-display)' }}
                         >
-                            Simple, Transparent{' '}
-                            <span className="text-primary">Pricing</span>
+                            Pricing that scales with your portfolio
                         </h2>
                         <p
                             className="mt-4 text-lg text-text-secondary leading-relaxed"
